@@ -20,6 +20,13 @@ const UnauthorizedStack = () => {
           ...OPTIONS.noHeader,
         }}
       />
+      <UnauthorizedStackNavigator.Screen
+        component={LoginScreen}
+        name="AdminLogin"
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
     </UnauthorizedStackNavigator.Navigator>
   );
 };
