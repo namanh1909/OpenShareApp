@@ -30,6 +30,7 @@ const LoginScreen = () => {
       }}
     >
       <View style={styles.container}>
+
         <View
           style={{
             marginBottom: 50,
@@ -123,7 +124,17 @@ const LoginScreen = () => {
               color: "#FFA925"
             }}>{isAlredyAccount ? " Register" : " Login"}</Text>
           </TouchableOpacity>
+
         </View>
+        <Text style={{
+          marginVertical: 20
+        }}>or</Text>
+        <TouchableOpacity onPress={() => {
+        }}>
+          <Text style={{
+            fontWeight: "bold"
+          }}>Login with admin</Text>
+        </TouchableOpacity>
 
       </View>
     </KeyboardAvoidingView>

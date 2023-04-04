@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiKey } from '../../contants/api';
 import axios from 'axios'
+import { apiKeyUsers } from '../../contants/api';
 
 export const login = createAsyncThunk('auth/login', async (userData) => {
     try {
-        const response = await axios.post(`${apiKey}/login.php`, userData);
+        const response = await axios.post(`${apiKeyUsers}/login.php`, userData);
         console.log("res", response.data)
         return response.data
     } catch (error) {
