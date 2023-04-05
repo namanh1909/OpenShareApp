@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from '../screens/Maneger/HomeScreen';
 
 
 
@@ -9,7 +10,7 @@ const AdminStack = () => {
 
     return (
         <AdminStackNavigator.Navigator>
-            <AdminStackNavigator.Screen />
+            <AdminStackNavigator.Screen component={HomeScreen} name="HomeAdmin" />
         </AdminStackNavigator.Navigator>
     )
 }

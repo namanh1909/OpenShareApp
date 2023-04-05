@@ -77,7 +77,7 @@ const ProfileScreen = ({ navigation }) => {
   }, [])
 
   const { data, loading, error } = useSelector((state) => state.users)
-  console.log(data)
+  console.log("dataUser", data)
   return (
     <SafeAreaView
       style={{
@@ -95,11 +95,9 @@ const ProfileScreen = ({ navigation }) => {
           size={100}
           rounded
           source={
-            data?.photoURL
-              ? data?.photoURL
-              : {
-                uri: "https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg",
-              }
+            {
+              uri: data.photoURL,
+            }
           }
         />
         <View style={{

@@ -39,11 +39,9 @@ const EditProfileScreen = ({ navigation }) => {
                     size={100}
                     rounded
                     source={
-                        data?.photoURL
-                            ? data?.photoURL
-                            : {
-                                uri: "https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg",
-                            }
+                        {
+                            uri: data.photoURL,
+                        }
                     }
                 />
                 <View style={{
@@ -75,17 +73,17 @@ const EditProfileScreen = ({ navigation }) => {
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Họ và tên</Text>
-                <Input iconName={"person"} />
+                <Input iconName={"person"} value={data.name} />
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Email</Text>
-                <Input iconName={"mail-outline"} />
+                <Input iconName={"mail-outline"} value={data.email} />
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Phone Number</Text>
-                <Input iconName={"phone"} />
+                <Input iconName={"phone"} value={data.phoneNumber} />
             </View>
         </View>
     )

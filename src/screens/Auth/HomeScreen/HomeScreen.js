@@ -16,6 +16,7 @@ import Input from "../../../components/Input";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Avatar, Badge } from "@rneui/base";
 import { useDispatch, useSelector } from 'react-redux'
+import { getUsers } from "../../../redux/reducers/userSlice";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -57,6 +58,12 @@ const HomeScreen = ({ navigation }) => {
   ];
 
   const dispatch = useDispatch()
+
+  const token = useSelector((state) => state.auth.token)
+  console.log(token)
+  useLayoutEffect(() => {
+    dispatch(getUsers(token))
+  }, [])
 
   return (
     <SafeAreaView style={{

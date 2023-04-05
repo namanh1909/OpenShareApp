@@ -5,12 +5,16 @@ import SplashScreen from "../screens/Authendication/SplashScreen";
 import AuthorizedStack from "./AuthorizedStack";
 import UnauthorizedStack from "./UnauthorizedStack";
 import { useSelector } from "react-redux";
+import AdminStack from "./AdminStack";
 
 const RootStackNavigator = createNativeStackNavigator();
 
 const RootStack = () => {
 
   const { error, isLoading, token } = useSelector((state) => state.auth)
+
+  const { data } = useSelector((state) => state.users)
+  console.log("data", data)
 
   const OPTIONS = {
     noHeader: {
@@ -30,21 +34,7 @@ const RootStack = () => {
   //     </RootStackNavigator.Navigator>
   //   );
   // }
-
-  if (token?.length > 0) {
-    return (
-      <RootStackNavigator.Navigator>
-        <RootStackNavigator.Screen
-          component={AuthorizedStack}
-          name="AuthorizedStack"
-          options={{
-            ...OPTIONS.noHeader,
-          }}
-        />
-      </RootStackNavigator.Navigator>
-    );
-  }
-  else {
+  if (!token) {
     return (
       <RootStackNavigator.Navigator>
         <RootStackNavigator.Screen
@@ -57,6 +47,36 @@ const RootStack = () => {
       </RootStackNavigator.Navigator>
     );
   }
-};
+  if (token?.length > 0 && data.idRole != null) {
+    return (
+      <RootStackNavigator.Navigator>
+        <RootStackNavigator.Screen
+          component={AdminStack}
+          name="AuthorizedStack"
+          options={{
+            ...OPTIONS.noHeader,
+          }}
+        />
+      </RootStackNavigator.Navigator>
+
+    );
+  }
+  else if (token?.length > 0 && !data.idRole) {
+    return (
+      <RootStackNavigator.Navigator>
+        <RootStackNavigator.Screen
+          component={AuthorizedStack}
+          name="AuthorizedStack"
+          options={{
+            ...OPTIONS.noHeader,
+          }}
+        />
+      </RootStackNavigator.Navigator>
+    )
+  }
+}
+
+
+
 
 export default RootStack;

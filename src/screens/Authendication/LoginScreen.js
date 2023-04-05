@@ -14,7 +14,7 @@ import Button from "../../components/Button";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/reducers/authSlice";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
@@ -130,6 +130,7 @@ const LoginScreen = () => {
           marginVertical: 20
         }}>or</Text>
         <TouchableOpacity onPress={() => {
+          navigation.navigate("AdminLogin")
         }}>
           <Text style={{
             fontWeight: "bold"
