@@ -17,7 +17,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    whitelist: ['auth']
+    whitelist: ['auth', 'users']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -29,6 +29,7 @@ const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }),
+        serializableCheck: false
 });
 export let persistor = persistStore(store);
 

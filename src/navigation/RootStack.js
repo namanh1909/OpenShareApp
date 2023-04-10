@@ -10,17 +10,17 @@ import AdminStack from "./AdminStack";
 const RootStackNavigator = createNativeStackNavigator();
 
 const RootStack = () => {
+  const { error, isLoading, token } = useSelector((state) => state.auth);
 
-  const { error, isLoading, token } = useSelector((state) => state.auth)
-
-  const { data } = useSelector((state) => state.users)
-  console.log("data", data)
+  const { data } = useSelector((state) => state.users);
+  // console.log("data", data)
+  // console.log(token)
 
   const OPTIONS = {
     noHeader: {
       headerShown: false,
     },
-  }
+  };
   // if (isAppInit) {
   //   return (
   //     <RootStackNavigator.Navigator screenOptions={{ ...OPTIONS.noHeader }}>
@@ -47,7 +47,7 @@ const RootStack = () => {
       </RootStackNavigator.Navigator>
     );
   }
-  if (token?.length > 0 && data.idRole != null) {
+  if (token?.length > 0 && data?.idRole != null) {
     return (
       <RootStackNavigator.Navigator>
         <RootStackNavigator.Screen
@@ -58,10 +58,8 @@ const RootStack = () => {
           }}
         />
       </RootStackNavigator.Navigator>
-
     );
-  }
-  else if (token?.length > 0 && !data.idRole) {
+  } else if (token?.length > 0 && !data?.idRole) {
     return (
       <RootStackNavigator.Navigator>
         <RootStackNavigator.Screen
@@ -72,11 +70,8 @@ const RootStack = () => {
           }}
         />
       </RootStackNavigator.Navigator>
-    )
+    );
   }
-}
-
-
-
+};
 
 export default RootStack;

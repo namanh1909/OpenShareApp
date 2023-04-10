@@ -81,7 +81,6 @@ const AuthorizedStack = () => {
         options={{
           ...OPTIONS.noHeader,
         }}
-
       />
       <AuthorizedStackNavigator.Screen
         name="Notification"

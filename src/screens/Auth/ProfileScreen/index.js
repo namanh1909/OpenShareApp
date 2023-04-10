@@ -77,7 +77,7 @@ const ProfileScreen = ({ navigation }) => {
   }, [])
 
   const { data, loading, error } = useSelector((state) => state.users)
-  console.log("dataUser", data)
+  // console.log("dataUser", data)
   return (
     <SafeAreaView
       style={{
@@ -96,7 +96,7 @@ const ProfileScreen = ({ navigation }) => {
           rounded
           source={
             {
-              uri: data.photoURL,
+              uri: data?.photoURL,
             }
           }
         />

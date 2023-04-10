@@ -17,6 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Avatar, Badge } from "@rneui/base";
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from "../../../redux/reducers/userSlice";
+import { getPost } from "../../../redux/reducers/postSlice";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -60,10 +61,16 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
 
   const token = useSelector((state) => state.auth.token)
-  console.log(token)
+  // console.log(token)
   useLayoutEffect(() => {
     dispatch(getUsers(token))
   }, [])
+
+  useEffect(() => {
+    dispatch(getPost(token))
+  }, [])
+
+  const dataPost = useSelector((state) => state.post.data)
 
   return (
     <SafeAreaView style={{
@@ -151,6 +158,37 @@ const HomeScreen = ({ navigation }) => {
         })}
 
       </ScrollView>
+      {
+        dataPost?.data && dataPost?.data?.length > 0 &&
+        <FlatList data={dataPost.data} keyExtractor={item =>item.idPost} renderItem={({item, index}) => {
+          // let imageList = 
+          let a = []
+          let b = item.photos
+          const c = b.replace(/[[\]]/g, '');
+          a.push(c)
+          // console.log(a)
+          const jsonString = a[0].replace(/'/g, '"');
+          const output = JSON.parse(`[${jsonString}]`);
+          // console.log(output)
+          return (
+            <TouchableOpacity key={item.idPost}>
+              <Text>{item.title}</Text>
+              {
+                output.map((items, index) => {
+                  return (
+                    <Image key={index} source={{uri: items}} style={{
+                      height: 100,
+                      width: 100
+                    }} />
+                  )
+                })
+              }
+            </TouchableOpacity>
+  
+          )
+        }} />
+      }
+    
 
       {/* <FlatList data={data}
         ItemSeparatorComponent={

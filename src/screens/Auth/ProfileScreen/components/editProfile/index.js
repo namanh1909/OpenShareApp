@@ -1,13 +1,59 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState , useEffect} from 'react'
 import NavBar from '../../../../../components/NavBar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Avatar } from '@rneui/base'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Input from '../../../../../components/Input'
+import { editProfile, getUsers } from '../../../../../redux/reducers/userSlice'
+import ImagePicker from 'react-native-image-crop-picker';
+
+
 
 const EditProfileScreen = ({ navigation }) => {
+    const dispatch = useDispatch()
+    const authToken = useSelector((state) => state.auth.token)
+    useEffect(() => {
+      dispatch(getUsers(authToken))
+    }, [])
+    
     const { data, loading, error } = useSelector((state) => state.users)
+    const idUser = data.idUser
+    const [name, setName] = useState(data.name)
+    const [email, setEmail] = useState(data.email)
+    const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
+    const [photoURL, setPhotoURL] = useState(data.photoURL)
+
+    const openPicker =  () => {
+      try {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+            includeBase64: true,
+          }).then(image => {
+            const base64Image = `data:${image.mime};base64,${image.data}`;
+            // console.log(base64Image);
+            setPhotoURL(base64Image)
+
+          });
+      } catch (error) {
+        
+      }
+    }
+
+    const submitEdit = () => {
+        let dataUser = {
+            idUser,
+            name,
+            photoURL,
+            email,
+            phoneNumber
+        }
+        // console.log(dataUser)
+        dispatch(editProfile({authToken, dataUser}))
+        dispatch(getUsers(authToken))
+    }
 
     return (
         <View>
@@ -22,7 +68,7 @@ const EditProfileScreen = ({ navigation }) => {
                 }
                 rightButton={
                     <TouchableOpacity onPress={() => {
-                        navigation.goBack()
+                        submitEdit()
                     }}
                     >
                         <Ionicons name="checkmark-outline" color="#000" size={25} />
@@ -40,7 +86,7 @@ const EditProfileScreen = ({ navigation }) => {
                     rounded
                     source={
                         {
-                            uri: data.photoURL,
+                            uri: photoURL,
                         }
                     }
                 />
@@ -51,7 +97,7 @@ const EditProfileScreen = ({ navigation }) => {
                         fontWeight: 'bold',
                         fontSize: 20,
                     }}>Update your picture</Text>
-                    <TouchableOpacity style={{
+                    <TouchableOpacity onPress={() => openPicker()} style={{
                         padding: 10,
                         backgroundColor: "#FFA925",
                         width: 100,
@@ -73,17 +119,17 @@ const EditProfileScreen = ({ navigation }) => {
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Họ và tên</Text>
-                <Input iconName={"person"} value={data.name} />
+                <Input iconName={"person"} value={name} onChangeText={(value) => setName(value)} />
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Email</Text>
-                <Input iconName={"mail-outline"} value={data.email} />
+                <Input iconName={"mail-outline"} value={email} onChangeText={(value) => setEmail(value)} />
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Phone Number</Text>
-                <Input iconName={"phone"} value={data.phoneNumber} />
+                <Input iconName={"phone"} value={phoneNumber} onChangeText={(value) => setPhoneNumber(value)} />
             </View>
         </View>
     )

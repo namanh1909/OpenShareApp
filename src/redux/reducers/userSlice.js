@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { Alert } from 'react-native'
 import { apiKeyAdmin, apiKeyUsers } from '../../contants/api'
 
 export const getUsers = createAsyncThunk('users/getUsers', async (authToken) => {
@@ -9,8 +10,10 @@ export const getUsers = createAsyncThunk('users/getUsers', async (authToken) => 
             Authorization: `Bearer ${authToken}`,
         }
     })
-    console.log(response.data)
-    return response.data.user
+    // console.log(response.data)
+    if(response.status = "200"){
+        return response.data.user
+    }
 })
 
 export const getStaff = createAsyncThunk('users/getStaff', async (authToken) => {
@@ -19,9 +22,39 @@ export const getStaff = createAsyncThunk('users/getStaff', async (authToken) => 
             Authorization: `Bearer ${authToken}`,
         }
     })
-    console.log(response.data)
-    return response.data.user
+    if(response.status = "200"){
+        return response.data.user
+    }
 })
+
+export const editProfile = createAsyncThunk('users/editProfile', async ({ authToken,dataUser}) => 
+{
+    try {
+      const response = await axios.put(`${apiKeyUsers}/profile/editprofile.php`, 
+      dataUser
+      , {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
+      console.log("res", response)
+
+      if (response.status === 200) {
+        return Alert.alert('Cập nhật thành công', [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ]);
+      }
+      else {
+        return Alert.alert('Cập nhật thất bại', [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ]);
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  });
+
 
 export const usersSlice = createSlice({
     name: 'users',
@@ -72,6 +105,25 @@ export const usersSlice = createSlice({
         })
 
         builder.addCase(getStaff.rejected, (state, action) => {
+            if (state.loading === 'pending') {
+                state.loading = 'idle'
+                state.error = 'Error occured'
+            }
+        })
+
+        builder.addCase(editProfile.pending, (state, action) => {
+            if (state.loading === 'idle') {
+                state.loading = 'pending'
+            }
+        })
+
+        builder.addCase(editProfile.fulfilled, (state, action) => {
+            if (state.loading === 'pending') {
+                state.loading = 'idle'
+            }
+        })
+
+        builder.addCase(editProfile.rejected, (state, action) => {
             if (state.loading === 'pending') {
                 state.loading = 'idle'
                 state.error = 'Error occured'
