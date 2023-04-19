@@ -19,7 +19,8 @@ const AutoHeightTextInput = (props) => {
     }]}
     onFocus={() => {
       setOnFocus(true);
-    }}x
+    }}
+    value={props.value}
     onBlur={() => {
       setOnFocus(false);
     }}

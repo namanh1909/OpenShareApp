@@ -83,9 +83,10 @@ const HomeScreen = ({ navigation }) => {
       >
         <View style={{
           flexDirection: "row",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
+          alignItems: "center"
         }}>
-          <Text
+          {/* <Text
             style={{
               fontSize: 20,
               fontWeight: "bold",
@@ -93,7 +94,11 @@ const HomeScreen = ({ navigation }) => {
             }}
           >
             Open Share
-          </Text>
+          </Text> */}
+          <Image source={require("../../../../assets/icons/logoOpenShare.png")} style={{
+            width: 140,
+            height: 60,
+          }} />
           <TouchableOpacity onPress={() => {
             navigation.navigate('Notification')
           }}

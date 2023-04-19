@@ -14,6 +14,8 @@ import Input from "../../../../../components/Input";
 import AutoHeightTextInput from "../../../../../components/AutoHeightTextInput";
 import ImagePicker from "react-native-image-crop-picker";
 import {Dimensions} from 'react-native';
+import { useDispatch, useSelector } from "react-redux";
+import { createPost } from "../../../../../redux/reducers/postSlice";
 
 
 
@@ -21,6 +23,16 @@ const CreatePost = ({ navigation }) => {
   const [imageList, setImageList] = useState([]);
   const [loading, setLoading] = useState(false)
   const windowWidth = Dimensions.get('window').width;
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [address, setAddress] = useState("")
+  const { data, error } = useSelector((state) => state.users)
+  const idUser = data.idUser
+  const authToken = useSelector((state) => state.auth.token)
+
+  console.log(authToken)
+
+  const dispatch = useDispatch()
 
 
   const openPicker = async () => {
@@ -42,6 +54,19 @@ const CreatePost = ({ navigation }) => {
       console.log(imageList);
     } catch (error) {}
   };
+
+  const handleCreatePost = () => {
+    let dataPost = {
+      title,
+      description,
+      address,
+      idUser,
+      photos: `${JSON.stringify(imageList)}`
+    } 
+    console.log("datapost", dataPost)
+    dispatch(createPost({authToken, dataPost}))
+    navigation.goBack()
+  }
   console.log("listimage", imageList.length);
   return (
     <View>
@@ -54,6 +79,16 @@ const CreatePost = ({ navigation }) => {
             }}
           >
             <Ionicons name="arrow-back-outline" color="#000" size={25} />
+          </TouchableOpacity>
+        }
+
+        rightButton={
+          <TouchableOpacity
+            onPress={() => {
+              handleCreatePost()
+            }}
+          >
+            <Ionicons name="checkmark-outline" color="#000" size={25} />
           </TouchableOpacity>
         }
       />
@@ -71,7 +106,7 @@ const CreatePost = ({ navigation }) => {
         >
           Tiêu đề
         </Text>
-        <AutoHeightTextInput heightDefault={50} />
+        <AutoHeightTextInput heightDefault={50} value={title} onChangeText={(value) => setTitle(value)} />
         <Text
           style={{
             fontSize: 16,
@@ -80,7 +115,7 @@ const CreatePost = ({ navigation }) => {
         >
           Mô tả
         </Text>
-        <AutoHeightTextInput heightDefault={100} />
+        <AutoHeightTextInput heightDefault={100} value={description} onChangeText={(value) => setDescription(value)} />
         <Text
           style={{
             fontSize: 16,
@@ -89,7 +124,7 @@ const CreatePost = ({ navigation }) => {
         >
           Địa chỉ
         </Text>
-        <AutoHeightTextInput heightDefault={50} />
+        <AutoHeightTextInput heightDefault={50} heightDefault={100} value={address} onChangeText={(value) => setAddress(value)} />
         <Text
           style={{
             fontSize: 16,

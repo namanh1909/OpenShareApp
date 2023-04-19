@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { apiKeyAdmin, apiKeyUsers } from '../../contants/api'
+import { Alert } from 'react-native'
 
-export const getPost = createAsyncThunk('users/getPost', async (authToken) => {
+export const getPost = createAsyncThunk('post/getPost', async (authToken) => {
   try {
     const response = await axios.get(`${apiKeyUsers}/post/get.php`, {
       headers: {
@@ -18,6 +19,24 @@ export const getPost = createAsyncThunk('users/getPost', async (authToken) => {
   }
    
 })
+
+export const createPost = createAsyncThunk('post/createPost', async ({ authToken,dataPost}) => {
+    try {
+      const response = await axios.post(`${apiKeyUsers}/post/create.php`,dataPost, {
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+        }
+    })
+      console.log(response)
+      return Alert.alert("Thêm bài viết thành công", [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
+  
+    } catch (error) {
+      console.log("error",error)
+    }
+     
+  })
 
 export const postSlice = createSlice({
     name: 'post',
@@ -53,6 +72,26 @@ export const postSlice = createSlice({
                 state.error = 'Error occured'
             }
         })
+
+
+        builder.addCase(createPost.pending, (state, action) => {
+          if (state.loading === 'idle') {
+              state.loading = 'pending'
+          }
+      })
+
+      builder.addCase(createPost.fulfilled, (state, action) => {
+          if (state.loading === 'pending') {
+              state.loading = 'idle'
+          }
+      })
+
+      builder.addCase(createPost.rejected, (state, action) => {
+          if (state.loading === 'pending') {
+              state.loading = 'idle'
+              state.error = 'Error occured'
+          }
+      })
     },
 })
 
