@@ -7,10 +7,16 @@ import HomeScreen from '../screens/Maneger/HomeScreen';
 
 const AdminStack = () => {
     const AdminStackNavigator = createNativeStackNavigator();
-
+    const OPTIONS = {
+        noHeader: {
+          headerShown: false,
+        },
+      };
     return (
         <AdminStackNavigator.Navigator>
-            <AdminStackNavigator.Screen component={HomeScreen} name="HomeAdmin" />
+            <AdminStackNavigator.Screen component={HomeScreen} name="HomeAdmin"  options={{
+          ...OPTIONS.noHeader,
+        }} />
         </AdminStackNavigator.Navigator>
     )
 }

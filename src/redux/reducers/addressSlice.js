@@ -29,12 +29,67 @@ export const getAddress = createAsyncThunk(
   },
 );
 
+export const createAddress = createAsyncThunk(
+  "users/createAddress",
+  async ({ authToken, idUser, address }) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyUsers}/address/create.php`,
+        {
+          idUser,address
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
+export const deleteAddress = createAsyncThunk(
+  "users/deleteAddress",
+  async ({ authToken, idAdress }) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyUsers}/address/delete.php`,
+        {
+          idAdress
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
+
+
 export const addressSlice = createSlice({
   name: "address",
   initialState: {
     data: [],
     loading: "idle",
     error: null,
+    listItemAddress: []
   },
   reducers: {
     logout: (state) => {
@@ -54,10 +109,52 @@ export const addressSlice = createSlice({
       if (state.loading === "pending") {
         state.data = action.payload;
         state.loading = "idle";
+        state.listItemAddress = state.data ? state.data.map((province) => ({
+                label: province.address,
+                value: province.address,
+            })) : []
       }
     });
 
     builder.addCase(getAddress.rejected, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+        state.error = "Error occured";
+      }
+    });
+
+    builder.addCase(createAddress.pending, (state, action) => {
+      if (state.loading === "idle") {
+        state.loading = "pending";
+      }
+    });
+
+    builder.addCase(createAddress.fulfilled, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+      }
+    });
+
+    builder.addCase(createAddress.rejected, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+        state.error = "Error occured";
+      }
+    });
+
+    builder.addCase(deleteAddress.pending, (state, action) => {
+      if (state.loading === "idle") {
+        state.loading = "pending";
+      }
+    });
+
+    builder.addCase(deleteAddress.fulfilled, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+      }
+    });
+
+    builder.addCase(deleteAddress.rejected, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "idle";
         state.error = "Error occured";

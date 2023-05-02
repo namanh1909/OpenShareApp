@@ -12,7 +12,7 @@ import React, { useState, useRef } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/reducers/authSlice";
+import { login, register } from "../../redux/reducers/authSlice";
 
 const LoginScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -100,7 +100,8 @@ const LoginScreen = ({ navigation }) => {
               />
               <Button
                 onPress={() => {
-
+                  console.log(name, password, userName)
+                  dispatch(register({ name, password, userName }))
                 }}
                 text="Register"
                 style={{

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import SplashScreen from "../screens/Authendication/SplashScreen";
+import SplashScreens from "../screens/Authendication/SplashScreen";
 import AuthorizedStack from "./AuthorizedStack";
 import UnauthorizedStack from "./UnauthorizedStack";
 import { useSelector } from "react-redux";
 import AdminStack from "./AdminStack";
+import SplashScreen from 'react-native-splash-screen'
 
 const RootStackNavigator = createNativeStackNavigator();
 
@@ -15,6 +16,10 @@ const RootStack = () => {
   const { data } = useSelector((state) => state.users);
   // console.log("data", data)
   // console.log(token)
+
+  useEffect(() => {
+    SplashScreen.hide()  
+  },[])
 
   const OPTIONS = {
     noHeader: {

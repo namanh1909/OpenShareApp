@@ -1,3 +1,3 @@
 
-export const apiKeyUsers = "http://localhost/App_OpenShare/controllers/users/"
-export const apiKeyAdmin = "http://localhost/App_OpenShare/controllers/admin/Staff/"
+export const apiKeyUsers = "http://localhost/WEBSITE_OPENSHARE/controllers/users/"
+export const apiKeyAdmin = "http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/"

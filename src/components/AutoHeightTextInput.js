@@ -15,7 +15,7 @@ const AutoHeightTextInput = (props) => {
       {...props}
       placeholder={props.placeholder}
       multiline={true}
-      style={[styles.input, { height: Math.min(height, 350), borderColor: onFocus ? '#FFA925' : '#f5f5f5',
+      style={[styles.input, { height: Math.min(height, 350), borderColor: onFocus ? '#FFA925' : 'gray', ...props.style
     }]}
     onFocus={() => {
       setOnFocus(true);
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 14,
     borderRadius: 10,
+    minWidth: 300
   },
 });
 

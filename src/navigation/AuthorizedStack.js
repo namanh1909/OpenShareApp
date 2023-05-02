@@ -11,6 +11,8 @@ import CreatePost from "../screens/Auth/ProfileScreen/components/post/create";
 import NotificationsScreen from "../screens/Auth/Notification";
 import EditProfileScreen from "../screens/Auth/ProfileScreen/components/editProfile";
 import ChangePasswordScreen from "../screens/Auth/ProfileScreen/components/changePassword";
+import PostDetailScreen from "../screens/Auth/Post/detailPost";
+import ProfilePost from "../screens/Auth/ProfilePost";
 
 const AuthorizedStack = () => {
   const AuthorizedStackNavigator = createNativeStackNavigator();
@@ -99,6 +101,20 @@ const AuthorizedStack = () => {
       <AuthorizedStackNavigator.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+        <AuthorizedStackNavigator.Screen
+        name="DetailPost"
+        component={PostDetailScreen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+      <AuthorizedStackNavigator.Screen
+        name="ProfilePost"
+        component={ProfilePost}
         options={{
           ...OPTIONS.noHeader,
         }}

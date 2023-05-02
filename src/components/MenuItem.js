@@ -3,7 +3,7 @@ import React from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 
-const MenuItem = ({ title, onPress, iconName }) => {
+const MenuItem = ({ title, onPress, iconName, rightButton }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -12,6 +12,7 @@ const MenuItem = ({ title, onPress, iconName }) => {
                 paddingHorizontal: 20,
                 alignItems: "flex-start",
                 marginTop: 20,
+                flex: 1
 
             }}
         >

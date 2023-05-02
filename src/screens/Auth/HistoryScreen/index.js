@@ -9,7 +9,7 @@ const HistoryScreen = () => {
 
     return (
         <View>
-            <NavBar title="Lịch sử"
+            <NavBar title="Quản lý yêu cầu"
                 textCenter={true}
             />
             <View style={{
@@ -24,7 +24,7 @@ const HistoryScreen = () => {
                     <Text style={{
                         paddingVertical: 10,
                         fontWeight: '500'
-                    }}>Cho thành công</Text>
+                    }}>Yêu cầu</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setTabIndex(1)} style={{
                     borderBottomWidth: tabIndex == 1 ? 3 : 0,
@@ -34,7 +34,7 @@ const HistoryScreen = () => {
                         paddingVertical: 10,
                         fontWeight: '500'
 
-                    }}>Nhận thành công</Text>
+                    }}>Xác nhận</Text>
                 </TouchableOpacity>
 
 

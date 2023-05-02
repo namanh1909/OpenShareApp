@@ -1,93 +1,69 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, Image } from 'react-native'
+import React, { useEffect } from 'react'
 import NavBar from '../../../components/NavBar'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { useDispatch, useSelector } from 'react-redux'
-import { getrequest } from '../../../redux/reducers/requestSlice'
-import RenderImage from '../../../components/RenderImage'
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { getPostProfile } from '../../../redux/reducers/postProfileSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 
+const ProfilePost = ({navigation, route}) => {
+  const userName = route.params.name
+  const idUser = route.params.idUser
+  const photoURL = route.params.photoURL
+  const authToken = useSelector((state) => state.auth.token)
+  const dispatch  = useDispatch()
+  console.log(authToken)
 
-
-const RequestScreen = ({ navigation }) => {
-    const [tabIndex, setTabIndex] = useState(0)
-    const dispatch = useDispatch()
-    const { data, error } = useSelector((state) => state.users)
-    const idUser = data.idUser
-    const authToken = useSelector((state) => state.auth.token)
-    const dataUser = {
-        idUser
+  useEffect(() => {
+    let dataUser = {
+      id_Userget: idUser
     }
-      const formatAddress = (address) => {
+    dispatch(getPostProfile({authToken, dataUser}))  
+  },[])
+
+  const dataPost = useSelector((state) => state.postProfile.data)
+  const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
     return firstElement
   }
-    useEffect(() => {
-        dispatch(getrequest({authToken, dataUser}))
-    },[])
 
-    const listRequest = useSelector((state) => state.request.data)
-
-    console.log("list request", listRequest.data)
-
-    return (
-        <View>
-            <NavBar title="Yêu cầu của bạn"
-                textCenter={true}
-            />
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{
-                paddingHorizontal: 10,
+  return (
+    <View>
+      <NavBar title={`Trang cá nhân của ${userName}`} leftButton={
+                <TouchableOpacity onPress={() => {
+                    navigation.goBack()
+                }}
+                >
+                    <Ionicons name="arrow-back-outline" color="#000" size={25} />
+                </TouchableOpacity>
+            } />
+            <View style={{
+              backgroundColor: "#f5f5f5",
+              height: 200,
+              width: "100%",
+              justifyContent: "center",
+              paddingHorizontal: 20,
             }}>
-                <TouchableOpacity onPress={() => setTabIndex(0)} style={{
-                    borderBottomWidth: tabIndex == 0 ? 3 : 0,
-                    borderColor: tabIndex == 0 ? "#FFA925" : null,
-                    marginRight: 25,
-                    marginLeft: 10,
-                }}>
-                    <Text style={{
-                        paddingVertical: 10,
-                        fontWeight: '500'
-                    }}>Đang yêu cầu</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setTabIndex(1)} style={{
-                    borderBottomWidth: tabIndex == 1 ? 3 : 0,
-                    borderColor: tabIndex == 1 ? "#FFA925" : null,
-                    marginRight: 25,
+              <View style={{
+                flexDirection: "row"
+              }}>
+              <Image source={{uri: photoURL}} style={{
+                height: 100,
+                width: 100,
+                borderRadius: 50,
+              }} />
+              <View>
+                <Text>Thành viên</Text>
+                <Text>{userName}</Text>
+                <Text>Điểm đóng góp</Text>
 
-                }}>
-                    <Text style={{
-                        paddingVertical: 10,
-                        fontWeight: '500'
-
-                    }}>Được chấp nhận</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{
-                    borderBottomWidth: tabIndex == 2 ? 3 : 0,
-                    borderColor: tabIndex == 2 ? "#FFA925" : null,
-                    marginRight: 20
-
-                }} onPress={() => setTabIndex(2)}>
-                    <Text style={{
-                        paddingVertical: 10,
-                        fontWeight: '500'
-                    }}>Bị từ chối</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{
-                    borderBottomWidth: tabIndex == 3 ? 3 : 0,
-                    borderColor: tabIndex == 3 ? "#FFA925" : null
-                }} onPress={() => setTabIndex(3)}>
-                    <Text style={{
-                        paddingVertical: 10,
-                        marginRight: 25,
-                        fontWeight: '500',
-                        marginLeft: 10
-                    }}>Thành công</Text>
-                </TouchableOpacity>
-
-            </ScrollView>
-            {listRequest?.data && listRequest?.data?.length > 0 && (
+              </View>
+              </View>
+             
+            </View>
+              {dataPost?.data && dataPost?.data?.length > 0 && (
         <FlatList
-          data={listRequest.data}
+          data={dataPost.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -104,7 +80,6 @@ const RequestScreen = ({ navigation }) => {
             const jsonString = a[0].replace(/'/g, '"');
             const output = JSON.parse(`[${jsonString}]`);
             // console.log(output)
-            let convertedUrls = output.map((url: any) => ({ url }));
             return (
               <View
                 style={{
@@ -120,8 +95,13 @@ const RequestScreen = ({ navigation }) => {
                     width: "100%",
                   }}
                 >
-                <RenderImage item={output} />
-
+                  <Image
+                    source={{ uri: output[0] }}
+                    style={{
+                      height: 150,
+                      width: 130,
+                    }}
+                  />
                   <View
                     key={item.idPost}
                   // onPress={() => {
@@ -149,7 +129,7 @@ const RequestScreen = ({ navigation }) => {
                             height: 40,
                             borderColor: "#f5f5f5",
                             borderWidth: 2,
-                            width: 150
+                            width: 100
                           }}
                         >
                           <Text
@@ -159,22 +139,15 @@ const RequestScreen = ({ navigation }) => {
                               fontSize: 12,
                             }}
                           >
-                            Đang yêu cầu
+                            {item.nameType}
                           </Text>
                         </View>
-                        <TouchableOpacity onPress={
-                          () => navigation.navigate("DetailPost", {
-                            item,
-                            output
-                          })
-                        }>
+                        <TouchableOpacity style={{}}>
                           <Text style={{
                           }}>Xem</Text>
                         </TouchableOpacity>
                       </View>
-                        <Text style={{
-                            marginVertical: 10
-                        }}>{item.title}</Text>
+
                       <View
                         style={{
                           flexDirection: "row",
@@ -193,22 +166,21 @@ const RequestScreen = ({ navigation }) => {
                           <TouchableOpacity onPress={() => {
                             navigation.navigate("ProfilePost", {
                               name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
+                              idUser: item.idUser
                             })
                           }}>
-                            <Text
-                              lineBreakMode="tail"
-                              numberOfLines={2}
-                              style={{
-                                fontWeight: "bold",
-                                marginLeft: 10,
-                              }}
-                            >
-                              {item.name}
-                            </Text>
+                          <Text
+                            lineBreakMode="tail"
+                            numberOfLines={2}
+                            style={{
+                              fontWeight: "bold",
+                              marginLeft: 10,
+                            }}
+                          >
+                            {item.name}
+                          </Text>
                           </TouchableOpacity>
-
+                          
                           <View
                             style={{
                               flexDirection: "row",
@@ -236,7 +208,7 @@ const RequestScreen = ({ navigation }) => {
                               color: "gray"
                             }}
                           >
-                          Đã gửi lúc  {item.requestDate}
+                            {item.postDate}
                           </Text>
                         </View>
 
@@ -247,7 +219,7 @@ const RequestScreen = ({ navigation }) => {
                             marginVertical: 10,
                           }}
                         >
-                          {item.message}
+                          {item.description}
                         </Text>
                       </View>
                     </View>
@@ -265,10 +237,10 @@ const RequestScreen = ({ navigation }) => {
           }}
         />
       )}
-        </View>
-    )
+    </View>
+  )
 }
 
-export default RequestScreen
+export default ProfilePost
 
 const styles = StyleSheet.create({})
