@@ -8,6 +8,8 @@ import addressReducer from './addressSlice'
 import typeReducer from './typeSlice'
 import requestReducer from './requestSlice'
 import postProfileReducer from './postProfileSlice';
+import postApproveReducer from './postApproveSlice';
+import postUnApproveReducer from './postUnApproveSlice';
 
 export const rootReducer = combineReducers({
     users: usersReducer,
@@ -17,4 +19,6 @@ export const rootReducer = combineReducers({
     type: typeReducer,
     request: requestReducer,
     postProfile: postProfileReducer,
+    postApprove: postApproveReducer,
+    postUnApprove: postUnApproveReducer
 });

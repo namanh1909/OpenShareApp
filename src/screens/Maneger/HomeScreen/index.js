@@ -7,7 +7,6 @@ import MenuItem from '../../../components/MenuItem';
 
 const HomeScreen = ({ navigation }) => {
 
-
     const listMenuItem = [
         {
             id: 1,
@@ -47,9 +46,9 @@ const HomeScreen = ({ navigation }) => {
             break
           case 5: dispatch(logout())
             break
-          case 1: navigation.navigate("PostList")
+          case 1: navigation.navigate("ManegerPost")
             break
-          case 2: navigation.navigate("Address")
+          case 2: navigation.navigate("Type")
             break
           case 3: navigation.navigate("Support")
             break
