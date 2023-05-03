@@ -1,31 +1,73 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native'
-import React, {useEffect} from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import RenderImage from '../../../../components/RenderImage';
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, Image } from 'react-native'
+import React, { useEffect } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from '@react-navigation/native';
-import { postApprove } from '../../../../redux/reducers/postApproveSlice';
+// import { getPostProfile } from '../../../redux/reducers/postProfileSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import NavBar from '../../../../components/NavBar';
+import { getManegerUser } from '../../../../redux/reducers/manegerUserSlice';
+import { getPostProfile } from '../../../../redux/reducers/postUserAdminSlice';
 
-const PostAppv = () => {
-  const token = useSelector((state) => state.auth.token);
-  const dispatch = useDispatch()
-  const navigation = useNavigation()
+
+const UserProfilePost = ({navigation, route}) => {
+  const userName = route.params.name
+  const idUser = route.params.idUser
+  const photoURL = route.params.photoURL
+  const authToken = useSelector((state) => state.auth.token)
+  const dispatch  = useDispatch()
+  console.log(authToken)
+
+  console.log(route)
 
   useEffect(() => {
-    dispatch(postApprove(token))
-  }, [])
+    let dataUser = {
+      id_Userget: idUser
+    }
+    dispatch(getPostProfile({authToken, dataUser}))  
+  },[])
+
+  const dataPost = useSelector((state) => state.postUserAdmin.data)
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
     return firstElement
   }
-
-  const data = useSelector((state) => state.postApprove.data);
-  
+  console.log("dataPost",dataPost)
   return (
     <View>
-         {data?.data && data?.data?.length > 0 && (
+      <NavBar title={`Trang cá nhân của ${userName}`} leftButton={
+                <TouchableOpacity onPress={() => {
+                    navigation.goBack()
+                }}
+                >
+                    <Ionicons name="arrow-back-outline" color="#000" size={25} />
+                </TouchableOpacity>
+            } />
+            <View style={{
+              backgroundColor: "#f5f5f5",
+              height: 200,
+              width: "100%",
+              justifyContent: "center",
+              paddingHorizontal: 20,
+            }}>
+              <View style={{
+                flexDirection: "row"
+              }}>
+              <Image source={{uri: photoURL}} style={{
+                height: 100,
+                width: 100,
+                borderRadius: 50,
+              }} />
+              <View>
+                <Text>Thành viên</Text>
+                <Text>{userName}</Text>
+                <Text>Điểm đóng góp</Text>
+
+              </View>
+              </View>
+             
+            </View>
+              {dataPost?.data && dataPost?.data?.length > 0 && (
         <FlatList
-          data={data.data}
+          data={dataPost.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -42,7 +84,6 @@ const PostAppv = () => {
             const jsonString = a[0].replace(/'/g, '"');
             const output = JSON.parse(`[${jsonString}]`);
             // console.log(output)
-            let convertedUrls = output.map((url: any) => ({ url }));
             return (
               <View
                 style={{
@@ -58,8 +99,13 @@ const PostAppv = () => {
                     width: "100%",
                   }}
                 >
-                <RenderImage item={output} />
-
+                  <Image
+                    source={{ uri: output[0] }}
+                    style={{
+                      height: 150,
+                      width: 130,
+                    }}
+                  />
                   <View
                     key={item.idPost}
                   // onPress={() => {
@@ -100,12 +146,7 @@ const PostAppv = () => {
                             {item.nameType}
                           </Text>
                         </View>
-                        <TouchableOpacity onPress={
-                          () => navigation.navigate("DetailPostAdmin", {
-                            item,
-                            output
-                          })  
-                        }>
+                        <TouchableOpacity style={{}}>
                           <Text style={{
                           }}>Xem</Text>
                         </TouchableOpacity>
@@ -129,22 +170,21 @@ const PostAppv = () => {
                           <TouchableOpacity onPress={() => {
                             navigation.navigate("ProfilePost", {
                               name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
+                              idUser: item.idUser
                             })
                           }}>
-                            <Text
-                              lineBreakMode="tail"
-                              numberOfLines={2}
-                              style={{
-                                fontWeight: "bold",
-                                marginLeft: 10,
-                              }}
-                            >
-                              {item.name}
-                            </Text>
+                          <Text
+                            lineBreakMode="tail"
+                            numberOfLines={2}
+                            style={{
+                              fontWeight: "bold",
+                              marginLeft: 10,
+                            }}
+                          >
+                            {item.name}
+                          </Text>
                           </TouchableOpacity>
-
+                          
                           <View
                             style={{
                               flexDirection: "row",
@@ -205,6 +245,6 @@ const PostAppv = () => {
   )
 }
 
-export default PostAppv
+export default UserProfilePost
 
 const styles = StyleSheet.create({})

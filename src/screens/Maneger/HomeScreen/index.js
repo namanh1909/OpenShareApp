@@ -3,9 +3,13 @@ import React from 'react'
 import NavBar from '../../../components/NavBar'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MenuItem from '../../../components/MenuItem';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/reducers/authSlice';
 
 
 const HomeScreen = ({ navigation }) => {
+
+  const dispatch = useDispatch()
 
     const listMenuItem = [
         {
@@ -42,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
 
     function handleButtonMenu(id) {
         switch (id) {
-          case 0: navigation.navigate("EditProfile")
+          case 0: navigation.navigate("ProfileAdmin")
             break
           case 5: dispatch(logout())
             break
@@ -50,9 +54,9 @@ const HomeScreen = ({ navigation }) => {
             break
           case 2: navigation.navigate("Type")
             break
-          case 3: navigation.navigate("Support")
+          case 3: navigation.navigate("ManegerUser")
             break
-          case 4: navigation.navigate("ChangePassword")
+          case 4: navigation.navigate("ChangePasswordAdmin")
             break
           default: break
         }

@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView ,FlatList, Image} 
 import React, { useState, useEffect } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import NavBar from '../../../components/NavBar';
-import PostAppv from './components/PostUnAppv';
-import PostUnAppv from './components/PostUnAppv';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostApprove } from '../../../redux/reducers/postApproveSlice';
 import { getPostUnApprove } from '../../../redux/reducers/postUnApproveSlice';
@@ -27,7 +25,9 @@ const ManagerPostScreen = ({ navigation }) => {
   const dataUnApprove = useSelector((state) => state.postUnApprove.data)
 
   return (
-    <View>
+    <View style={{
+      flex: 1
+    }}>
       <NavBar title={"Quản lý bài viết"} leftButton={
         <TouchableOpacity onPress={() => {
           navigation.goBack()
