@@ -13,6 +13,11 @@ import postUnApproveReducer from './postUnApproveSlice';
 import typeAdminReducer from './typeAdminSlice';
 import  ManegerUserReducer  from './manegerUserSlice';
 import postUserAdminReducer from './postUserAdminSlice'
+import avpproveSlice from './avpproveSlice';
+import manegerRequestSlice from './manegerRequestSlice';
+import manegerRequestByIdPostSlice from './manegerRequestByIdPostSlice';
+import listRequestAllSlice from './listRequestAllSlice';
+import detailRequestSlice from './detailRequestSlice';
 
 export const rootReducer = combineReducers({
     users: usersReducer,
@@ -27,4 +32,9 @@ export const rootReducer = combineReducers({
     typeAdmin: typeAdminReducer,
     manegerUser: ManegerUserReducer,
     postUserAdmin: postUserAdminReducer,
+    avpprove: avpproveSlice,
+    manegerRequest: manegerRequestSlice,
+    manegerRequestByIdPost: manegerRequestByIdPostSlice,
+    listRequestAll: listRequestAllSlice,
+    detailSlice: detailRequestSlice
 });

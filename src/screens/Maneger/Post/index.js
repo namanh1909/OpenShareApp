@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView ,FlatList, Image} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView ,FlatList, Image, RefreshControl} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import NavBar from '../../../components/NavBar';
@@ -12,6 +12,7 @@ const ManagerPostScreen = ({ navigation }) => {
   const [tabIndex, setTabIndex] = useState(0)
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch()
+  const [refreshing, setrefreshing] = useState(false)
 
   useEffect(() => {
     dispatch(getPostApprove(token))
@@ -24,10 +25,13 @@ const ManagerPostScreen = ({ navigation }) => {
   const dataApprove = useSelector((state) => state.postApprove.data);
   const dataUnApprove = useSelector((state) => state.postUnApprove.data)
 
+  console.log(dataUnApprove)
+
   return (
     <View style={{
       flex: 1
     }}>
+      
       <NavBar title={"Quản lý bài viết"} leftButton={
         <TouchableOpacity onPress={() => {
           navigation.goBack()
@@ -72,6 +76,14 @@ const ManagerPostScreen = ({ navigation }) => {
           ItemSeparatorComponent={() => {
             return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
           }}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                dispatch(getPostApprove(token))
+                dispatch(getPostUnApprove(token))
+                            }} />
+            }
           renderItem={({ item, index }) => {
             // let imageList =
             let a = [];
@@ -247,6 +259,14 @@ const ManagerPostScreen = ({ navigation }) => {
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                dispatch(getPostApprove(token))
+                dispatch(getPostUnApprove(token))
+                            }} />
+            }
           ItemSeparatorComponent={() => {
             return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
           }}

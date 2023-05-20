@@ -13,16 +13,17 @@ import ImagePicker from 'react-native-image-crop-picker';
 const EditProfileScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const authToken = useSelector((state) => state.auth.token)
+    console.log("token auth", authToken)
     useEffect(() => {
       dispatch(getUsers(authToken))
     }, [])
     
     const { data, loading, error } = useSelector((state) => state.users)
-    const idUser = data.idUser
-    const [name, setName] = useState(data.name)
-    const [email, setEmail] = useState(data.email)
-    const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
-    const [photoURL, setPhotoURL] = useState(data.photoURL)
+    const idUser = data?.idUser
+    const [name, setName] = useState(data?.name)
+    const [email, setEmail] = useState(data?.email)
+    const [phoneNumber, setPhoneNumber] = useState(data?.phoneNumber)
+    const [photoURL, setPhotoURL] = useState(data?.photoURL)
 
     const openPicker =  () => {
       try {

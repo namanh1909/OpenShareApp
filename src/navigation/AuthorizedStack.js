@@ -13,6 +13,7 @@ import EditProfileScreen from "../screens/Auth/ProfileScreen/components/editProf
 import ChangePasswordScreen from "../screens/Auth/ProfileScreen/components/changePassword";
 import PostDetailScreen from "../screens/Auth/Post/detailPost";
 import ProfilePost from "../screens/Auth/ProfilePost";
+import DetailRequestManegerScreen from "../screens/Auth/HistoryScreen/component/detail";
 
 const AuthorizedStack = () => {
   const AuthorizedStackNavigator = createNativeStackNavigator();
@@ -119,6 +120,14 @@ const AuthorizedStack = () => {
           ...OPTIONS.noHeader,
         }}
       />
+      <AuthorizedStackNavigator.Screen
+        name="DetailRequestManeger"
+        component={DetailRequestManegerScreen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+
     </AuthorizedStackNavigator.Navigator>
   );
 };

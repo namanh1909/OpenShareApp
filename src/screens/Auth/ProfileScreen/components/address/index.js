@@ -11,7 +11,7 @@ const AddressListScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.users.data)
     const authToken = useSelector((state) => state.auth.token)
-    const idUser = user.idUser
+    const idUser = user?.idUser
     console.log("token", authToken)
     const [reset, setReset] = useState(true)
 

@@ -63,6 +63,8 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={(value) => {
                   setPassword(value);
                 }}
+                secureTextEntry={true}
+
               />
               <Button
                 onPress={() => {
@@ -97,6 +99,8 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={(value) => {
                   setPassword(value);
                 }}
+                secureTextEntry={true}
+
               />
               <Button
                 onPress={() => {

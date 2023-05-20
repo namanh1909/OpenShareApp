@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "254869619140",
+    "project_id": "openshare-c4fd4",
+    "storage_bucket": "openshare-c4fd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254869619140:android:e44c086e43d40869a1a491",
+        "android_client_info": {
+          "package_name": "com.open_share"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254869619140-lsp3bso0riie8437tovm7js0gj8rq5nt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtIsJQgeZWdFTVZod8L61gJUaNKXWRSsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254869619140-lsp3bso0riie8437tovm7js0gj8rq5nt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "254869619140-5deakvm0samm6sfqb5919dmv8nlqcl5a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.open-share"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

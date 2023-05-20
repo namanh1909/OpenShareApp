@@ -8,7 +8,8 @@ import {
   FlatList,
   Image,
   TextInput,
-  Modal
+  Modal,
+  RefreshControl
 } from "react-native";
 import React, { useLayoutEffect, useState, useEffect } from "react";
 import Button from "../../../components/Button";
@@ -25,8 +26,12 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 const HomeScreen = ({ navigation }) => {
   const [filter, setFilter] = useState(0);
+  const [indexType, setIndexType] = useState(0)
+  const [searchValue, setSearchValue] = useState('')
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
+  console.log("home token", token)
+  const [refreshing, setRefreshing] = useState(false)
   useLayoutEffect(() => {
     dispatch(getUsers(token));
   }, []);
@@ -36,8 +41,30 @@ const HomeScreen = ({ navigation }) => {
     dispatch(getType(token));
   }, []);
 
+  function searchPosts(posts, searchText) {
+    try {
+      searchText = searchText.toLowerCase();
+      console.log("post", posts)
+      return posts?.data?.filter(post => {
+      const {address, nameType, title, description, name} = post;
+      return (
+        address.toLowerCase().includes(searchText) ||
+        nameType.toLowerCase().includes(searchText) ||
+        title.toLowerCase().includes(searchText) ||
+        name.toLowerCase().includes(searchText) ||
+        description.toLowerCase().includes(searchText)
+      );
+    });
+    } catch (error) {
+      
+    }
+    
+  }
+
   const dataPost = useSelector((state) => state.post.data);
   const typePost = useSelector((state) => state.type.data);
+
+  console.log("token", token)
 
   console.log(dataPost)
 
@@ -46,6 +73,16 @@ const HomeScreen = ({ navigation }) => {
     return firstElement
   }
   const [visible, setIsVisible] = useState(false);
+
+  let filteredPosts = searchPosts(dataPost, searchValue);
+  console.log(filteredPosts)
+
+
+  useEffect(() => {
+    const newData = filteredPosts?.filter(post => post.idType === indexType);
+    if(indexType !== 0)
+    filteredPosts = newData
+  }, [filteredPosts, indexType]);
 
   return (
     <SafeAreaView
@@ -108,6 +145,8 @@ const HomeScreen = ({ navigation }) => {
             backgroundColor: "#fff",
             height: 40,
           }}
+          value={searchValue}
+          onChangeText={(value) => setSearchValue(value)}
           iconName="search"
         />
       </View>
@@ -116,14 +155,15 @@ const HomeScreen = ({ navigation }) => {
         contentContainerStyle={{ marginVertical: 10, height: 50 }}
         showsHorizontalScrollIndicator={false}
       >
-        {typePost.data &&
-          typePost.data.length > 0 &&
-          typePost.data.map((item, index) => {
+        {typePost?.data &&
+          typePost?.data?.length > 0 &&
+          typePost?.data?.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}
                 onPress={() => {
                   setFilter(index);
+                  setIndexType(item.idType)
                 }}
                 style={{
                   padding: 10,
@@ -152,10 +192,17 @@ const HomeScreen = ({ navigation }) => {
       </ScrollView>
       {dataPost?.data && dataPost?.data?.length > 0 && (
         <FlatList
-          data={dataPost.data}
+          data={filteredPosts}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                dispatch(getPost(token));
+              }} />
+            }
           ItemSeparatorComponent={() => {
             return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
           }}
@@ -170,161 +217,164 @@ const HomeScreen = ({ navigation }) => {
             const output = JSON.parse(`[${jsonString}]`);
             // console.log(output)
             let convertedUrls = output.map((url: any) => ({ url }));
-            return (
-              <View
-                style={{
-                  padding: 10,
-                  backgroundColor: "#fff",
-                  flex: 1,
-                }}
-                key={index}
-              >
+            if(item.idType == indexType || filter == 0 || item.soluongdocho > 0){
+              return (
                 <View
                   style={{
-                    flexDirection: "row",
-                    width: "100%",
+                    padding: 10,
+                    backgroundColor: "#fff",
+                    flex: 1,
                   }}
+                  key={index}
                 >
-                <RenderImage item={output} />
-
                   <View
-                    key={item.idPost}
-                  // onPress={() => {
-                  //   navigation.navigate("DetailPost", { item });
-                  // }}
+                    style={{
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
                   >
+                  <RenderImage item={output} />
+  
                     <View
-                      style={{
-                        marginLeft: 10,
-                        width: "100%"
-                      }}
+                      key={item.idPost}
+                    // onPress={() => {
+                    //   navigation.navigate("DetailPost", { item });
+                    // }}
                     >
-                      <View style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}>
-                        <View
-                          style={{
-                            padding: 10,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backgroundColor: "#FFA925",
-                            borderRadius: 20,
-                            height: 40,
-                            borderColor: "#f5f5f5",
-                            borderWidth: 2,
-                            width: 100
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#ffff",
-                              fontWeight: "500",
-                              fontSize: 12,
-                            }}
-                          >
-                            {item.nameType}
-                          </Text>
-                        </View>
-                        <TouchableOpacity onPress={
-                          () => navigation.navigate("DetailPost", {
-                            item,
-                            output
-                          })
-                        }>
-                          <Text style={{
-                          }}>Xem</Text>
-                        </TouchableOpacity>
-                      </View>
-
                       <View
                         style={{
-                          flexDirection: "row",
-                          marginVertical: 10
+                          marginLeft: 10,
+                          width: "100%"
                         }}
                       >
-                        <Image
-                          source={{ uri: item.photoURL }}
-                          style={{
-                            height: 40,
-                            width: 40,
-                            borderRadius: 20,
-                          }}
-                        />
-                        <View>
-                          <TouchableOpacity onPress={() => {
-                            navigation.navigate("ProfilePost", {
-                              name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
-                            })
-                          }}>
+                        <View style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}>
+                          <View
+                            style={{
+                              padding: 10,
+                              justifyContent: "center",
+                              alignItems: "center",
+                              backgroundColor: "#FFA925",
+                              borderRadius: 20,
+                              height: 40,
+                              borderColor: "#f5f5f5",
+                              borderWidth: 2,
+                              width: 100
+                            }}
+                          >
                             <Text
-                              lineBreakMode="tail"
-                              numberOfLines={2}
                               style={{
-                                fontWeight: "bold",
+                                color: "#ffff",
+                                fontWeight: "500",
+                                fontSize: 12,
+                              }}
+                            >
+                              {item.nameType}
+                            </Text>
+                          </View>
+                          <TouchableOpacity onPress={
+                            () => navigation.navigate("DetailPost", {
+                              item,
+                              output
+                            })
+                          }>
+                            <Text style={{
+                            }}>Xem</Text>
+                          </TouchableOpacity>
+                        </View>
+  
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            marginVertical: 10
+                          }}
+                        >
+                          <Image
+                            source={{ uri: item.photoURL }}
+                            style={{
+                              height: 40,
+                              width: 40,
+                              borderRadius: 20,
+                            }}
+                          />
+                          <View>
+                            <TouchableOpacity onPress={() => {
+                              navigation.navigate("ProfilePost", {
+                                name: item.name,
+                                idUser: item.idUser,
+                                photoURL: item.photoURL
+                              })
+                            }}>
+                              <Text
+                                lineBreakMode="tail"
+                                numberOfLines={2}
+                                style={{
+                                  fontWeight: "bold",
+                                  marginLeft: 10,
+                                }}
+                              >
+                                {item.name}
+                              </Text>
+                            </TouchableOpacity>
+  
+                            <View
+                              style={{
+                                flexDirection: "row",
                                 marginLeft: 10,
                               }}
                             >
-                              {item.name}
-                            </Text>
-                          </TouchableOpacity>
-
-                          <View
-                            style={{
-                              flexDirection: "row",
-                              marginLeft: 10,
-                            }}
-                          >
-                            <Ionicons name="location-sharp" size={15} color="#000" />
+                              <Ionicons name="location-sharp" size={15} color="#000" />
+                              <Text
+                                lineBreakMode="tail"
+                                numberOfLines={2}
+                                style={{
+                                  fontSize: 12,
+                                  marginVertical: 4
+                                }}
+                              >
+                                {formatAddress(item.address)}
+                              </Text>
+                            </View>
                             <Text
                               lineBreakMode="tail"
                               numberOfLines={2}
                               style={{
-                                fontSize: 12,
-                                marginVertical: 4
+                                marginLeft: 10,
+                                fontSize: 10,
+                                color: "gray"
                               }}
                             >
-                              {formatAddress(item.address)}
+                              {item.postDate}
                             </Text>
                           </View>
+  
+                        </View>
+                        <View>
                           <Text
-                            lineBreakMode="tail"
-                            numberOfLines={2}
                             style={{
-                              marginLeft: 10,
-                              fontSize: 10,
-                              color: "gray"
+                              marginVertical: 10,
                             }}
                           >
-                            {item.postDate}
+                            {item.description}
                           </Text>
                         </View>
-
                       </View>
-                      <View>
-                        <Text
-                          style={{
-                            marginVertical: 10,
-                          }}
-                        >
-                          {item.description}
-                        </Text>
-                      </View>
+  
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      ></View>
                     </View>
-
-                    <View
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    ></View>
                   </View>
                 </View>
-              </View>
-            );
+              );
+            }
+       
           }}
         />
       )}

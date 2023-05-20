@@ -20,6 +20,40 @@ export const getPostProfile = createAsyncThunk('postUserAdmin/getPostProfile', a
     }
 })
 
+export const banUser = createAsyncThunk('postUserAdmin/banUser', async ({ authToken, dataUser }) => {
+    try {
+        const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/UserManager/banUser.php`, dataUser, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+            }
+        })
+        console.log("banUser", response)
+        if (response.status == "200") {
+            return Alert.alert("Khoá tài khoản thành công")
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const UnbanUser = createAsyncThunk('postUserAdmin/UnbanUser', async ({ authToken, dataUser }) => {
+    try {
+        const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/UserManager/unbanUser.php`, dataUser, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+            }
+        })
+        console.log("banUser", response)
+        if (response.status == "200") {
+            // return response.data
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 export const postUserAdminSlice = createSlice({
     name: 'postUserAdmin',
     initialState: {
@@ -49,6 +83,44 @@ export const postUserAdminSlice = createSlice({
         })
 
         builder.addCase(getPostProfile.rejected, (state, action) => {
+            if (state.loading === 'pending') {
+                state.loading = 'idle'
+                state.error = 'Error occured'
+            }
+        })
+
+        builder.addCase(banUser.pending, (state, action) => {
+            if (state.loading === 'idle') {
+                state.loading = 'pending'
+            }
+        })
+
+        builder.addCase(banUser.fulfilled, (state, action) => {
+            if (state.loading === 'pending') {
+                state.loading = 'idle'
+            }
+        })
+
+        builder.addCase(banUser.rejected, (state, action) => {
+            if (state.loading === 'pending') {
+                state.loading = 'idle'
+                state.error = 'Error occured'
+            }
+        })
+
+        builder.addCase(UnbanUser.pending, (state, action) => {
+            if (state.loading === 'idle') {
+                state.loading = 'pending'
+            }
+        })
+
+        builder.addCase(UnbanUser.fulfilled, (state, action) => {
+            if (state.loading === 'pending') {
+                state.loading = 'idle'
+            }
+        })
+
+        builder.addCase(UnbanUser.rejected, (state, action) => {
             if (state.loading === 'pending') {
                 state.loading = 'idle'
                 state.error = 'Error occured'

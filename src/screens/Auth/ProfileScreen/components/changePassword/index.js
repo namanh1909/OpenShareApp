@@ -10,7 +10,7 @@ const ChangePasswordScreen = ({ navigation }) => {
     const [old_password, setOldPassword] = useState('')
     const [new_password, setNewPassword] = useState('')
     const { data, loading, error } = useSelector((state) => state.users)
-    const id = data.idUser
+    const id = data?.idUser
     const dispatch = useDispatch()
     const authToken = useSelector((state) => state.auth.token)
 

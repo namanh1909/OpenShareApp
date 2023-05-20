@@ -10,7 +10,7 @@ export const getUsers = createAsyncThunk('users/getUsers', async (authToken) => 
             Authorization: `Bearer ${authToken}`,
         }
     })
-    // console.log(response.data)
+    console.log("responseuser" , response.data)
     if(response.status = "200"){
         return response.data.user
     }

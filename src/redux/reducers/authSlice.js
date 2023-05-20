@@ -12,12 +12,23 @@ export const login = createAsyncThunk(
         `${apiKeyUsers}/auth/login.php`,
         userData,
       );
-      // console.log("res", response.data)
-      // eslint-disable-next-line no-constant-condition
-      if ((response.status = "200")) {
-        thunkAPI.dispatch(getUsers(response.data.token));
-        return response.data;
+      console.log("res", response)
+      if(response.data.message == "Bạn đã đăng nhập thành công."){
+        if ((response.status = "200")) {
+          console.log("token return", response.data.token)
+          setTimeout(() => {
+            thunkAPI.dispatch(getUsers(response.data.token));
+          }, 500);
+          return response.data;
+        }
       }
+      else {
+        return Alert.alert(response.data.message, '', [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ]);
+      }
+
+ 
     } catch (error) {
       console.log("error", error);
       throw new Error(error.response.data.message);
@@ -31,9 +42,16 @@ export const loginAdmin = createAsyncThunk(
     try {
       const response = await axios.post(`${apiKeyAdmin}/login.php`, userData);
       // console.log("res", response.data)
-      if (response.status == "200") {
-        thunkAPI.dispatch(getStaff(response.data.token));
-        return response.data;
+      if(response.data.message == "Bạn đã đăng nhập thành công."){
+        if ((response.status = "200")) {
+          thunkAPI.dispatch(getStaff(response.data.token));
+          return response.data;
+        }
+      }
+      else {
+        return Alert.alert(response.data.message, '', [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ]);
       }
     } catch (error) {
       console.log("error", error);

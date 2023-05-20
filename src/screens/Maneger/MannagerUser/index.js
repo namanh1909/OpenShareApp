@@ -11,21 +11,23 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { banUser, UnbanUser } from '../../../redux/reducers/postUserAdminSlice';
 
 
 const ManagerUserScreen = ({ navigation }) => {
   const token = useSelector((state) => state.auth.token);
   const [selectUser, setSelectUser] = useState(null)
+  const [reset, setReset] = useState(false)
   let selectItem = useRef(null).current
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getManegerUser(token))
-  }, [])
+  }, [reset])
 
   const dataUser = useSelector((state => state.manegerUser.data))
   console.log('list user', dataUser)
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = useRef(null);
 
   // variables
   const snapPoints = useMemo(() => ["25%", "25%"], []);
@@ -39,7 +41,7 @@ const ManagerUserScreen = ({ navigation }) => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => {
+  const handleSheetChanges = useCallback((index) => {
     console.log("handleSheetChanges", index);
   }, []);
 
@@ -121,10 +123,8 @@ const ManagerUserScreen = ({ navigation }) => {
                         </Text>
                       </View>
                       <TouchableOpacity onPress={() => {
-                        console.log("item", item)
-                        // setSelectUser(item)
-                        selectItem = item
-                        console.log("select", selectItem)
+                        setSelectUser(item)
+                        console.log(selectUser)
                         setTimeout(() => {
                           handlePresentModalPress()
                         }, 500)
@@ -164,6 +164,29 @@ const ManagerUserScreen = ({ navigation }) => {
                           >
                            Điểm đóng góp: {item.postDate}
                           </Text>
+                          <Text
+                            lineBreakMode="tail"
+                            numberOfLines={2}
+                            style={{
+                              marginLeft: 10,
+                              fontSize: 10,
+                              color: "gray",
+                              marginVertical: 4
+                            }}
+                          >
+                           {item?.email}
+                          </Text>
+                          <Text
+                            lineBreakMode="tail"
+                            numberOfLines={2}
+                            style={{
+                              marginLeft: 10,
+                              fontSize: 10,
+                              color: "gray"
+                            }}
+                          >
+                           {item?.phoneNumber}
+                          </Text>
                         </View>
                       </View>
                     <View>
@@ -200,11 +223,11 @@ const ManagerUserScreen = ({ navigation }) => {
       >
         <View style={styles.contentContainer}>
           <TouchableOpacity onPress={() => {
-            console.log(selectItem)
+            console.log(selectUser)
                 navigation.navigate("UserPost", {
-                  name: selectItem?.name,
-                  idUser: selectItem?.idUser,
-                  photoURL: selectItem?.photoURL
+                  name: selectUser?.name,
+                  idUser: selectUser?.idUser,
+                  photoURL: selectUser?.photoURL
                 })
                 handlePresentModalDismissPress()
           }} style={{
@@ -220,7 +243,21 @@ const ManagerUserScreen = ({ navigation }) => {
               color: "blue"
             }} >Xem trang cá nhân</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{
+          <TouchableOpacity onPress={() => {
+            let dataUser = {
+              idUser: selectUser.idUser
+            }
+            if(selectUser?.isBan == 0){
+              dispatch(banUser({dataUser, authToken: token}))
+              handlePresentModalDismissPress()
+              setReset(!reset)
+            }
+            else {
+              dispatch(UnbanUser({dataUser, authToken: token}))
+              handlePresentModalDismissPress()
+              setReset(!reset)
+            }
+          }} style={{
             height: 50,
             width: "100%",
             justifyContent: "center",

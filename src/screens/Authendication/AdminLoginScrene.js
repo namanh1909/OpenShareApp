@@ -68,6 +68,8 @@ const AdminLoginScreen = ({ navigation }) => {
                     onChangeText={(value) => {
                         setPassword(value);
                     }}
+                    secureTextEntry={true}
+
                 />
                 <Button
                     onPress={() => {

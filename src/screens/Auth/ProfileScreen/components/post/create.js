@@ -31,7 +31,7 @@ const CreatePost = ({ navigation }) => {
   const [address, setAddress] = useState("")
   const [idType, setType] = useState('')
   const { data, error } = useSelector((state) => state.users)
-  const idUser = data.idUser
+  const idUser = data?.idUser
   const authToken = useSelector((state) => state.auth.token)
   const [openAddressPicker, setOPenAddressPicker] = useState(false)
   const [selectAddress, setSelectAddress] = useState(null)
@@ -151,7 +151,7 @@ const selectImages = async () => {
 
   console.log("listimage", imageList.length);
   return (
-    <View style={{flex: 1}}>
+    <ScrollView style={{flex: 1}}>
       <NavBar
         title="Tạo bài viết mới"
         leftButton={
@@ -234,7 +234,10 @@ const selectImages = async () => {
                 style={{
                   marginVertical: 10
                 }}
-                onSelectItem={(item) => setType(item.typeNumber)}
+                onSelectItem={(item) => { 
+                  console.log(item) 
+                  setType(item.value)}
+                }
             />
         <Text
           style={{
@@ -294,7 +297,7 @@ const selectImages = async () => {
         </TouchableOpacity>
         </ScrollView>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

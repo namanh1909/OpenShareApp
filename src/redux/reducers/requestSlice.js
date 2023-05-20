@@ -38,6 +38,45 @@ export const requestPost = createAsyncThunk('post/requestPost', async ({ authTok
   }
 })
 
+
+export const rejectRequest = createAsyncThunk('post/rejectRequest', async ({ authToken,dataUser}) => {
+  try {
+    const response = await axios.put(`http://localhost/WEBSITE_OPENSHARE/controllers/users/post/refuseRequest.php`,dataUser, {
+      headers: {
+          Authorization: `Bearer ${authToken}`,
+      }
+  })
+    console.log("response", response)
+    if(response.status == "200"){
+      return Alert.alert("Từ chối thành công");
+    }
+
+  } catch (error) {
+    console.log("error",error)
+    return Alert.alert("Từ chối thất bại");
+  }
+})
+
+export const acceptRequest = createAsyncThunk('post/acceptRequest', async ({ authToken,dataUser}) => {
+  try {
+    const response = await axios.put(`http://localhost/WEBSITE_OPENSHARE/controllers/users/post/acceptRequest.php`,dataUser, {
+      headers: {
+          Authorization: `Bearer ${authToken}`,
+      }
+  })
+    console.log("response", response)
+    if(response.status == "200"){
+      return Alert.alert("Xác nhân cho thành công");
+    }
+
+  } catch (error) {
+    console.log("error",error)
+    return Alert.alert("Từ chối thất bại");
+  }
+})
+
+
+
 export const requestSlice = createSlice({
   name: "request",
   initialState: {

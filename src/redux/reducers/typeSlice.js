@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Alert } from "react-native";
 import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const getType = createAsyncThunk('post/getType', async (authToken) => {
   try {
-    const response = await axios.get(`http://localhost/WEBSITE_OPENSHARE/controllers/users/type/getType.php`, {
+    const response = await axios.get(`${apiKeyUsers}/getType.php`, {
       headers: {
           Authorization: `Bearer ${authToken}`,
       }
@@ -18,6 +19,8 @@ export const getType = createAsyncThunk('post/getType', async (authToken) => {
   }
    
 })
+
+
 
 export const typeSlice = createSlice({
   name: "type",
@@ -47,7 +50,7 @@ export const typeSlice = createSlice({
         state.loading = "idle";
         state.listTypeItem = state.data ? state.data.data.map((province) => ({
           label: province.nameType,
-          value: province.nameType,
+          value: province.idType,
       })) : []
       }
     });
@@ -58,6 +61,7 @@ export const typeSlice = createSlice({
         state.error = "Error occured";
       }
     });
+
   },
 });
 

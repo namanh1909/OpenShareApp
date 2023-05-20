@@ -96,6 +96,7 @@ const DetailPostScreen = ({ navigation, route }) => {
           </TouchableOpacity>
         }
         rightButton={
+          idUser !== item.idUser &&
           <TouchableOpacity onPress={() => {
             toggleModal()
           }}

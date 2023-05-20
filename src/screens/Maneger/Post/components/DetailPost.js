@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   Button,
+  Alert,
 } from "react-native";
 import React, { useState, useCallback, useMemo, useRef } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -19,12 +20,14 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { approvePost, unApprovePost } from "../../../../redux/reducers/avpproveSlice";
+import { getPostUnApprove } from "../../../../redux/reducers/postUnApproveSlice";
 
 const DetailPostScreen = ({ navigation, route }) => {
   const output = route.params.output.map((letter) => ({ image: letter }));
   const width = Dimensions.get("window").width;
   const item = route.params.item;
-
+  console.log("item", item)
   console.log(output);
   const [message, setMessage] = useState("");
   const formatAddress = (address) => {
@@ -34,12 +37,21 @@ const DetailPostScreen = ({ navigation, route }) => {
   const authToken = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisibleReject, setIsModalVisibleReject] = useState(false);
+
+  const user = useSelector((state) => state.users.data)
+
+  console.log("user", user)
+
+  const idStaff = user.idStaff
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = useRef(null);
+  const bottomSheetModalCancelRef = useRef(null);
+
 
   // variables
   const snapPoints = useMemo(() => ["25%", "25%"], []);
@@ -53,7 +65,7 @@ const DetailPostScreen = ({ navigation, route }) => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => {
+  const handleSheetChanges = useCallback((index) => {
     console.log("handleSheetChanges", index);
   }, []);
 
@@ -237,7 +249,13 @@ const DetailPostScreen = ({ navigation, route }) => {
         <View style={styles.contentContainer}>
         {item.isShow == 0 ?  
           <>
-          <TouchableOpacity style={{
+          <TouchableOpacity onPress={() => {
+            dispatch(approvePost({idStaff, authToken, idPost: item.idPost, title: item.title }))         
+            handlePresentModalDismissPress()
+            dispatch(getPostUnApprove(authToken))
+            navigation.goBack()
+            Alert.alert("Duyệt bài viết thành công")
+          }} style={{
             height: 50,
             width: "100%",
             justifyContent: "center",
@@ -250,7 +268,10 @@ const DetailPostScreen = ({ navigation, route }) => {
               color: "blue"
             }}>Duyệt bài</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{
+          <TouchableOpacity onPress={() => {
+            handlePresentModalDismissPress()
+            setIsModalVisibleReject(true)
+          }} style={{
             height: 50,
             width: "100%",
             justifyContent: "center",
@@ -264,7 +285,7 @@ const DetailPostScreen = ({ navigation, route }) => {
             }}>Từ chối</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
-            handlePresentModalDismissPress()
+              handlePresentModalDismissPress()
           }} style={{
             height: 50,
             width: "100%",
@@ -309,6 +330,57 @@ const DetailPostScreen = ({ navigation, route }) => {
 
         </View>
       </BottomSheetModal>
+
+      <Modal isVisible={isModalVisibleReject} style={{ height: 300 }}>
+        <View style={{ alignItems: "center", justifyContent: "center", backgroundColor: "#fff", height: 300}}>
+          <Text>Nhập tin nhắn từ chối bài viết</Text>
+          <AutoHeightTextInput heightDefault={100} value={message} onChangeText={(value) => setMessage(value)} styles={{flex: 1}} />
+          <View style={{
+            flexDirection: "row",
+            justifyContent: "space-around"
+          }}>
+          <TouchableOpacity onPress={() => setIsModalVisibleReject(false)} style={{
+            width: 100,
+            height: 30,
+            justifyContent: "center",
+            alignItems: "center",
+            marginHorizontal: 10,
+            backgroundColor: "#FFA925",
+            borderRadius: 10
+          }}>
+            <Text style={{
+              color: "#fff",
+              fontWeight: "500"
+            }}>Đóng</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            try {
+            dispatch(unApprovePost({idStaff, authToken, idPost: item.idPost, title: item.title, messagefromAdmin: message }))         
+            dispatch(getPostUnApprove(authToken))
+            setIsModalVisibleReject(false)
+            navigation.goBack()
+            Alert.alert("Từ chối bài viết thành công")
+            } catch (err) {
+              console.log(err)
+            }
+          }} style={{
+            width: 100,
+            height: 30,
+            justifyContent: "center",
+            alignItems: "center",
+            marginHorizontal: 10,
+            backgroundColor: "#FFA925",
+            borderRadius: 10
+          }}>
+            <Text  style={{
+              color: "#fff",
+              fontWeight: "500"
+            }}>Xác nhận</Text>
+          </TouchableOpacity>
+          </View>
+         
+        </View>
+      </Modal>
     </BottomSheetModalProvider>
   );
 };

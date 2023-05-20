@@ -10,6 +10,7 @@ export const getPost = createAsyncThunk('post/getPost', async (authToken) => {
           Authorization: `Bearer ${authToken}`,
       }
   })
+  console.log("response post", response)
   if(response.status == "200"){
     return response.data
   }
