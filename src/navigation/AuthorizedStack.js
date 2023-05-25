@@ -14,6 +14,8 @@ import ChangePasswordScreen from "../screens/Auth/ProfileScreen/components/chang
 import PostDetailScreen from "../screens/Auth/Post/detailPost";
 import ProfilePost from "../screens/Auth/ProfilePost";
 import DetailRequestManegerScreen from "../screens/Auth/HistoryScreen/component/detail";
+import Top10Screen from "../screens/Auth/Top10Screen";
+import DetailRequestScreen from "../screens/Auth/RequestScreen/detail";
 
 const AuthorizedStack = () => {
   const AuthorizedStackNavigator = createNativeStackNavigator();
@@ -123,6 +125,20 @@ const AuthorizedStack = () => {
       <AuthorizedStackNavigator.Screen
         name="DetailRequestManeger"
         component={DetailRequestManegerScreen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+      <AuthorizedStackNavigator.Screen
+        name="Top10"
+        component={Top10Screen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+         <AuthorizedStackNavigator.Screen
+        name="DetailRequest"
+        component={DetailRequestScreen}
         options={{
           ...OPTIONS.noHeader,
         }}

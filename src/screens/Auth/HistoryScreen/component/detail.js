@@ -98,10 +98,12 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
                   idUserRequest: selectUser?.idUserRequest,
                   message
                 }
+                setIsModalVisibleReject(false)
                 dispatch(acceptRequest({ dataUser, authToken }))
                 dispatch(getPostUnApprove(authToken))
                 dispatch(getManegerRequestAll({ authToken, idUser }))
                 setIsModalVisibleReject(false)
+                setIsModalVisibleAcp(false)
                 navigation.goBack()
               } catch (err) {
                 console.log(err)

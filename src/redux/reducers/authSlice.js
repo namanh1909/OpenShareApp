@@ -90,7 +90,7 @@ export const register = createAsyncThunk(
         `${apiKeyUsers}/auth/register.php`,
         userData,
       );
-      // console.log("res", response.data)
+      console.log("res", response)
       // eslint-disable-next-line no-constant-condition
       if ((response.status = "200")) {
         return Alert.alert(response.data.message, '', [

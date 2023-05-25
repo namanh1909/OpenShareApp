@@ -243,14 +243,14 @@ const DetailPostScreen = ({ navigation, route }) => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         style={{
-          
+
         }}
       >
         <View style={styles.contentContainer}>
-        {item.isShow == 0 ?  
+        {item.isShow == 0 ?
           <>
           <TouchableOpacity onPress={() => {
-            dispatch(approvePost({idStaff, authToken, idPost: item.idPost, title: item.title }))         
+            dispatch(approvePost({idStaff, authToken, idPost: item.idPost, title: item.title, idUser: item.idUser }))
             handlePresentModalDismissPress()
             dispatch(getPostUnApprove(authToken))
             navigation.goBack()
@@ -355,7 +355,7 @@ const DetailPostScreen = ({ navigation, route }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             try {
-            dispatch(unApprovePost({idStaff, authToken, idPost: item.idPost, title: item.title, messagefromAdmin: message }))         
+            dispatch(unApprovePost({idStaff, authToken, idPost: item.idPost, title: item.title, messagefromAdmin: message, idUser: item.idUser }))
             dispatch(getPostUnApprove(authToken))
             setIsModalVisibleReject(false)
             navigation.goBack()
@@ -378,7 +378,7 @@ const DetailPostScreen = ({ navigation, route }) => {
             }}>Xác nhận</Text>
           </TouchableOpacity>
           </View>
-         
+
         </View>
       </Modal>
     </BottomSheetModalProvider>

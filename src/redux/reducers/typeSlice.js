@@ -3,23 +3,19 @@ import axios from "axios";
 import { Alert } from "react-native";
 import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
-export const getType = createAsyncThunk('post/getType', async (authToken) => {
+export const getType = createAsyncThunk('post/getType', async () => {
   try {
-    const response = await axios.get(`${apiKeyUsers}/getType.php`, {
-      headers: {
-          Authorization: `Bearer ${authToken}`,
-      }
-  })
+    const response = await axios.get(`http://localhost/WEBSITE_OPENSHARE/controllers/users/type/getType.php`)
+    console.log("res type", response)
   if(response.status == "200"){
     return response.data
   }
-
   } catch (error) {
+    console.log("res type", error)
+
     console.log(error)
   }
-   
 })
-
 
 
 export const typeSlice = createSlice({

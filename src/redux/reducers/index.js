@@ -18,6 +18,8 @@ import manegerRequestSlice from './manegerRequestSlice';
 import manegerRequestByIdPostSlice from './manegerRequestByIdPostSlice';
 import listRequestAllSlice from './listRequestAllSlice';
 import detailRequestSlice from './detailRequestSlice';
+import top10Slice from './top10Slice';
+import notifySlice from './notifyUserSlice';
 
 export const rootReducer = combineReducers({
     users: usersReducer,
@@ -36,5 +38,7 @@ export const rootReducer = combineReducers({
     manegerRequest: manegerRequestSlice,
     manegerRequestByIdPost: manegerRequestByIdPostSlice,
     listRequestAll: listRequestAllSlice,
-    detailSlice: detailRequestSlice
+    detailSlice: detailRequestSlice,
+    top10: top10Slice,
+    notify: notifySlice,
 });

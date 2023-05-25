@@ -8,12 +8,18 @@ import {
 } from "react-native";
 import { CurvedBottomBar } from "react-native-curved-bottom-bar";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { getrequest } from "../redux/reducers/requestSlice";
 import HistoryScreen from "../screens/Auth/HistoryScreen";
 import HomeScreen from "../screens/Auth/HomeScreen/HomeScreen";
 import ProfileScreen from "../screens/Auth/ProfileScreen";
 import RequestScreen from "../screens/Auth/RequestScreen";
 
 export default TabNavigation = ({ navigation }) => {
+  const dispatch = useDispatch()
+  const { data, error } = useSelector((state) => state.users)
+  const idUser = data?.idUser
+  const authToken = useSelector((state) => state.auth.token)
   const _renderIcon = (routeName, selectedTab) => {
     let icon = "";
     switch (routeName) {
@@ -93,6 +99,9 @@ export default TabNavigation = ({ navigation }) => {
           name="Order"
           position="LEFT"
           component={RequestScreen}
+          onPress={() => {
+            dispatch(getrequest({ authToken, dataUser }))
+          }}
         />
         <CurvedBottomBar.Screen
           name="History"

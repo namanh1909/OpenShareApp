@@ -31,7 +31,7 @@ const ManagerPostScreen = ({ navigation }) => {
     <View style={{
       flex: 1
     }}>
-      
+
       <NavBar title={"Quản lý bài viết"} leftButton={
         <TouchableOpacity onPress={() => {
           navigation.goBack()
@@ -153,7 +153,7 @@ const ManagerPostScreen = ({ navigation }) => {
                           () => navigation.navigate("DetailPostAdmin", {
                             item,
                             output
-                          })  
+                          })
                         }>
                           <Text style={{
                           }}>Xem</Text>
@@ -223,7 +223,7 @@ const ManagerPostScreen = ({ navigation }) => {
                           >
                             {item.postDate}
                           </Text>
-                          <Text style={{  
+                          <Text style={{
                                 fontSize: 10,
                                 color: "green",
                                 marginLeft: 10,
@@ -233,8 +233,10 @@ const ManagerPostScreen = ({ navigation }) => {
                       </View>
                       <View>
                         <Text
+                          numberOfLines={3}
                           style={{
                             marginVertical: 10,
+                            maxWidth: 100
                           }}
                         >
                           {item.description}
@@ -342,7 +344,7 @@ const ManagerPostScreen = ({ navigation }) => {
                           () => navigation.navigate("DetailPostAdmin", {
                             item,
                             output
-                          })  
+                          })
                         }>
                           <Text style={{
                           }}>Xem</Text>
@@ -411,7 +413,7 @@ const ManagerPostScreen = ({ navigation }) => {
                           >
                             {item.postDate}
                           </Text>
-                          <Text style={{  
+                          <Text style={{
                                 fontSize: 10,
                                 color: "green",
                                 marginLeft: 10,
@@ -421,6 +423,7 @@ const ManagerPostScreen = ({ navigation }) => {
                       <View>
                         <Text
                           style={{
+                            maxWidth: 200
                           }}
                         >
                           {item.description}
@@ -440,7 +443,7 @@ const ManagerPostScreen = ({ navigation }) => {
             );
           }}
         /> }
-    
+
     </View>
   )
 }

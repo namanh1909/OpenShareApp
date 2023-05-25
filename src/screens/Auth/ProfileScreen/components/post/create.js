@@ -49,7 +49,7 @@ const CreatePost = ({ navigation }) => {
     dispatch(getAddress({authToken, idUser}))
   }, [])
   useEffect(() => {
-    dispatch(getType(authToken))
+    dispatch(getType())
   },[])
 
 

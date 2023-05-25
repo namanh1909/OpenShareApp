@@ -8,8 +8,6 @@ import RenderImage from '../../../components/RenderImage'
 import EmptyData from '../../../components/EmptyData'
 
 
-
-
 const RequestScreen = ({ navigation }) => {
   const [tabIndex, setTabIndex] = useState(0)
   const dispatch = useDispatch()
@@ -29,7 +27,7 @@ const RequestScreen = ({ navigation }) => {
 
   const listRequest = useSelector((state) => state.request.data)
 
-  console.log("list request", listRequest.data)
+  console.log("list request", listRequest?.data)
   const [refreshing, setRefreshing] = useState(false)
 
 
@@ -90,7 +88,7 @@ const RequestScreen = ({ navigation }) => {
       </ScrollView>
       {tabIndex == 0 && listRequest?.data && listRequest?.data?.length > 0 && (
         <FlatList
-          data={listRequest.data}
+          data={listRequest?.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -123,6 +121,7 @@ const RequestScreen = ({ navigation }) => {
                     padding: 10,
                     backgroundColor: "#fff",
                     flex: 1,
+                    paddingHorizontal: 10
                   }}
                   key={index}
                 >
@@ -137,7 +136,7 @@ const RequestScreen = ({ navigation }) => {
                     <View
                       key={item.idPost}
                     // onPress={() => {
-                    //   navigation.navigate("DetailPost", { item });
+                    //   navigation.navigate("DetailRequest", { item });
                     // }}
                     >
                       <View
@@ -175,7 +174,7 @@ const RequestScreen = ({ navigation }) => {
                             </Text>
                           </View>
                           <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailPost", {
+                            () => navigation.navigate("DetailRequest", {
                               item,
                               output
                             })
@@ -249,7 +248,7 @@ const RequestScreen = ({ navigation }) => {
                               }}
                             >
                               Đã gửi lúc  {item.requestDate}
-                            </Text> 
+                            </Text>
                           </View>
 
                         </View>
@@ -282,7 +281,7 @@ const RequestScreen = ({ navigation }) => {
 
       {tabIndex == 1 && listRequest?.data && listRequest?.data?.length > 0 && (
         <FlatList
-          data={listRequest.data}
+          data={listRequest?.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -314,6 +313,7 @@ const RequestScreen = ({ navigation }) => {
                     padding: 10,
                     backgroundColor: "#fff",
                     flex: 1,
+                    paddingHorizontal: 10
                   }}
                   key={index}
                 >
@@ -328,7 +328,7 @@ const RequestScreen = ({ navigation }) => {
                     <View
                       key={item.idPost}
                     // onPress={() => {
-                    //   navigation.navigate("DetailPost", { item });
+                    //   navigation.navigate("DetailRequest", { item });
                     // }}
                     >
                       <View
@@ -366,12 +366,13 @@ const RequestScreen = ({ navigation }) => {
                             </Text>
                           </View>
                           <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailPost", {
+                            () => navigation.navigate("DetailRequest", {
                               item,
                               output
                             })
                           }>
                             <Text style={{
+                              marginRight: 10
                             }}>Xem</Text>
                           </TouchableOpacity>
                         </View>
@@ -483,7 +484,7 @@ const RequestScreen = ({ navigation }) => {
 
       {tabIndex == 2 && listRequest?.data && listRequest?.data?.length > 0 && (
         <FlatList
-          data={listRequest.data}
+          data={listRequest?.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -529,7 +530,7 @@ const RequestScreen = ({ navigation }) => {
                     <View
                       key={item.idPost}
                     // onPress={() => {
-                    //   navigation.navigate("DetailPost", { item });
+                    //   navigation.navigate("DetailRequest", { item });
                     // }}
                     >
                       <View
@@ -567,7 +568,7 @@ const RequestScreen = ({ navigation }) => {
                             </Text>
                           </View>
                           <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailPost", {
+                            () => navigation.navigate("DetailRequest", {
                               item,
                               output
                             })
@@ -674,7 +675,7 @@ const RequestScreen = ({ navigation }) => {
 
       {tabIndex == 3 && listRequest?.data && listRequest?.data?.length > 0 && (
         <FlatList
-          data={listRequest.data}
+          data={listRequest?.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -720,7 +721,7 @@ const RequestScreen = ({ navigation }) => {
                     <View
                       key={item.idPost}
                     // onPress={() => {
-                    //   navigation.navigate("DetailPost", { item });
+                    //   navigation.navigate("DetailRequest", { item });
                     // }}
                     >
                       <View
@@ -758,7 +759,7 @@ const RequestScreen = ({ navigation }) => {
                             </Text>
                           </View>
                           <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailPost", {
+                            () => navigation.navigate("DetailRequest", {
                               item,
                               output
                             })

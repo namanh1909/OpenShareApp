@@ -3,13 +3,9 @@ import axios from 'axios'
 import { apiKeyAdmin, apiKeyUsers } from '../../contants/api'
 import { Alert } from 'react-native'
 
-export const getPost = createAsyncThunk('post/getPost', async (authToken) => {
+export const getPost = createAsyncThunk('post/getPost', async () => {
   try {
-    const response = await axios.get(`${apiKeyUsers}/post/get.php`, {
-      headers: {
-          Authorization: `Bearer ${authToken}`,
-      }
-  })
+    const response = await axios.get(`${apiKeyUsers}/post/get.php`)
   console.log("response post", response)
   if(response.status == "200"){
     return response.data

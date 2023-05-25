@@ -5,7 +5,7 @@ import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const getrequest = createAsyncThunk('post/getrequest', async ({ authToken,dataUser}) => {
   try {
-    const response = await axios.post(`${apiKeyUsers}/post/getRequest.php`,dataUser,{
+    const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getRequest.php`,dataUser,{
       headers: {
           Authorization: `Bearer ${authToken}`,
       }

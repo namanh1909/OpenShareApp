@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, FlatList, Alert } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, FlatList, Alert, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavBar from '../../../../../components/NavBar'
@@ -14,6 +14,7 @@ const AddressListScreen = ({ navigation }) => {
     const idUser = user?.idUser
     console.log("token", authToken)
     const [reset, setReset] = useState(true)
+    const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
         dispatch(getAddress({ authToken, idUser }))
@@ -43,7 +44,13 @@ const AddressListScreen = ({ navigation }) => {
                         <Ionicons name="add-outline" color="#000" size={25} />
                     </TouchableOpacity>
                 } />
-          {addressList?.length > 0 &&  <FlatList contentContainerStyle={{ marginBottom: 10}} data={addressList} keyExtractor={item=>item.idAdress} renderItem={({item}) => {
+          {addressList?.length > 0 &&  <FlatList    refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                dispatch(getAddress({ authToken, idUser }))
+            }} />
+            } contentContainerStyle={{ marginBottom: 10}} data={addressList} keyExtractor={item=>item.idAdress} renderItem={({item}) => {
             console.log("item", item)
             return (
                 <MenuItem title={item.address} iconName="navigate-outline" onPress={() => {

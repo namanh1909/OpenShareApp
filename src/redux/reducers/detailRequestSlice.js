@@ -6,12 +6,12 @@ import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const confirmOk = createAsyncThunk(
   "detailSlice/confirmOk",
-  async ({ authToken,idRequest }) => {
+  async ({ authToken,idRequest,messageAfterReceiveGood,ratingStar,idPost,idUserRequest }) => {
     try {
       const response = await axios.put(
         `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/suscessDetail.php`,
         {
-          idRequest
+          idRequest,messageAfterReceiveGood,ratingStar,idPost,idUserRequest
         },
         {
           headers: {
@@ -19,6 +19,8 @@ export const confirmOk = createAsyncThunk(
           },
         },
       );
+
+      console.log("res request", response)
 
       if (response.status === 200) {
         console.log(response)
@@ -33,11 +35,11 @@ export const confirmOk = createAsyncThunk(
 
 export const confirmCancel = createAsyncThunk(
   "detailSlice/confirmCancel",
-  async ({ authToken,idRequest }) => {
+  async ({ authToken,idRequest,messageAfterReceiveGood,idUserRequest,idPost }) => {
     try {
       const response = await axios.put(
         `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/failDetail.php`,
-          {idRequest}
+          {idRequest,messageAfterReceiveGood,idUserRequest,idPost}
         ,
         {
           headers: {

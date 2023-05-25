@@ -116,6 +116,7 @@ const CreateAddressScreen = ({ navigation }) => {
                         finally {
                             dispatch(getAddress({ authToken, idUser }))
                             navigation.goBack()
+                            dispatch(getAddress({ authToken, idUser }))
                         }
                    
                     }}

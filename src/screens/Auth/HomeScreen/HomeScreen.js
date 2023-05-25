@@ -37,8 +37,8 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getPost(token));
-    dispatch(getType(token));
+    dispatch(getPost());
+    dispatch(getType());
   }, []);
 
   function searchPosts(posts, searchText) {
@@ -67,6 +67,7 @@ const HomeScreen = ({ navigation }) => {
   console.log("token", token)
 
   console.log(dataPost)
+  console.log("typePost", typePost)
 
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
@@ -119,6 +120,17 @@ const HomeScreen = ({ navigation }) => {
               height: 60,
             }}
           />
+          <View style={{
+            flexDirection: "row",
+          }}>
+          <TouchableOpacity
+          style={{marginRight: 10}}
+            onPress={() => {
+              navigation.navigate("Top10");
+            }}
+          >
+            <Ionicons name="fitness-outline" color="#000" size={25} />
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Notification");
@@ -135,6 +147,7 @@ const HomeScreen = ({ navigation }) => {
               }}
             />
           </TouchableOpacity>
+          </View>
         </View>
 
         <Input
