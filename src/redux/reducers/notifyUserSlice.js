@@ -21,10 +21,9 @@ export const getNotify = createAsyncThunk(
       console.log(dataUser);
       if (response.status == "200") {
         response.data.data.forEach((element) => {
-            console.log(element.user_id)
-            console.log("idUser", dataUser.idUser)
-          if (element?.user_id
-            == dataUser.idUser) listData.push(element);
+          console.log(element.user_id);
+          console.log("idUser", dataUser.idUser);
+          if (element?.user_id == dataUser.idUser) listData.push(element);
         });
       }
 
@@ -48,8 +47,78 @@ export const getNotify = createAsyncThunk(
             listData.push(element);
         });
       }
-      listData.sort((a, b) => new Date(b.createAt_N) - new Date(a.createAt_N));
+      listData.sort((a, b) => {
+        const dateA = new Date(a.createAt_N || a.created_at);
+        const dateB = new Date(b.createAt_N || b.created_at);
+        return dateB - dateA;
+      });
       return listData;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
+export const seenAcpPost = createAsyncThunk(
+  "notify/seenAcpPost",
+  async ({ authToken, dataUser }) => {
+    try {
+      const response = await axios.post(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getPostWithidPost.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log("data user", dataUser);
+      if (response.status == "200") {
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
+export const seenAcpPostRequest = createAsyncThunk(
+  "notify/seenAcpPost",
+  async ({ authToken, dataUser }) => {
+    try {
+      const response = await axios.post(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getManegerRequestByidPost.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log("data user", dataUser);
+      if (response.status == "200") {
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
+export const seenRequest = createAsyncThunk(
+  "notify/seenAcpPost",
+  async ({ authToken, dataUser }) => {
+    try {
+      const response = await axios.post(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getPostRequestbyidPost.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log("data user", dataUser);
+      if (response.status == "200") {
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -85,6 +154,25 @@ export const notifySlice = createSlice({
     });
 
     builder.addCase(getNotify.rejected, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+        state.error = "Error occured";
+      }
+    });
+
+    builder.addCase(seenAcpPost.pending, (state, action) => {
+      if (state.loading === "idle") {
+        state.loading = "pending";
+      }
+    });
+
+    builder.addCase(seenAcpPost.fulfilled, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+      }
+    });
+
+    builder.addCase(seenAcpPost.rejected, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "idle";
         state.error = "Error occured";

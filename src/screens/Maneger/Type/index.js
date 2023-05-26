@@ -60,7 +60,7 @@ const TypeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getType())
+    dispatch(getType(authToken));
   }, [reset])
 
   const addressList = useSelector((state) => state.typeAdmin.data)

@@ -3,38 +3,42 @@ import axios from "axios";
 import { Alert } from "react-native";
 import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
-export const getType = createAsyncThunk('typeAdmin/getType', async (authToken) => {
-  try {
-    const response = await axios.get(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/displayItem.php`, {
-      headers: {
-          Authorization: `Bearer ${authToken}`,
+export const getType = createAsyncThunk(
+  "typeAdmin/getType",
+  async (authToken) => {
+    try {
+      const response = await axios.get(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/displayItem.php`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response.status == "200") {
+        console.log(response.data);
+        return response.data;
       }
-  })
-  if(response.status == "200"){
-    console.log(response.data)
-    return response.data
+    } catch (error) {
+      console.log(error);
+    }
   }
-  } catch (error) {
-    console.log(error)
-  }
-   
-})
-
+);
 
 export const createType = createAsyncThunk(
   "typeAdmin/createType",
-  async ({ authToken, nameType}) => {
+  async ({ authToken, nameType }) => {
     try {
       const response = await axios.post(
         `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/addItem.php`,
         {
-          nameType
+          nameType,
         },
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
-        },
+        }
       );
 
       if (response.status === 200) {
@@ -44,23 +48,24 @@ export const createType = createAsyncThunk(
       console.log(error);
       throw error;
     }
-  },
+  }
 );
 
 export const updateType = createAsyncThunk(
   "typeAdmin/updateType",
-  async ({ authToken, nameType, idType}) => {
+  async ({ authToken, nameType, idType }) => {
     try {
       const response = await axios.post(
         `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/updateItem.php`,
         {
-          nameType, idType
+          nameType,
+          idType,
         },
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
-        },
+        }
       );
 
       if (response.status === 200) {
@@ -70,24 +75,23 @@ export const updateType = createAsyncThunk(
       console.log(error);
       throw error;
     }
-  },
+  }
 );
-
 
 export const deleteType = createAsyncThunk(
   "typeAdmin/deleteType",
-  async ({ authToken, idType}) => {
+  async ({ authToken, idType }) => {
     try {
       const response = await axios.post(
         `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/deleteItem.php`,
         {
-          idType
+          idType,
         },
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
-        },
+        }
       );
 
       if (response.status === 200) {
@@ -97,7 +101,7 @@ export const deleteType = createAsyncThunk(
       console.log(error);
       throw error;
     }
-  },
+  }
 );
 
 export const typeAdminSlice = createSlice({
@@ -173,8 +177,6 @@ export const typeAdminSlice = createSlice({
       }
     });
 
-
-
     builder.addCase(deleteType.pending, (state, action) => {
       if (state.loading === "idle") {
         state.loading = "pending";
@@ -193,9 +195,6 @@ export const typeAdminSlice = createSlice({
         state.error = "Error occured";
       }
     });
-
-
-    
   },
 });
 

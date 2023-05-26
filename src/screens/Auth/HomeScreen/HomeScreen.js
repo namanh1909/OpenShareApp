@@ -11,7 +11,7 @@ import {
   Modal,
   RefreshControl
 } from "react-native";
-import React, { useLayoutEffect, useState, useEffect } from "react";
+import React, { useLayoutEffect, useState, useEffect, useMemo } from "react";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -21,17 +21,16 @@ import { getUsers } from "../../../redux/reducers/userSlice";
 import { getPost } from "../../../redux/reducers/postSlice";
 import { getType } from "../../../redux/reducers/typeSlice";
 import RenderImage from "../../../components/RenderImage";
-import ImageViewer from 'react-native-image-zoom-viewer';
-
+import ImageViewer from "react-native-image-zoom-viewer";
 
 const HomeScreen = ({ navigation }) => {
   const [filter, setFilter] = useState(0);
-  const [indexType, setIndexType] = useState(0)
-  const [searchValue, setSearchValue] = useState('')
+  const [indexType, setIndexType] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  console.log("home token", token)
-  const [refreshing, setRefreshing] = useState(false)
+  console.log("home token", token);
+  const [refreshing, setRefreshing] = useState(false);
   useLayoutEffect(() => {
     dispatch(getUsers(token));
   }, []);
@@ -44,45 +43,40 @@ const HomeScreen = ({ navigation }) => {
   function searchPosts(posts, searchText) {
     try {
       searchText = searchText.toLowerCase();
-      console.log("post", posts)
-      return posts?.data?.filter(post => {
-      const {address, nameType, title, description, name} = post;
-      return (
-        address.toLowerCase().includes(searchText) ||
-        nameType.toLowerCase().includes(searchText) ||
-        title.toLowerCase().includes(searchText) ||
-        name.toLowerCase().includes(searchText) ||
-        description.toLowerCase().includes(searchText)
-      );
-    });
-    } catch (error) {
-      
-    }
-    
+      console.log("post", posts);
+      return posts?.data?.filter((post) => {
+        const { address, nameType, title, description, name } = post;
+        return (
+          address.toLowerCase().includes(searchText) ||
+          nameType.toLowerCase().includes(searchText) ||
+          title.toLowerCase().includes(searchText) ||
+          name.toLowerCase().includes(searchText) ||
+          description.toLowerCase().includes(searchText)
+        );
+      });
+    } catch (error) {}
   }
 
   const dataPost = useSelector((state) => state.post.data);
   const typePost = useSelector((state) => state.type.data);
 
-  console.log("token", token)
+  console.log("token", token);
 
-  console.log(dataPost)
-  console.log("typePost", typePost)
+  console.log(dataPost);
+  console.log("typePost", typePost);
 
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
-    return firstElement
-  }
+    return firstElement;
+  };
   const [visible, setIsVisible] = useState(false);
 
   let filteredPosts = searchPosts(dataPost, searchValue);
-  console.log(filteredPosts)
-
+  console.log(filteredPosts);
 
   useEffect(() => {
-    const newData = filteredPosts?.filter(post => post.idType === indexType);
-    if(indexType !== 0)
-    filteredPosts = newData
+    const newData = filteredPosts?.filter((post) => post.idType === indexType);
+    if (indexType !== 0) filteredPosts = newData;
   }, [filteredPosts, indexType]);
 
   return (
@@ -120,33 +114,35 @@ const HomeScreen = ({ navigation }) => {
               height: 60,
             }}
           />
-          <View style={{
-            flexDirection: "row",
-          }}>
-          <TouchableOpacity
-          style={{marginRight: 10}}
-            onPress={() => {
-              navigation.navigate("Top10");
+          <View
+            style={{
+              flexDirection: "row",
             }}
           >
-            <Ionicons name="fitness-outline" color="#000" size={25} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Notification");
-            }}
-          >
-            <Ionicons name="notifications-outline" color="#000" size={25} />
-            <Badge
-              status="error"
-              containerStyle={{ position: "absolute", top: -5, right: -4 }}
-              badgeStyle={{
-                height: 14,
-                width: 14,
-                borderRadius: 7,
+            <TouchableOpacity
+              style={{ marginRight: 10 }}
+              onPress={() => {
+                navigation.navigate("Top10");
               }}
-            />
-          </TouchableOpacity>
+            >
+              <Ionicons name="fitness-outline" color="#000" size={25} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Notification");
+              }}
+            >
+              <Ionicons name="notifications-outline" color="#000" size={25} />
+              <Badge
+                status="error"
+                containerStyle={{ position: "absolute", top: -5, right: -4 }}
+                badgeStyle={{
+                  height: 14,
+                  width: 14,
+                  borderRadius: 7,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -176,7 +172,7 @@ const HomeScreen = ({ navigation }) => {
                 key={index}
                 onPress={() => {
                   setFilter(index);
-                  setIndexType(item.idType)
+                  setIndexType(item.idType);
                 }}
                 style={{
                   padding: 10,
@@ -214,10 +210,11 @@ const HomeScreen = ({ navigation }) => {
               refreshing={refreshing}
               onRefresh={() => {
                 dispatch(getPost(token));
-              }} />
-            }
+              }}
+            />
+          }
           ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
+            return <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />;
           }}
           renderItem={({ item, index }) => {
             // let imageList =
@@ -230,7 +227,11 @@ const HomeScreen = ({ navigation }) => {
             const output = JSON.parse(`[${jsonString}]`);
             // console.log(output)
             let convertedUrls = output.map((url: any) => ({ url }));
-            if(item.idType == indexType || filter == 0 || item.soluongdocho > 0){
+            if (
+              item.idType == indexType ||
+              filter == 0 ||
+              item.soluongdocho > 0
+            ) {
               return (
                 <View
                   style={{
@@ -246,25 +247,27 @@ const HomeScreen = ({ navigation }) => {
                       width: "100%",
                     }}
                   >
-                  <RenderImage item={output} />
-  
+                    <RenderImage item={output} />
+
                     <View
                       key={item.idPost}
-                    // onPress={() => {
-                    //   navigation.navigate("DetailPost", { item });
-                    // }}
+                      // onPress={() => {
+                      //   navigation.navigate("DetailPost", { item });
+                      // }}
                     >
                       <View
                         style={{
                           marginLeft: 10,
-                          width: "100%"
+                          width: "100%",
                         }}
                       >
-                        <View style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
                           <View
                             style={{
                               padding: 10,
@@ -275,7 +278,7 @@ const HomeScreen = ({ navigation }) => {
                               height: 40,
                               borderColor: "#f5f5f5",
                               borderWidth: 2,
-                              width: 100
+                              width: 100,
                             }}
                           >
                             <Text
@@ -288,21 +291,22 @@ const HomeScreen = ({ navigation }) => {
                               {item.nameType}
                             </Text>
                           </View>
-                          <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailPost", {
-                              item,
-                              output
-                            })
-                          }>
-                            <Text style={{
-                            }}>Xem</Text>
+                          <TouchableOpacity
+                            onPress={() =>
+                              navigation.navigate("DetailPost", {
+                                item,
+                                output,
+                              })
+                            }
+                          >
+                            <Text style={{}}>Xem</Text>
                           </TouchableOpacity>
                         </View>
-  
+
                         <View
                           style={{
                             flexDirection: "row",
-                            marginVertical: 10
+                            marginVertical: 10,
                           }}
                         >
                           <Image
@@ -314,13 +318,15 @@ const HomeScreen = ({ navigation }) => {
                             }}
                           />
                           <View>
-                            <TouchableOpacity onPress={() => {
-                              navigation.navigate("ProfilePost", {
-                                name: item.name,
-                                idUser: item.idUser,
-                                photoURL: item.photoURL
-                              })
-                            }}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                navigation.navigate("ProfilePost", {
+                                  name: item.name,
+                                  idUser: item.idUser,
+                                  photoURL: item.photoURL,
+                                });
+                              }}
+                            >
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}
@@ -332,20 +338,24 @@ const HomeScreen = ({ navigation }) => {
                                 {item.name}
                               </Text>
                             </TouchableOpacity>
-  
+
                             <View
                               style={{
                                 flexDirection: "row",
                                 marginLeft: 10,
                               }}
                             >
-                              <Ionicons name="location-sharp" size={15} color="#000" />
+                              <Ionicons
+                                name="location-sharp"
+                                size={15}
+                                color="#000"
+                              />
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}
                                 style={{
                                   fontSize: 12,
-                                  marginVertical: 4
+                                  marginVertical: 4,
                                 }}
                               >
                                 {formatAddress(item.address)}
@@ -357,13 +367,12 @@ const HomeScreen = ({ navigation }) => {
                               style={{
                                 marginLeft: 10,
                                 fontSize: 10,
-                                color: "gray"
+                                color: "gray",
                               }}
                             >
                               {item.postDate}
                             </Text>
                           </View>
-  
                         </View>
                         <View>
                           <Text
@@ -375,7 +384,7 @@ const HomeScreen = ({ navigation }) => {
                           </Text>
                         </View>
                       </View>
-  
+
                       <View
                         style={{
                           justifyContent: "center",
@@ -387,7 +396,6 @@ const HomeScreen = ({ navigation }) => {
                 </View>
               );
             }
-       
           }}
         />
       )}
