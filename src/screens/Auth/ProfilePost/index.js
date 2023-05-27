@@ -4,21 +4,24 @@ import NavBar from '../../../components/NavBar'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getPostProfile } from '../../../redux/reducers/postProfileSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { getNumberGive } from "../../../redux/reducers/numberGiveSlice";
 
-
-const ProfilePost = ({navigation, route}) => {
-  const userName = route.params.name
-  const idUser = route.params.idUser
-  const photoURL = route.params.photoURL
-  const authToken = useSelector((state) => state.auth.token)
-  const dispatch  = useDispatch()
-  console.log(authToken)
+const ProfilePost = ({ navigation, route }) => {
+  const userName = route.params.name;
+  const idUser = route.params.idUser;
+  const photoURL = route.params.photoURL;
+  const authToken = useSelector((state) => state.auth.token);
+  const number = useSelector((state) => state.give.data);
+  const dispatch = useDispatch();
+  console.log(authToken);
+  console.log("numnber", number);
 
   useEffect(() => {
     let dataUser = {
       id_Userget: idUser,
     };
     dispatch(getPostProfile({ authToken, dataUser }));
+    dispatch(getNumberGive({ authToken, dataUser: { idUser } }));
   }, []);
 
   const dataPost = useSelector((state) => state.postProfile.data);
@@ -67,12 +70,12 @@ const ProfilePost = ({navigation, route}) => {
             <Text style={{ fontSize: 30, fontWeight: "600" }}>Thành viên</Text>
             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{userName}</Text>
             <Text style={{ fontWeight: "500", fontSize: 20 }}>
-              Điểm đóng góp:
+              {`Điểm đóng góp: ${number[0]?.SoluongdochoTC} `}
             </Text>
           </View>
         </View>
       </View>
-      {dataPost?.data && dataPost?.data?.length > 0 && (
+      {dataPost?.data && dataPost?.data?.length > 0 ? (
         <FlatList
           data={dataPost.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
@@ -253,10 +256,14 @@ const ProfilePost = ({navigation, route}) => {
             );
           }}
         />
+      ) : (
+        <Text style={{ textAlign: "center", marginTop: 30, fontSize: 20 }}>
+          Không tìm thấy bài viết
+        </Text>
       )}
     </View>
   );
-}
+};
 
 export default ProfilePost
 

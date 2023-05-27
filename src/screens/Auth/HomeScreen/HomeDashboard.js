@@ -9,7 +9,7 @@ import {
   Image,
   TextInput,
   Modal,
-  RefreshControl
+  RefreshControl,
 } from "react-native";
 import React, { useLayoutEffect, useState, useEffect, useMemo } from "react";
 import Button from "../../../components/Button";
@@ -24,7 +24,7 @@ import RenderImage from "../../../components/RenderImage";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { formatTime } from "../../../contants/helper";
 
-const HomeScreen = ({ navigation }) => {
+const HomeDashBoardScreen = ({ navigation }) => {
   const [filter, setFilter] = useState(0);
   const [indexType, setIndexType] = useState(0);
   const [searchValue, setSearchValue] = useState("");
@@ -100,14 +100,14 @@ const HomeScreen = ({ navigation }) => {
           }}
         >
           {/* <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              marginLeft: 10,
-            }}
-          >
-            Open Share
-          </Text> */}
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                marginLeft: 10,
+              }}
+            >
+              Open Share
+            </Text> */}
           <Image
             source={require("../../../../assets/icons/logoOpenShare.png")}
             style={{
@@ -118,6 +118,8 @@ const HomeScreen = ({ navigation }) => {
           <View
             style={{
               flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <TouchableOpacity
@@ -130,19 +132,10 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Notification");
+                navigation.navigate("LoginScreen");
               }}
             >
-              <Ionicons name="notifications-outline" color="#000" size={25} />
-              <Badge
-                status="error"
-                containerStyle={{ position: "absolute", top: -5, right: -4 }}
-                badgeStyle={{
-                  height: 14,
-                  width: 14,
-                  borderRadius: 7,
-                }}
-              />
+              <Text>Đăng nhập ngay</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -293,12 +286,7 @@ const HomeScreen = ({ navigation }) => {
                             </Text>
                           </View>
                           <TouchableOpacity
-                            onPress={() =>
-                              navigation.navigate("DetailPost", {
-                                item,
-                                output,
-                              })
-                            }
+                            onPress={() => navigation.navigate("LoginScreen")}
                           >
                             <Text style={{}}>Xem</Text>
                           </TouchableOpacity>
@@ -321,11 +309,7 @@ const HomeScreen = ({ navigation }) => {
                           <View>
                             <TouchableOpacity
                               onPress={() => {
-                                navigation.navigate("ProfilePost", {
-                                  name: item.name,
-                                  idUser: item.idUser,
-                                  photoURL: item.photoURL,
-                                });
+                                navigation.navigate("LoginScreen");
                               }}
                             >
                               <Text
@@ -403,57 +387,57 @@ const HomeScreen = ({ navigation }) => {
       )}
 
       {/* <FlatList data={data}
-        ItemSeparatorComponent={
-          () => {
-            return (
-              <View style={{
-                height: 0.4,
-                backgroundColor: "gray"
-              }}></View>
-            )
-          }
-        }
-        keyExtractor={item => item.id} contentContainerStyle={{
-          padding: 10
-        }} renderItem={({ item }) => {
-          return (
-            <TouchableOpacity style={{
-              padding: 10,
-              marginBottom: 20,
-            }}>
-              <View style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 10,
-
-              }}>
-                <Avatar source={{ uri: auth().currentUser?.photoURL }} size={40} rounded />
+          ItemSeparatorComponent={
+            () => {
+              return (
                 <View style={{
-                  marginLeft: 10,
-                }}>
-                  <Text style={{
-                    fontWeight: 'bold'
-                  }}>{item.name}</Text>
-                  <Text>{item.time}</Text>
-                </View>
-              </View>
-              <View style={{
-                marginVertical: 10,
+                  height: 0.4,
+                  backgroundColor: "gray"
+                }}></View>
+              )
+            }
+          }
+          keyExtractor={item => item.id} contentContainerStyle={{
+            padding: 10
+          }} renderItem={({ item }) => {
+            return (
+              <TouchableOpacity style={{
+                padding: 10,
+                marginBottom: 20,
               }}>
-                <Text>{item.des}</Text>
-              </View>
-              <Image source={{ uri: item.img }} style={{
-                height: 300,
-                width: "100%",
-                borderRadius: 20,
-              }} />
-            </TouchableOpacity>
-          )
-        }} /> */}
+                <View style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 10,
+
+                }}>
+                  <Avatar source={{ uri: auth().currentUser?.photoURL }} size={40} rounded />
+                  <View style={{
+                    marginLeft: 10,
+                  }}>
+                    <Text style={{
+                      fontWeight: 'bold'
+                    }}>{item.name}</Text>
+                    <Text>{item.time}</Text>
+                  </View>
+                </View>
+                <View style={{
+                  marginVertical: 10,
+                }}>
+                  <Text>{item.des}</Text>
+                </View>
+                <Image source={{ uri: item.img }} style={{
+                  height: 300,
+                  width: "100%",
+                  borderRadius: 20,
+                }} />
+              </TouchableOpacity>
+            )
+          }} /> */}
     </SafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default HomeDashBoardScreen;
 
 const styles = StyleSheet.create({});

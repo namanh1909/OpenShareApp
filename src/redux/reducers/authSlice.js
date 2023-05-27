@@ -10,30 +10,27 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post(
         `${apiKeyUsers}/auth/login.php`,
-        userData,
+        userData
       );
-      console.log("res", response)
-      if(response.data.message == "Bạn đã đăng nhập thành công."){
+      console.log("res", response);
+      if (response.data.message == "Bạn đã đăng nhập thành công.") {
         if ((response.status = "200")) {
-          console.log("token return", response.data.token)
+          console.log("token return", response.data.token);
           setTimeout(() => {
             thunkAPI.dispatch(getUsers(response.data.token));
           }, 500);
           return response.data;
         }
-      }
-      else {
-        return Alert.alert(response.data.message, '', [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
+      } else {
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
         ]);
       }
-
- 
     } catch (error) {
       console.log("error", error);
       throw new Error(error.response.data.message);
     }
-  },
+  }
 );
 
 export const loginAdmin = createAsyncThunk(
@@ -42,68 +39,91 @@ export const loginAdmin = createAsyncThunk(
     try {
       const response = await axios.post(`${apiKeyAdmin}/login.php`, userData);
       // console.log("res", response.data)
-      if(response.data.message == "Bạn đã đăng nhập thành công."){
+      if (response.data.message == "Bạn đã đăng nhập thành công.") {
         if ((response.status = "200")) {
           thunkAPI.dispatch(getStaff(response.data.token));
           return response.data;
         }
-      }
-      else {
-        return Alert.alert(response.data.message, '', [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
+      } else {
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
         ]);
       }
     } catch (error) {
       console.log("error", error);
       throw new Error(error.response.data.message);
     }
-  },
+  }
 );
 
-export const changePasswordUser = createAsyncThunk('users/changePasswordUser', async ({ authToken, dataUser }) => {
-  try {
-    const response = await axios.put(`${apiKeyUsers}/auth/changepassword.php`,
-      dataUser
-      , {
-        headers: {
-          Authorization: `Bearer ${authToken}`
+export const changePasswordUser = createAsyncThunk(
+  "users/changePasswordUser",
+  async ({ authToken, dataUser }) => {
+    try {
+      const response = await axios.put(
+        `${apiKeyUsers}/auth/changepassword.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
         }
-      });
-    console.log("res", response)
+      );
+      console.log("res", response);
 
-    return Alert.alert(response.data.message, '', [
-      { text: 'OK', onPress: () => console.log('OK Pressed') },
-    ]);
+      return Alert.alert(response.data.message, "", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
 
+export const changePasswordAdmin = createAsyncThunk(
+  "users/changePasswordUser",
+  async ({ authToken, dataUser }) => {
+    try {
+      const response = await axios.put(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/changpassword.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log("res", response);
 
+      return Alert.alert(response.data.message, "", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
+
+export const register = createAsyncThunk("auth/register", async (userData) => {
+  try {
+    const response = await axios.post(
+      `${apiKeyUsers}/auth/register.php`,
+      userData
+    );
+    console.log("res", response);
+    // eslint-disable-next-line no-constant-condition
+    if ((response.status = "200")) {
+      return Alert.alert(response.data.message, "", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.log("error", error);
+    throw new Error(error.response.data.message);
   }
 });
-
-export const register = createAsyncThunk(
-  "auth/register",
-  async (userData) => {
-    try {
-      const response = await axios.post(
-        `${apiKeyUsers}/auth/register.php`,
-        userData,
-      );
-      console.log("res", response)
-      // eslint-disable-next-line no-constant-condition
-      if ((response.status = "200")) {
-        return Alert.alert(response.data.message, '', [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ]);
-    
-      }
-    } catch (error) {
-      console.log("error", error);
-      throw new Error(error.response.data.message);
-    }
-  },
-);
 
 
 

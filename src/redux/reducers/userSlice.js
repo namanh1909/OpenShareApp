@@ -27,33 +27,67 @@ export const getStaff = createAsyncThunk('users/getStaff', async (authToken) => 
     }
 })
 
-export const editProfile = createAsyncThunk('users/editProfile', async ({ authToken,dataUser}) => 
-{
+export const editProfile = createAsyncThunk(
+  "users/editProfile",
+  async ({ authToken, dataUser }) => {
     try {
-      const response = await axios.put(`${apiKeyUsers}/profile/editprofile.php`, 
-      dataUser
-      , {
-        headers: {
-          Authorization: `Bearer ${authToken}`
+      const response = await axios.put(
+        `${apiKeyUsers}/profile/editprofile.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
         }
-      });
-      console.log("res", response)
+      );
+      console.log("res", response);
 
       if (response.status === 200) {
-        return Alert.alert('Cập nhật thành công', [
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ]);
-      }
-      else {
-        return Alert.alert('Cập nhật thất bại', [
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ]);
+        return Alert.alert("Cập nhật thành công", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      } else {
+        return Alert.alert("Cập nhật thất bại", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
       }
     } catch (error) {
       console.log(error);
       throw error;
     }
-  });
+  }
+);
+
+export const editProfileAdmin = createAsyncThunk(
+  "users/editProfileAdmin",
+  async ({ authToken, dataUser }) => {
+    try {
+      const response = await axios.put(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/editprofile.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log("res", response);
+
+      if (response.status === 200) {
+        return Alert.alert("Cập nhật thành công", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      } else {
+        return Alert.alert("Cập nhật thất bại", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
 
 
 export const usersSlice = createSlice({
