@@ -24,13 +24,12 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{
-        flex: 1
+        flex: 1,
       }}
     >
       <View style={styles.container}>
-
         <View
           style={{
             marginBottom: 50,
@@ -45,103 +44,119 @@ const LoginScreen = ({ navigation }) => {
             Open Share
           </Text>
         </View>
-        {
-          isAlredyAccount ?
-            <>
-              <Input
-                placeholder={"Username"}
-                iconName="person"
-                value={userName}
-                onChangeText={(value) => {
-                  setUserName(value);
-                }}
-              />
-              <Input
-                placeholder={"Password"}
-                iconName="lock"
-                value={password}
-                onChangeText={(value) => {
-                  setPassword(value);
-                }}
-                secureTextEntry={true}
+        {isAlredyAccount ? (
+          <>
+            <Input
+              placeholder={"Tên đăng nhập"}
+              iconName="person"
+              value={userName}
+              onChangeText={(value) => {
+                setUserName(value);
+              }}
+            />
+            <Input
+              placeholder={"Mật khẩu"}
+              iconName="lock"
+              value={password}
+              onChangeText={(value) => {
+                setPassword(value);
+              }}
+              secureTextEntry={true}
+            />
+            <Button
+              onPress={() => {
+                dispatch(login({ userName, password }));
+              }}
+              text="Đăng nhập"
+              style={{
+                marginBottom: 20,
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Input
+              placeholder={"Nhập tên của bạn"}
+              iconName="person"
+              value={name}
+              onChangeText={(value) => {
+                setName(value);
+              }}
+            />
+            <Input
+              placeholder={"Tên đăng nhập"}
+              iconName="person"
+              value={userName}
+              onChangeText={(value) => {
+                setUserName(value);
+              }}
+            />
+            <Input
+              placeholder={"Mật khẩu"}
+              iconName="lock"
+              value={password}
+              onChangeText={(value) => {
+                setPassword(value);
+              }}
+              secureTextEntry={true}
+            />
+            <Button
+              onPress={() => {
+                console.log(name, password, userName);
+                dispatch(register({ name, password, userName }));
+              }}
+              text="Đăng kí"
+              style={{
+                marginBottom: 20,
+              }}
+            />
+          </>
+        )}
 
-              />
-              <Button
-                onPress={() => {
-                  dispatch(login({ userName, password }))
-                }}
-                text="Login"
-                style={{
-                  marginBottom: 20,
-                }}
-              />
-            </> : <>
-              <Input
-                placeholder={"Enter your name"}
-                iconName="person"
-                value={name}
-                onChangeText={(value) => {
-                  setName(value);
-                }}
-              />
-              <Input
-                placeholder={"Username"}
-                iconName="person"
-                value={userName}
-                onChangeText={(value) => {
-                  setUserName(value);
-                }}
-              />
-              <Input
-                placeholder={"Password"}
-                iconName="lock"
-                value={password}
-                onChangeText={(value) => {
-                  setPassword(value);
-                }}
-                secureTextEntry={true}
-
-              />
-              <Button
-                onPress={() => {
-                  console.log(name, password, userName)
-                  dispatch(register({ name, password, userName }))
-                }}
-                text="Register"
-                style={{
-                  marginBottom: 20,
-                }}
-              />
-            </>
-        }
-
-        <View style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-          <Text style={{
-          }} >{isAlredyAccount ? "Dont have account?" : "Alrealdy have account?"}</Text>
-          <TouchableOpacity onPress={() => {
-            setIsAlredyAccount(!isAlredyAccount)
-          }}>
-            <Text style={{
-              color: "#FFA925"
-            }}>{isAlredyAccount ? " Register" : " Login"}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{}}>
+            {isAlredyAccount ? "Chưa có tài khoản?" : "Đã có tài khoản?"}
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              setIsAlredyAccount(!isAlredyAccount);
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFA925",
+              }}
+            >
+              {isAlredyAccount ? " Đăng kí ngay" : " Đăng nhập"}
+            </Text>
           </TouchableOpacity>
-
         </View>
-        <Text style={{
-          marginVertical: 20
-        }}>or</Text>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("AdminLogin")
-        }}>
-          <Text style={{
-            fontWeight: "bold"
-          }}>Login with admin</Text>
+        <Text
+          style={{
+            marginVertical: 20,
+          }}
+        >
+          or
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AdminLogin");
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+            }}
+          >
+            Đăng nhập nhân viên
+          </Text>
         </TouchableOpacity>
-
       </View>
     </KeyboardAvoidingView>
   );

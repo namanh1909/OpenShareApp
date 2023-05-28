@@ -165,9 +165,37 @@ const HomeScreen = ({ navigation }) => {
         contentContainerStyle={{ marginVertical: 10, height: 50 }}
         showsHorizontalScrollIndicator={false}
       >
+           <TouchableOpacity
+                onPress={() => {
+                  setFilter(0);
+                  setIndexType(0)
+                }}
+                style={{
+                  padding: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: filter == 0 ? "#FFA925" : "#ffff",
+                  borderRadius: 20,
+                  marginLeft: 10,
+                  height: 40,
+                  borderColor: "#f5f5f5",
+                  borderWidth: 2,
+                }}
+              >
+                <Text
+                  style={{
+                    color: filter == 0 ? "#ffff" : "#ccc",
+                    fontWeight: "500",
+                    fontSize: 12,
+                  }}
+                >
+                  Tất cả
+                </Text>
+              </TouchableOpacity>
         {typePost?.data &&
           typePost?.data?.length > 0 &&
           typePost?.data?.map((item, index) => {
+            index = index + 1
             return (
               <TouchableOpacity
                 key={index}
@@ -199,6 +227,7 @@ const HomeScreen = ({ navigation }) => {
               </TouchableOpacity>
             );
           })}
+
       </ScrollView>
       {dataPost?.data && dataPost?.data?.length > 0 && (
         <FlatList

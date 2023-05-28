@@ -121,7 +121,7 @@ const NotificationsScreen = ({ navigation }) => {
                     navigation.navigate("Tab", { screen: "History" });
                   }
 
-                  if (
+                 else if (
                     item?.status_accept_reject == 2 ||
                     item?.status_accept_reject == 3
                   ) {

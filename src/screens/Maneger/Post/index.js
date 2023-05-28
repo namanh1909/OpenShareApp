@@ -366,11 +366,11 @@ const ManagerPostScreen = ({ navigation }) => {
                         />
                         <View>
                           <TouchableOpacity onPress={() => {
-                            navigation.navigate("ProfilePost", {
+                            navigation.navigate("UserPost", {
                               name: item.name,
                               idUser: item.idUser,
-                              photoURL: item.photoURL
-                            })
+                              photoURL: item.photoURL,
+                            });
                           }}>
                             <Text
                               lineBreakMode="tail"

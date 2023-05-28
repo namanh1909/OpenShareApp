@@ -35,7 +35,7 @@ const HistoryScreen = ({navigation}) => {
     const dataRequest2 = useSelector((state) => state.listRequestAll.listRequest)
 
 
-    console.log("Data Request", dataRequest)
+    console.log("Data Request", dataRequest2)
 
     return (
         <View style={{flex: 1}}>
@@ -267,6 +267,7 @@ const HistoryScreen = ({navigation}) => {
               </View>
             );
           }
+          else return null
           }}
         /> }
 
@@ -366,7 +367,8 @@ const HistoryScreen = ({navigation}) => {
                         </TouchableOpacity>
                       </View>
                       <Text style={{
-                        marginVertical: 10
+                        marginVertical: 10,
+                        maxWidth: 200
                       }}>{item.title}</Text>
                       <View
                         style={{
@@ -438,6 +440,7 @@ const HistoryScreen = ({navigation}) => {
                         <Text
                           style={{
                             marginVertical: 10,
+                            maxWidth: 200
                           }}
                         >
                           {item.message}
@@ -455,6 +458,7 @@ const HistoryScreen = ({navigation}) => {
                 </View>
               </View>
               );
+            else return null
           }}
         />}
 
@@ -554,6 +558,7 @@ const HistoryScreen = ({navigation}) => {
                       </View>
                       <Text style={{
                         marginVertical: 10
+                        , maxWidth: 200
                       }}>{item.title}</Text>
                       <View
                         style={{
@@ -625,6 +630,7 @@ const HistoryScreen = ({navigation}) => {
                         <Text
                           style={{
                             marginVertical: 10,
+                            maxWidth: 200
                           }}
                         >
                           {item.message}
@@ -642,10 +648,11 @@ const HistoryScreen = ({navigation}) => {
                 </View>
               </View>
               );
+            else return null
           }}
         />}
 
-{tabIndex == 3 && <FlatList
+     {tabIndex == 3 && <FlatList
           data={dataRequest2.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
@@ -741,7 +748,8 @@ const HistoryScreen = ({navigation}) => {
                         </TouchableOpacity>
                       </View>
                       <Text style={{
-                        marginVertical: 10
+                        marginVertical: 10,
+                        maxWidth: 200
                       }}>{item.title}</Text>
                       <View
                         style={{
@@ -813,6 +821,7 @@ const HistoryScreen = ({navigation}) => {
                         <Text
                           style={{
                             marginVertical: 10,
+                            maxWidth: 200
                           }}
                         >
                           {item.message}
@@ -830,6 +839,7 @@ const HistoryScreen = ({navigation}) => {
                 </View>
               </View>
               );
+            else return null
           }}
         />}
         </View >

@@ -27,6 +27,31 @@ export const getNumberGive = createAsyncThunk(
   }
 );
 
+
+export const getNumberGiveAdmin = createAsyncThunk(
+  "give/getNumberGive",
+  async ({ authToken, dataUser }) => {
+    try {
+      let listData = [];
+      const response = await axios.post(
+        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/getNumberPoin.php`,
+        dataUser,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      if (response.status == "200") {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
 export const giveSlice = createSlice({
   name: "give",
   initialState: {

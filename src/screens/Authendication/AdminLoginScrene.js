@@ -22,74 +22,78 @@ const AdminLoginScreen = ({ navigation }) => {
 
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{
+          flex: 1,
+        }}
+      >
+        <View style={styles.container}>
+          <View
             style={{
-                flex: 1
+              marginBottom: 50,
             }}
-        >
-            <View style={styles.container}>
-                <View
-                    style={{
-                        marginBottom: 50,
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontSize: 40,
-                            fontWeight: "bold",
-                        }}
-                    >
-                        Open Share
-                    </Text>
-                    <Text
-                        style={{
-                            fontSize: 15,
-                            fontWeight: "bold",
-                            textAlign: "center"
-                        }}
-                    >
-                        Maneger
-                    </Text>
-                </View>
+          >
+            <Text
+              style={{
+                fontSize: 40,
+                fontWeight: "bold",
+              }}
+            >
+              Open Share
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Nhân viên
+            </Text>
+          </View>
 
-                <Input
-                    placeholder={"Username"}
-                    iconName="person"
-                    value={userName}
-                    onChangeText={(value) => {
-                        setUserName(value);
-                    }}
-                />
-                <Input
-                    placeholder={"Password"}
-                    iconName="lock"
-                    value={password}
-                    onChangeText={(value) => {
-                        setPassword(value);
-                    }}
-                    secureTextEntry={true}
-
-                />
-                <Button
-                    onPress={() => {
-                        dispatch(loginAdmin({ userName, password }))
-                    }}
-                    text="Login"
-                    style={{
-                        marginBottom: 20,
-                    }}
-                />
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("LoginScreen")
-                }}>
-                    <Text style={{
-                        fontWeight: "bold"
-                    }}>Login with customer</Text>
-                </TouchableOpacity>
-
-            </View>
-        </KeyboardAvoidingView>
+          <Input
+            placeholder={"Tên đăng nhập"}
+            iconName="person"
+            value={userName}
+            onChangeText={(value) => {
+              setUserName(value);
+            }}
+          />
+          <Input
+            placeholder={"Mật khẩu"}
+            iconName="lock"
+            value={password}
+            onChangeText={(value) => {
+              setPassword(value);
+            }}
+            secureTextEntry={true}
+          />
+          <Button
+            onPress={() => {
+              dispatch(loginAdmin({ userName, password }));
+            }}
+            text="Đăng nhập"
+            style={{
+              marginBottom: 20,
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("LoginScreen");
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+              }}
+            >
+              Đăng nhập người dùng
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     );
 };
 

@@ -7,7 +7,7 @@ import Modal from "react-native-modal";
 import Input from '../../../components/Input';
 import AutoHeightTextInput from '../../../components/AutoHeightTextInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestPost } from '../../../redux/reducers/requestSlice';
+import { getrequest, requestPost } from '../../../redux/reducers/requestSlice';
 
 
 const DetailPostScreen = ({ navigation, route }) => {
@@ -64,6 +64,8 @@ const DetailPostScreen = ({ navigation, route }) => {
             }
             try {
               dispatch(requestPost({authToken, dataUser}))
+              dispatch(getrequest({ authToken, dataUser: idUser }));
+
               navigation.goBack()
             } catch (err) {
               console.log(err)
@@ -83,7 +85,7 @@ const DetailPostScreen = ({ navigation, route }) => {
             }}>Gửi</Text>
           </TouchableOpacity>
           </View>
-         
+
         </View>
       </Modal>
       <NavBar title="Chi tiết bài viết"

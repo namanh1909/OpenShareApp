@@ -248,7 +248,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
         }
         rightButton={
           idUser !== item.idUser &&
-          item.status == 1 && (
+          item.status == 1 && item?.idUserRequest === idUser && (
             <TouchableOpacity
               onPress={() => {
                 toggleModal();
@@ -385,7 +385,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-              Bạn:
+          {item?.idUserRequest == idUser ? "Bạn:" : "Message" }
             </Text>{" "}
             {item.message}
           </Text>
@@ -397,7 +397,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-              Reply:
+          {item?.idUserRequest == idUser ? "Reply: " : "Bạn " }
             </Text>
             {item.messageResponse}
           </Text>
@@ -409,7 +409,8 @@ const DetailRequestScreen = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-              Bạn:
+           {item?.idUserRequest == idUser ? "Bạn: " : "Reply: " }
+
             </Text>
             {item.messageAfterReceiveGood}
           </Text>
@@ -428,7 +429,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
         }
 
       </View>
-      {item.status == 1 && <View
+      {item.status == 1 && item?.idUserRequest === idUser && <View
         style={{
           alignItems: "center",
         }}

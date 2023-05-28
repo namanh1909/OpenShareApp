@@ -153,10 +153,7 @@ const DetailPostScreen = ({ navigation, route }) => {
             {item.isShow == 0 ? "Đang đợi duyệt" : "Đã duyệt"}
           </Text>
         </View>
-        <CustomImageCarousalSquare
-          data={output}
-          pagination={true}
-        />
+        <CustomImageCarousalSquare data={output} pagination={true} />
         <View
           style={{
             padding: 10,
@@ -242,143 +239,223 @@ const DetailPostScreen = ({ navigation, route }) => {
         index={1}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
-        style={{
-
-        }}
+        style={{}}
       >
         <View style={styles.contentContainer}>
-        {item.isShow == 0 ?
-          <>
-          <TouchableOpacity onPress={() => {
-            dispatch(approvePost({idStaff, authToken, idPost: item.idPost, title: item.title, idUser: item.idUser }))
-            handlePresentModalDismissPress()
-            dispatch(getPostUnApprove(authToken))
-            navigation.goBack()
-            Alert.alert("Duyệt bài viết thành công")
-          }} style={{
-            height: 50,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: 2,
-            borderColor: "#f5f5f5"
-          }}>
-            <Text style={{
-              fontSize: 18,
-              color: "blue"
-            }}>Duyệt bài</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            handlePresentModalDismissPress()
-            setIsModalVisibleReject(true)
-          }} style={{
-            height: 50,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: 2,
-            borderColor: "#f5f5f5"
-          }}>
-            <Text style={{
-              fontSize: 18,
-              color: "red"
-            }}>Từ chối</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-              handlePresentModalDismissPress()
-          }} style={{
-            height: 50,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: 2,
-            borderColor: "#f5f5f5"
-          }}>
-            <Text style={{
-              fontSize: 18,
-              color: "red"
-            }}>Đóng</Text>
-          </TouchableOpacity></> :  <>
-          <TouchableOpacity style={{
-            height: 50,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: 2,
-            borderColor: "#f5f5f5"
-          }}>
-            <Text style={{
-              fontSize: 18,
-              color: "red"
-            }}>Xoá bài</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            handlePresentModalDismissPress()
-          }} style={{
-            height: 50,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: 2,
-            borderColor: "#f5f5f5"
-          }}>
-            <Text style={{
-              fontSize: 18,
-              color: "red"
-            }}>Đóng</Text>
-          </TouchableOpacity></>  }
-
+          {item.isShow == 0 ? (
+            <>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(
+                    approvePost({
+                      idStaff,
+                      authToken,
+                      idPost: item.idPost,
+                      title: item.title,
+                      idUser: item.idUser,
+                    })
+                  );
+                  handlePresentModalDismissPress();
+                  dispatch(getPostUnApprove(authToken));
+                  navigation.goBack();
+                  Alert.alert("Duyệt bài viết thành công");
+                }}
+                style={{
+                  height: 50,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomWidth: 2,
+                  borderColor: "#f5f5f5",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "blue",
+                  }}
+                >
+                  Duyệt bài
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  handlePresentModalDismissPress();
+                  setIsModalVisibleReject(true);
+                }}
+                style={{
+                  height: 50,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomWidth: 2,
+                  borderColor: "#f5f5f5",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "red",
+                  }}
+                >
+                  Từ chối
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  handlePresentModalDismissPress();
+                }}
+                style={{
+                  height: 50,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomWidth: 2,
+                  borderColor: "#f5f5f5",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "red",
+                  }}
+                >
+                  Đóng
+                </Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <TouchableOpacity
+                style={{
+                  height: 50,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomWidth: 2,
+                  borderColor: "#f5f5f5",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "red",
+                  }}
+                >
+                  Xoá bài
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  handlePresentModalDismissPress();
+                }}
+                style={{
+                  height: 50,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomWidth: 2,
+                  borderColor: "#f5f5f5",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "red",
+                  }}
+                >
+                  Đóng
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </BottomSheetModal>
 
       <Modal isVisible={isModalVisibleReject} style={{ height: 300 }}>
-        <View style={{ alignItems: "center", justifyContent: "center", backgroundColor: "#fff", height: 300}}>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#fff",
+            height: 300,
+          }}
+        >
           <Text>Nhập tin nhắn từ chối bài viết</Text>
-          <AutoHeightTextInput heightDefault={100} value={message} onChangeText={(value) => setMessage(value)} styles={{flex: 1}} />
-          <View style={{
-            flexDirection: "row",
-            justifyContent: "space-around"
-          }}>
-          <TouchableOpacity onPress={() => setIsModalVisibleReject(false)} style={{
-            width: 100,
-            height: 30,
-            justifyContent: "center",
-            alignItems: "center",
-            marginHorizontal: 10,
-            backgroundColor: "#FFA925",
-            borderRadius: 10
-          }}>
-            <Text style={{
-              color: "#fff",
-              fontWeight: "500"
-            }}>Đóng</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            try {
-            dispatch(unApprovePost({idStaff, authToken, idPost: item.idPost, title: item.title, messagefromAdmin: message, idUser: item.idUser }))
-            dispatch(getPostUnApprove(authToken))
-            setIsModalVisibleReject(false)
-            navigation.goBack()
-            Alert.alert("Từ chối bài viết thành công")
-            } catch (err) {
-              console.log(err)
-            }
-          }} style={{
-            width: 100,
-            height: 30,
-            justifyContent: "center",
-            alignItems: "center",
-            marginHorizontal: 10,
-            backgroundColor: "#FFA925",
-            borderRadius: 10
-          }}>
-            <Text  style={{
-              color: "#fff",
-              fontWeight: "500"
-            }}>Xác nhận</Text>
-          </TouchableOpacity>
+          <AutoHeightTextInput
+            heightDefault={100}
+            value={message}
+            onChangeText={(value) => setMessage(value)}
+            styles={{ flex: 1 }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => setIsModalVisibleReject(false)}
+              style={{
+                width: 100,
+                height: 30,
+                justifyContent: "center",
+                alignItems: "center",
+                marginHorizontal: 10,
+                backgroundColor: "#FFA925",
+                borderRadius: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#fff",
+                  fontWeight: "500",
+                }}
+              >
+                Đóng
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                try {
+                  dispatch(
+                    unApprovePost({
+                      idStaff,
+                      authToken,
+                      idPost: item.idPost,
+                      title: item.title,
+                      messagefromAdmin: message,
+                      idUser: item.idUser,
+                    })
+                  );
+                  dispatch(getPostUnApprove(authToken));
+                  setIsModalVisibleReject(false);
+                  navigation.goBack();
+                  Alert.alert("Từ chối bài viết thành công");
+                } catch (err) {
+                  console.log(err);
+                }
+              }}
+              style={{
+                width: 100,
+                height: 30,
+                justifyContent: "center",
+                alignItems: "center",
+                marginHorizontal: 10,
+                backgroundColor: "#FFA925",
+                borderRadius: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#fff",
+                  fontWeight: "500",
+                }}
+              >
+                Xác nhận
+              </Text>
+            </TouchableOpacity>
           </View>
-
         </View>
       </Modal>
     </BottomSheetModalProvider>

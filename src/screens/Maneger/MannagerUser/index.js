@@ -93,23 +93,26 @@ const ManagerUserScreen = ({ navigation }) => {
                   <View
                     style={{
                       marginLeft: 10,
-                      width: "100%"
+                      width: "100%",
                     }}
                   >
-                    <View style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <View
                         style={{
                           padding: 10,
                           justifyContent: "center",
                           alignItems: "center",
-                          backgroundColor: item.isBan == 0 ? "#31b07d" : "#c23a58",
+                          backgroundColor:
+                            item.isBan == 0 ? "#31b07d" : "#c23a58",
                           borderRadius: 20,
                           height: 40,
-                          width: 100
+                          width: 100,
                         }}
                       >
                         <Text
@@ -119,51 +122,52 @@ const ManagerUserScreen = ({ navigation }) => {
                             fontSize: 12,
                           }}
                         >
-                          {item.isBan == 0 ? "Alive" : "Đã khoá"}
+                          {item.isBan == 0 ? "Hoạt động" : "Đã khoá"}
                         </Text>
                       </View>
-                      <TouchableOpacity onPress={() => {
-                        setSelectUser(item)
-                        console.log(selectUser)
-                        setTimeout(() => {
-                          handlePresentModalPress()
-                        }, 500)
-                      }}>
-                        <Ionicons name="ellipsis-horizontal-outline" size={20} />
+                      <TouchableOpacity
+                        onPress={() => {
+                          setSelectUser(item);
+                          console.log(selectUser);
+                          setTimeout(() => {
+                            handlePresentModalPress();
+                          }, 500);
+                        }}
+                      >
+                        <Ionicons
+                          name="ellipsis-horizontal-outline"
+                          size={20}
+                        />
                       </TouchableOpacity>
                     </View>
                     <View
-                        style={{
-                          flexDirection: "row",
-                          marginVertical: 10
-                        }}
-                      >
-                        <View>
-                          <TouchableOpacity onPress={() => {
-                        
-                          }}>
-                            <Text
-                              lineBreakMode="tail"
-                              numberOfLines={2}
-                              style={{
-                                fontWeight: "bold",
-                                marginLeft: 10,
-                              }}
-                            >
-                              {item.name}
-                            </Text>
-                          </TouchableOpacity>
+                      style={{
+                        flexDirection: "row",
+                        marginVertical: 10,
+                      }}
+                    >
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate("UserPost", {
+                              name: item.name,
+                              idUser: item.idUser,
+                              photoURL: item.photoURL,
+                            });
+                          }}
+                        >
                           <Text
                             lineBreakMode="tail"
                             numberOfLines={2}
                             style={{
+                              fontWeight: "bold",
                               marginLeft: 10,
-                              fontSize: 10,
-                              color: "gray"
                             }}
                           >
-                           Điểm đóng góp: {item.postDate}
+                            {item.name}
                           </Text>
+                        </TouchableOpacity>
+                        {item?.email && (
                           <Text
                             lineBreakMode="tail"
                             numberOfLines={2}
@@ -171,31 +175,29 @@ const ManagerUserScreen = ({ navigation }) => {
                               marginLeft: 10,
                               fontSize: 10,
                               color: "gray",
-                              marginVertical: 4
+                              marginVertical: 4,
                             }}
                           >
-                           {item?.email}
+                            {item?.email}
                           </Text>
+                        )}
+                        {item?.phoneNumber && (
                           <Text
                             lineBreakMode="tail"
                             numberOfLines={2}
                             style={{
                               marginLeft: 10,
                               fontSize: 10,
-                              color: "gray"
+                              color: "gray",
                             }}
                           >
-                           {item?.phoneNumber}
+                            {item?.phoneNumber}
                           </Text>
-                        </View>
+                        )}
                       </View>
+                    </View>
                     <View>
-                      <Text
-                        style={{
-                        }}
-                      >
-                        {/* {item.description} */}
-                      </Text>
+                      <Text style={{}}>{/* {item.description} */}</Text>
                     </View>
                   </View>
 

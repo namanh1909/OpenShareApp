@@ -66,6 +66,8 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
     console.log("handleSheetChanges", index);
   }, []);
 
+  console.log(dataRequest)
+
   return (
     <BottomSheetModalProvider>
       <Modal isVisible={isModalVisibleReject} style={{ height: 300 }}>
@@ -100,7 +102,6 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
                 }
                 setIsModalVisibleReject(false)
                 dispatch(acceptRequest({ dataUser, authToken }))
-                dispatch(getPostUnApprove(authToken))
                 dispatch(getManegerRequestAll({ authToken, idUser }))
                 setIsModalVisibleReject(false)
                 setIsModalVisibleAcp(false)
@@ -280,8 +281,13 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
                         >
                           <View>
                             <TouchableOpacity onPress={() => {
-
-                            }}>
+                                navigation.navigate("ProfilePost", {
+                                  name: item?.name
+                                  ,
+                                  idUser: item?.idUserRequest,
+                                  photoURL: item?.photoURL,
+                                });
+                              }}>
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}

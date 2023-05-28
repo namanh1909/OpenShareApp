@@ -76,9 +76,13 @@ const Top10Screen = ({navigation}) => {
                         }}
                       >
                         <View>
-                          <TouchableOpacity onPress={() => {
-
-                          }}>
+                          <TouchableOpacity   onPress={() => {
+                                navigation.navigate("ProfilePost", {
+                                  name: item.name,
+                                  idUser: item.idUser,
+                                  photoURL: item.photoURL,
+                                });
+                              }}>
                             <Text
                               lineBreakMode="tail"
                               numberOfLines={2}

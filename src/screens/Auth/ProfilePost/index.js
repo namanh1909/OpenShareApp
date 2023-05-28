@@ -158,7 +158,12 @@ const ProfilePost = ({ navigation, route }) => {
                             {item.nameType}
                           </Text>
                         </View>
-                        <TouchableOpacity style={{}}>
+                        <TouchableOpacity style={{}}   onPress={() =>
+                              navigation.navigate("DetailPost", {
+                                item,
+                                output,
+                              })
+                            } >
                           <Text style={{}}>Xem</Text>
                         </TouchableOpacity>
                       </View>

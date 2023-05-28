@@ -5,11 +5,15 @@ import { Alert } from 'react-native'
 
 export const getPostProfile = createAsyncThunk('postUserAdmin/getPostProfile', async ({ authToken, dataUser }) => {
     try {
-        const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/UserManager/getUserPost.php`, dataUser, {
+        const response = await axios.post(
+          `http://localhost/WEBSITE_OPENSHARE/controllers/admin/PostManager/getPostByIdUser.php`,
+          dataUser,
+          {
             headers: {
-                Authorization: `Bearer ${authToken}`,
-            }
-        })
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
         console.log("post user", response)
         if (response.status == "200") {
             return response.data

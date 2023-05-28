@@ -35,7 +35,7 @@ const ChangePasswordAdminScreen = ({ navigation }) => {
         Alert.alert("Mật khẩu nhập lại không chính xác");
       }
     } else {
-      Alert.alert("Vui lòng nhập đầy đủ các trường");
+      Alert.alert("Vui lòng không bỏ trống");
     }
   };
 

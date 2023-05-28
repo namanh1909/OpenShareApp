@@ -6,6 +6,9 @@ import {
   Image,
   FlatList,
   ScrollView,
+  Modal,
+  ActivityIndicator,
+  Alert
 } from "react-native";
 import React, { useEffect, useState, useMemo, useLayoutEffect } from "react";
 import NavBar from "../../../../../components/NavBar";
@@ -130,20 +133,26 @@ const CreatePost = ({ navigation }) => {
     );
   };
   const handleCreatePost = () => {
-    try {
-      let dataPost = {
-        title,
-        description,
-        address,
-        idUser,
-        idType,
-        photos: `${JSON.stringify(imageList)}`,
-        soluongdocho: number,
-      };
-      console.log("datapost", dataPost);
-      dispatch(createPost({ authToken, dataPost }));
-      navigation.goBack();
-    } catch (error) {}
+   const photos =  `${JSON.stringify(imageList)}`
+    if(title.length > 0 && description.length > 0 && address.length > 0 && idUser && idType !== "" && number !== "" > 0 && photos.length > 0){
+      try {
+        let dataPost = {
+          title,
+          description,
+          address,
+          idUser,
+          idType,
+          photos: `${JSON.stringify(imageList)}`,
+          soluongdocho: number,
+        };
+        console.log("datapost", dataPost);
+        dispatch(createPost({ authToken, dataPost }));
+        navigation.goBack();
+      } catch (error) {}
+    }
+    else {
+      Alert.alert("Vui lòng nhập đầy đủ")
+    }
   };
 
   const handleChangeType = (type) => {
@@ -308,7 +317,7 @@ const CreatePost = ({ navigation }) => {
               </View>
             );
           })}
-          {loading && <Text>Loading</Text>}
+          {loading && <LoadingModal visible={loading} />}
 
           <TouchableOpacity
             onPress={() => selectImages()}

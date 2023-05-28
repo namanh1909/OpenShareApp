@@ -33,58 +33,84 @@ const RequestScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <NavBar title="Yêu cầu của bạn"
-        textCenter={true}
-      />
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{
-        paddingHorizontal: 10,
-      }}>
-        <TouchableOpacity onPress={() => setTabIndex(0)} style={{
-          borderBottomWidth: tabIndex == 0 ? 3 : 0,
-          borderColor: tabIndex == 0 ? "#FFA925" : null,
-          marginRight: 25,
-          marginLeft: 10,
-        }}>
-          <Text style={{
-            paddingVertical: 10,
-            fontWeight: '500'
-          }}>Đang yêu cầu</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setTabIndex(1)} style={{
-          borderBottomWidth: tabIndex == 1 ? 3 : 0,
-          borderColor: tabIndex == 1 ? "#FFA925" : null,
-          marginRight: 25,
-
-        }}>
-          <Text style={{
-            paddingVertical: 10,
-            fontWeight: '500'
-
-          }}>Được chấp nhận</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{
-          borderBottomWidth: tabIndex == 2 ? 3 : 0,
-          borderColor: tabIndex == 2 ? "#FFA925" : null,
-          marginRight: 20
-
-        }} onPress={() => setTabIndex(2)}>
-          <Text style={{
-            paddingVertical: 10,
-            fontWeight: '500'
-          }}>Bị từ chối</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{
-          borderBottomWidth: tabIndex == 3 ? 3 : 0,
-          borderColor: tabIndex == 3 ? "#FFA925" : null
-        }} onPress={() => setTabIndex(3)}>
-          <Text style={{
-            paddingVertical: 10,
+      <NavBar title="Yêu cầu của bạn" textCenter={true} />
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{
+          paddingHorizontal: 10,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => setTabIndex(0)}
+          style={{
+            borderBottomWidth: tabIndex == 0 ? 3 : 0,
+            borderColor: tabIndex == 0 ? "#FFA925" : null,
             marginRight: 25,
-            fontWeight: '500',
-            marginLeft: 10
-          }}>Thành công</Text>
+            marginLeft: 10,
+          }}
+        >
+          <Text
+            style={{
+              paddingVertical: 10,
+              fontWeight: "500",
+            }}
+          >
+            Đang yêu cầu
+          </Text>
         </TouchableOpacity>
-
+        <TouchableOpacity
+          onPress={() => setTabIndex(1)}
+          style={{
+            borderBottomWidth: tabIndex == 1 ? 3 : 0,
+            borderColor: tabIndex == 1 ? "#FFA925" : null,
+            marginRight: 25,
+          }}
+        >
+          <Text
+            style={{
+              paddingVertical: 10,
+              fontWeight: "500",
+            }}
+          >
+            Được chấp nhận
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            borderBottomWidth: tabIndex == 2 ? 3 : 0,
+            borderColor: tabIndex == 2 ? "#FFA925" : null,
+            marginRight: 20,
+          }}
+          onPress={() => setTabIndex(2)}
+        >
+          <Text
+            style={{
+              paddingVertical: 10,
+              fontWeight: "500",
+            }}
+          >
+            Bị từ chối
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            borderBottomWidth: tabIndex == 3 ? 3 : 0,
+            borderColor: tabIndex == 3 ? "#FFA925" : null,
+          }}
+          onPress={() => setTabIndex(3)}
+        >
+          <Text
+            style={{
+              paddingVertical: 10,
+              marginRight: 25,
+              fontWeight: "500",
+              marginLeft: 10,
+            }}
+          >
+            Thành công
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
       {tabIndex == 0 && listRequest?.data && listRequest?.data?.length > 0 && (
         <FlatList
@@ -96,11 +122,12 @@ const RequestScreen = ({ navigation }) => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={() => {
-                dispatch(getrequest({ authToken, dataUser }))
-              }} />
-            }
+                dispatch(getrequest({ authToken, dataUser }));
+              }}
+            />
+          }
           ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
+            return <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />;
           }}
           renderItem={({ item, index }) => {
             // let imageList =
@@ -115,13 +142,12 @@ const RequestScreen = ({ navigation }) => {
             let convertedUrls = output.map((url: any) => ({ url }));
             if (item.status == 0) {
               return (
-
                 <View
                   style={{
                     padding: 10,
                     backgroundColor: "#fff",
                     flex: 1,
-                    paddingHorizontal: 10
+                    paddingHorizontal: 10,
                   }}
                   key={index}
                 >
@@ -135,21 +161,23 @@ const RequestScreen = ({ navigation }) => {
 
                     <View
                       key={item.idPost}
-                    // onPress={() => {
-                    //   navigation.navigate("DetailRequest", { item });
-                    // }}
+                      // onPress={() => {
+                      //   navigation.navigate("DetailRequest", { item });
+                      // }}
                     >
                       <View
                         style={{
                           marginLeft: 10,
-                          width: "100%"
+                          width: "100%",
                         }}
                       >
-                        <View style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
                           <View
                             style={{
                               padding: 10,
@@ -160,7 +188,7 @@ const RequestScreen = ({ navigation }) => {
                               height: 40,
                               borderColor: "#f5f5f5",
                               borderWidth: 2,
-                              width: 150
+                              width: 150,
                             }}
                           >
                             <Text
@@ -173,23 +201,29 @@ const RequestScreen = ({ navigation }) => {
                               Đang yêu cầu
                             </Text>
                           </View>
-                          <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailRequest", {
-                              item,
-                              output
-                            })
-                          }>
-                            <Text style={{
-                            }}>Xem</Text>
+                          <TouchableOpacity
+                            onPress={() =>
+                              navigation.navigate("DetailRequest", {
+                                item,
+                                output,
+                              })
+                            }
+                          >
+                            <Text style={{}}>Xem</Text>
                           </TouchableOpacity>
                         </View>
-                        <Text style={{
-                          marginVertical: 10
-                        }}>{item.title}</Text>
+                        <Text
+                          style={{
+                            marginVertical: 10,
+                            maxWidth: 200,
+                          }}
+                        >
+                          {item.title}
+                        </Text>
                         <View
                           style={{
                             flexDirection: "row",
-                            marginVertical: 10
+                            marginVertical: 10,
                           }}
                         >
                           <Image
@@ -201,13 +235,15 @@ const RequestScreen = ({ navigation }) => {
                             }}
                           />
                           <View>
-                            <TouchableOpacity onPress={() => {
-                              navigation.navigate("ProfilePost", {
-                                name: item.name,
-                                idUser: item.idUser,
-                                photoURL: item.photoURL
-                              })
-                            }}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                navigation.navigate("ProfilePost", {
+                                  name: item.name,
+                                  idUser: item.idUser,
+                                  photoURL: item.photoURL,
+                                });
+                              }}
+                            >
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}
@@ -226,13 +262,17 @@ const RequestScreen = ({ navigation }) => {
                                 marginLeft: 10,
                               }}
                             >
-                              <Ionicons name="location-sharp" size={15} color="#000" />
+                              <Ionicons
+                                name="location-sharp"
+                                size={15}
+                                color="#000"
+                              />
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}
                                 style={{
                                   fontSize: 12,
-                                  marginVertical: 4
+                                  marginVertical: 4,
                                 }}
                               >
                                 {formatAddress(item.address)}
@@ -244,18 +284,18 @@ const RequestScreen = ({ navigation }) => {
                               style={{
                                 marginLeft: 10,
                                 fontSize: 10,
-                                color: "gray"
+                                color: "gray",
                               }}
                             >
-                              Đã gửi lúc  {item.requestDate}
+                              Đã gửi lúc {item.requestDate}
                             </Text>
                           </View>
-
                         </View>
                         <View>
                           <Text
                             style={{
                               marginVertical: 10,
+                              maxWidth: 200,
                             }}
                           >
                             {item.message}
@@ -273,8 +313,7 @@ const RequestScreen = ({ navigation }) => {
                   </View>
                 </View>
               );
-            }
-
+            } else return null;
           }}
         />
       )}
@@ -286,15 +325,16 @@ const RequestScreen = ({ navigation }) => {
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
           ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
+            return <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />;
           }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
               onRefresh={() => {
-                dispatch(getrequest({ authToken, dataUser }))
-              }} />
-            }
+                dispatch(getrequest({ authToken, dataUser }));
+              }}
+            />
+          }
           renderItem={({ item, index }) => {
             // let imageList =
             let a = [];
@@ -313,7 +353,7 @@ const RequestScreen = ({ navigation }) => {
                     padding: 10,
                     backgroundColor: "#fff",
                     flex: 1,
-                    paddingHorizontal: 10
+                    paddingHorizontal: 10,
                   }}
                   key={index}
                 >
@@ -327,21 +367,23 @@ const RequestScreen = ({ navigation }) => {
 
                     <View
                       key={item.idPost}
-                    // onPress={() => {
-                    //   navigation.navigate("DetailRequest", { item });
-                    // }}
+                      // onPress={() => {
+                      //   navigation.navigate("DetailRequest", { item });
+                      // }}
                     >
                       <View
                         style={{
                           marginLeft: 10,
-                          width: "100%"
+                          width: "100%",
                         }}
                       >
-                        <View style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
                           <View
                             style={{
                               padding: 10,
@@ -352,7 +394,7 @@ const RequestScreen = ({ navigation }) => {
                               height: 40,
                               borderColor: "#f5f5f5",
                               borderWidth: 2,
-                              width: 150
+                              width: 150,
                             }}
                           >
                             <Text
@@ -365,24 +407,35 @@ const RequestScreen = ({ navigation }) => {
                               Được chấp nhận
                             </Text>
                           </View>
-                          <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailRequest", {
-                              item,
-                              output
-                            })
-                          }>
-                            <Text style={{
-                              marginRight: 10
-                            }}>Xem</Text>
+                          <TouchableOpacity
+                            onPress={() =>
+                              navigation.navigate("DetailRequest", {
+                                item,
+                                output,
+                              })
+                            }
+                          >
+                            <Text
+                              style={{
+                                marginRight: 10,
+                              }}
+                            >
+                              Xem
+                            </Text>
                           </TouchableOpacity>
                         </View>
-                        <Text style={{
-                          marginVertical: 10
-                        }}>{item.title}</Text>
+                        <Text
+                          style={{
+                            marginVertical: 10,
+                            maxWidth: 200,
+                          }}
+                        >
+                          {item.title}
+                        </Text>
                         <View
                           style={{
                             flexDirection: "row",
-                            marginVertical: 10
+                            marginVertical: 10,
                           }}
                         >
                           <Image
@@ -394,13 +447,15 @@ const RequestScreen = ({ navigation }) => {
                             }}
                           />
                           <View>
-                            <TouchableOpacity onPress={() => {
-                              navigation.navigate("ProfilePost", {
-                                name: item.name,
-                                idUser: item.idUser,
-                                photoURL: item.photoURL
-                              })
-                            }}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                navigation.navigate("ProfilePost", {
+                                  name: item.name,
+                                  idUser: item.idUser,
+                                  photoURL: item.photoURL,
+                                });
+                              }}
+                            >
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}
@@ -419,13 +474,17 @@ const RequestScreen = ({ navigation }) => {
                                 marginLeft: 10,
                               }}
                             >
-                              <Ionicons name="location-sharp" size={15} color="#000" />
+                              <Ionicons
+                                name="location-sharp"
+                                size={15}
+                                color="#000"
+                              />
                               <Text
                                 lineBreakMode="tail"
                                 numberOfLines={2}
                                 style={{
                                   fontSize: 12,
-                                  marginVertical: 4
+                                  marginVertical: 4,
                                 }}
                               >
                                 {formatAddress(item.address)}
@@ -437,18 +496,18 @@ const RequestScreen = ({ navigation }) => {
                               style={{
                                 marginLeft: 10,
                                 fontSize: 10,
-                                color: "gray"
+                                color: "gray",
                               }}
                             >
-                              Đã gửi lúc  {item.requestDate}
+                              Đã gửi lúc {item.requestDate}
                             </Text>
                           </View>
-
                         </View>
                         <View>
                           <Text
                             style={{
                               marginVertical: 10,
+                              maxWidth: 200,
                             }}
                           >
                             {item.message}
@@ -459,9 +518,10 @@ const RequestScreen = ({ navigation }) => {
                           <Text
                             style={{
                               marginVertical: 10,
+                              maxWidth: 200,
                             }}
                           >
-                           Reply: {item.messageResponse}
+                            Reply: {item.messageResponse}
                           </Text>
                         </View>
                       </View>
@@ -477,391 +537,430 @@ const RequestScreen = ({ navigation }) => {
                 </View>
               );
             }
-
+            else return null
           }}
         />
       )}
 
-      {tabIndex == 2 && listRequest?.data && listRequest?.data?.length > 0 && (
-        <FlatList
-          data={listRequest?.data}
-          style={{ width: "100%", height: "100%", marginTop: 10 }}
-          ListFooterComponent={<View style={{ height: 20 }} />}
-          keyExtractor={(item) => item.idPost}
-          ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
-          }}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => {
-                dispatch(getrequest({ authToken, dataUser }))
-              }} />
-            }
-          renderItem={({ item, index }) => {
-            // let imageList =
-            let a = [];
-            let b = item.photos;
-            const c = b.replace(/[[\]]/g, "");
-            a.push(c);
-            // console.log(a)
-            const jsonString = a[0].replace(/'/g, '"');
-            const output = JSON.parse(`[${jsonString}]`);
-            // console.log(output)
-            let convertedUrls = output.map((url: any) => ({ url }));
-            if (item.status == 2) {
+      {
+        tabIndex == 2 && listRequest?.data && listRequest?.data?.length > 0 && (
+          <FlatList
+            data={listRequest?.data}
+            style={{ width: "100%", height: "100%", marginTop: 10 }}
+            ListFooterComponent={<View style={{ height: 20 }} />}
+            keyExtractor={(item) => item.idPost}
+            ItemSeparatorComponent={() => {
               return (
-                <View
-                  style={{
-                    padding: 10,
-                    backgroundColor: "#fff",
-                    flex: 1,
-                  }}
-                  key={index}
-                >
+                <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />
+              );
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => {
+                  dispatch(getrequest({ authToken, dataUser }));
+                }}
+              />
+            }
+            renderItem={({ item, index }) => {
+              // let imageList =
+              let a = [];
+              let b = item.photos;
+              const c = b.replace(/[[\]]/g, "");
+              a.push(c);
+              // console.log(a)
+              const jsonString = a[0].replace(/'/g, '"');
+              const output = JSON.parse(`[${jsonString}]`);
+              // console.log(output)
+              let convertedUrls = output.map((url: any) => ({ url }));
+              if (item.status == 2) {
+                return (
                   <View
                     style={{
-                      flexDirection: "row",
-                      width: "100%",
+                      padding: 10,
+                      backgroundColor: "#fff",
+                      flex: 1,
                     }}
+                    key={index}
                   >
-                    <RenderImage item={output} />
-
                     <View
-                      key={item.idPost}
-                    // onPress={() => {
-                    //   navigation.navigate("DetailRequest", { item });
-                    // }}
+                      style={{
+                        flexDirection: "row",
+                        width: "100%",
+                      }}
                     >
+                      <RenderImage item={output} />
+
                       <View
-                        style={{
-                          marginLeft: 10,
-                          width: "100%"
-                        }}
+                        key={item.idPost}
+                        // onPress={() => {
+                        //   navigation.navigate("DetailRequest", { item });
+                        // }}
                       >
-                        <View style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}>
-                          <View
-                            style={{
-                              padding: 10,
-                              justifyContent: "center",
-                              alignItems: "center",
-                              backgroundColor: "red",
-                              borderRadius: 20,
-                              height: 40,
-                              borderColor: "#f5f5f5",
-                              borderWidth: 2,
-                              width: 150
-                            }}
-                          >
-                            <Text
-                              style={{
-                                color: "#ffff",
-                                fontWeight: "500",
-                                fontSize: 12,
-                              }}
-                            >
-                              Bị từ chối
-                            </Text>
-                          </View>
-                          <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailRequest", {
-                              item,
-                              output
-                            })
-                          }>
-                            <Text style={{
-                            }}>Xem</Text>
-                          </TouchableOpacity>
-                        </View>
-                        <Text style={{
-                          marginVertical: 10
-                        }}>{item.title}</Text>
                         <View
                           style={{
-                            flexDirection: "row",
-                            marginVertical: 10
+                            marginLeft: 10,
+                            width: "100%",
                           }}
                         >
-                          <Image
-                            source={{ uri: item.photoURL }}
+                          <View
                             style={{
-                              height: 40,
-                              width: 40,
-                              borderRadius: 20,
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "space-between",
                             }}
-                          />
-                          <View>
-                            <TouchableOpacity onPress={() => {
-                              navigation.navigate("ProfilePost", {
-                                name: item.name,
-                                idUser: item.idUser,
-                                photoURL: item.photoURL
-                              })
-                            }}>
-                              <Text
-                                lineBreakMode="tail"
-                                numberOfLines={2}
-                                style={{
-                                  fontWeight: "bold",
-                                  marginLeft: 10,
-                                }}
-                              >
-                                {item.name}
-                              </Text>
-                            </TouchableOpacity>
-
+                          >
                             <View
                               style={{
-                                flexDirection: "row",
-                                marginLeft: 10,
+                                padding: 10,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "red",
+                                borderRadius: 20,
+                                height: 40,
+                                borderColor: "#f5f5f5",
+                                borderWidth: 2,
+                                width: 150,
                               }}
                             >
-                              <Ionicons name="location-sharp" size={15} color="#000" />
                               <Text
-                                lineBreakMode="tail"
-                                numberOfLines={2}
                                 style={{
+                                  color: "#ffff",
+                                  fontWeight: "500",
                                   fontSize: 12,
-                                  marginVertical: 4
                                 }}
                               >
-                                {formatAddress(item.address)}
+                                Bị từ chối
                               </Text>
                             </View>
-                            <Text
-                              lineBreakMode="tail"
-                              numberOfLines={2}
-                              style={{
-                                marginLeft: 10,
-                                fontSize: 10,
-                                color: "gray"
-                              }}
+                            <TouchableOpacity
+                              onPress={() =>
+                                navigation.navigate("DetailRequest", {
+                                  item,
+                                  output,
+                                })
+                              }
                             >
-                              Đã gửi lúc  {item.requestDate}
-                            </Text>
+                              <Text style={{}}>Xem</Text>
+                            </TouchableOpacity>
                           </View>
-
-                        </View>
-                        <View>
                           <Text
                             style={{
                               marginVertical: 10,
+                              maxWidth: 200,
                             }}
                           >
-                            {item.message}
+                            {item.title}
                           </Text>
-                        </View>
-                      </View>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              marginVertical: 10,
+                            }}
+                          >
+                            <Image
+                              source={{ uri: item.photoURL }}
+                              style={{
+                                height: 40,
+                                width: 40,
+                                borderRadius: 20,
+                              }}
+                            />
+                            <View>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  navigation.navigate("ProfilePost", {
+                                    name: item.name,
+                                    idUser: item.idUser,
+                                    photoURL: item.photoURL,
+                                  });
+                                }}
+                              >
+                                <Text
+                                  lineBreakMode="tail"
+                                  numberOfLines={2}
+                                  style={{
+                                    fontWeight: "bold",
+                                    marginLeft: 10,
+                                  }}
+                                >
+                                  {item.name}
+                                </Text>
+                              </TouchableOpacity>
 
-                      <View
-                        style={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      ></View>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  marginLeft: 10,
+                                }}
+                              >
+                                <Ionicons
+                                  name="location-sharp"
+                                  size={15}
+                                  color="#000"
+                                />
+                                <Text
+                                  lineBreakMode="tail"
+                                  numberOfLines={2}
+                                  style={{
+                                    fontSize: 12,
+                                    marginVertical: 4,
+                                  }}
+                                >
+                                  {formatAddress(item.address)}
+                                </Text>
+                              </View>
+                              <Text
+                                lineBreakMode="tail"
+                                numberOfLines={2}
+                                style={{
+                                  marginLeft: 10,
+                                  fontSize: 10,
+                                  color: "gray",
+                                }}
+                              >
+                                Đã gửi lúc {item.requestDate}
+                              </Text>
+                            </View>
+                          </View>
+                          <View>
+                            <Text
+                              style={{
+                                marginVertical: 10,
+                                maxWidth: 200,
+                              }}
+                            >
+                              {item.message}
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View
+                          style={{
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        ></View>
+                      </View>
                     </View>
                   </View>
-                </View>
-              );
-            }
+                );
+              }
+              else return null
+            }}
+          />
+        )
+      }
 
-          }}
-        />
-      )}
-
-      {tabIndex == 3 && listRequest?.data && listRequest?.data?.length > 0 && (
-        <FlatList
-          data={listRequest?.data}
-          style={{ width: "100%", height: "100%", marginTop: 10 }}
-          ListFooterComponent={<View style={{ height: 20 }} />}
-          keyExtractor={(item) => item.idPost}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => {
-                dispatch(getrequest({ authToken, dataUser }))
-              }} />
+      {
+        tabIndex == 3 && listRequest?.data && listRequest?.data?.length > 0 && (
+          <FlatList
+            data={listRequest?.data}
+            style={{ width: "100%", height: "100%", marginTop: 10 }}
+            ListFooterComponent={<View style={{ height: 20 }} />}
+            keyExtractor={(item) => item.idPost}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => {
+                  dispatch(getrequest({ authToken, dataUser }));
+                }}
+              />
             }
-          ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
-          }}
-          renderItem={({ item, index }) => {
-            // let imageList =
-            let a = [];
-            let b = item.photos;
-            const c = b.replace(/[[\]]/g, "");
-            a.push(c);
-            // console.log(a)
-            const jsonString = a[0].replace(/'/g, '"');
-            const output = JSON.parse(`[${jsonString}]`);
-            // console.log(output)
-            let convertedUrls = output.map((url: any) => ({ url }));
-            if (item.status == 3) {
+            ItemSeparatorComponent={() => {
               return (
-                <View
-                  style={{
-                    padding: 10,
-                    backgroundColor: "#fff",
-                    flex: 1,
-                  }}
-                  key={index}
-                >
+                <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />
+              );
+            }}
+            renderItem={({ item, index }) => {
+              // let imageList =
+              let a = [];
+              let b = item.photos;
+              const c = b.replace(/[[\]]/g, "");
+              a.push(c);
+              // console.log(a)
+              const jsonString = a[0].replace(/'/g, '"');
+              const output = JSON.parse(`[${jsonString}]`);
+              // console.log(output)
+              let convertedUrls = output.map((url: any) => ({ url }));
+              if (item.status == 3) {
+                return (
                   <View
                     style={{
-                      flexDirection: "row",
-                      width: "100%",
+                      padding: 10,
+                      backgroundColor: "#fff",
+                      flex: 1,
                     }}
+                    key={index}
                   >
-                    <RenderImage item={output} />
-
                     <View
-                      key={item.idPost}
-                    // onPress={() => {
-                    //   navigation.navigate("DetailRequest", { item });
-                    // }}
+                      style={{
+                        flexDirection: "row",
+                        width: "100%",
+                      }}
                     >
+                      <RenderImage item={output} />
+
                       <View
-                        style={{
-                          marginLeft: 10,
-                          width: "100%"
-                        }}
+                        key={item.idPost}
+                        // onPress={() => {
+                        //   navigation.navigate("DetailRequest", { item });
+                        // }}
                       >
-                        <View style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}>
-                          <View
-                            style={{
-                              padding: 10,
-                              justifyContent: "center",
-                              alignItems: "center",
-                              backgroundColor: "green",
-                              borderRadius: 20,
-                              height: 40,
-                              borderColor: "#f5f5f5",
-                              borderWidth: 2,
-                              width: 150
-                            }}
-                          >
-                            <Text
-                              style={{
-                                color: "#ffff",
-                                fontWeight: "500",
-                                fontSize: 12,
-                              }}
-                            >
-                              Thành công
-                            </Text>
-                          </View>
-                          <TouchableOpacity onPress={
-                            () => navigation.navigate("DetailRequest", {
-                              item,
-                              output
-                            })
-                          }>
-                            <Text style={{
-                            }}>Xem</Text>
-                          </TouchableOpacity>
-                        </View>
-                        <Text style={{
-                          marginVertical: 10
-                        }}>{item.title}</Text>
                         <View
                           style={{
-                            flexDirection: "row",
-                            marginVertical: 10
+                            marginLeft: 10,
+                            width: "100%",
                           }}
                         >
-                          <Image
-                            source={{ uri: item.photoURL }}
+                          <View
                             style={{
-                              height: 40,
-                              width: 40,
-                              borderRadius: 20,
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "space-between",
                             }}
-                          />
-                          <View>
-                            <TouchableOpacity onPress={() => {
-                              navigation.navigate("ProfilePost", {
-                                name: item.name,
-                                idUser: item.idUser,
-                                photoURL: item.photoURL
-                              })
-                            }}>
-                              <Text
-                                lineBreakMode="tail"
-                                numberOfLines={2}
-                                style={{
-                                  fontWeight: "bold",
-                                  marginLeft: 10,
-                                }}
-                              >
-                                {item.name}
-                              </Text>
-                            </TouchableOpacity>
-
+                          >
                             <View
                               style={{
-                                flexDirection: "row",
-                                marginLeft: 10,
+                                padding: 10,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "green",
+                                borderRadius: 20,
+                                height: 40,
+                                borderColor: "#f5f5f5",
+                                borderWidth: 2,
+                                width: 150,
                               }}
                             >
-                              <Ionicons name="location-sharp" size={15} color="#000" />
                               <Text
-                                lineBreakMode="tail"
-                                numberOfLines={2}
                                 style={{
+                                  color: "#ffff",
+                                  fontWeight: "500",
                                   fontSize: 12,
-                                  marginVertical: 4
                                 }}
                               >
-                                {formatAddress(item.address)}
+                                Thành công
                               </Text>
                             </View>
-                            <Text
-                              lineBreakMode="tail"
-                              numberOfLines={2}
-                              style={{
-                                marginLeft: 10,
-                                fontSize: 10,
-                                color: "gray"
-                              }}
+                            <TouchableOpacity
+                              onPress={() =>
+                                navigation.navigate("DetailRequest", {
+                                  item,
+                                  output,
+                                })
+                              }
                             >
-                              Đã gửi lúc  {item.requestDate}
-                            </Text>
+                              <Text style={{}}>Xem</Text>
+                            </TouchableOpacity>
                           </View>
-
-                        </View>
-                        <View>
                           <Text
                             style={{
                               marginVertical: 10,
+                              maxWidth: 200,
                             }}
                           >
-                            {item.message}
+                            {item.title}
                           </Text>
-                        </View>
-                      </View>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              marginVertical: 10,
+                            }}
+                          >
+                            <Image
+                              source={{ uri: item.photoURL }}
+                              style={{
+                                height: 40,
+                                width: 40,
+                                borderRadius: 20,
+                              }}
+                            />
+                            <View>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  navigation.navigate("ProfilePost", {
+                                    name: item.name,
+                                    idUser: item.idUser,
+                                    photoURL: item.photoURL,
+                                  });
+                                }}
+                              >
+                                <Text
+                                  lineBreakMode="tail"
+                                  numberOfLines={2}
+                                  style={{
+                                    fontWeight: "bold",
+                                    marginLeft: 10,
+                                  }}
+                                >
+                                  {item.name}
+                                </Text>
+                              </TouchableOpacity>
 
-                      <View
-                        style={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      ></View>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  marginLeft: 10,
+                                }}
+                              >
+                                <Ionicons
+                                  name="location-sharp"
+                                  size={15}
+                                  color="#000"
+                                />
+                                <Text
+                                  lineBreakMode="tail"
+                                  numberOfLines={2}
+                                  style={{
+                                    fontSize: 12,
+                                    marginVertical: 4,
+                                  }}
+                                >
+                                  {formatAddress(item.address)}
+                                </Text>
+                              </View>
+                              <Text
+                                lineBreakMode="tail"
+                                numberOfLines={2}
+                                style={{
+                                  marginLeft: 10,
+                                  fontSize: 10,
+                                  color: "gray",
+                                }}
+                              >
+                                Đã gửi lúc {item.requestDate}
+                              </Text>
+                            </View>
+                          </View>
+                          <View>
+                            <Text
+                              style={{
+                                marginVertical: 10,
+                                maxWidth: 200,
+                              }}
+                            >
+                              {item.message}
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View
+                          style={{
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        ></View>
+                      </View>
                     </View>
                   </View>
-                </View>
-              );
-            }
-          }}
-        />
-      )}
+                );
+              }
+              else return null
+            }}
+          />
+        )
+      }
     </View>
   )
 }
