@@ -6,7 +6,7 @@ import { Alert } from 'react-native'
 export const getPostProfile = createAsyncThunk('postUserAdmin/getPostProfile', async ({ authToken, dataUser }) => {
     try {
         const response = await axios.post(
-          `http://localhost/WEBSITE_OPENSHARE/controllers/admin/PostManager/getPostByIdUser.php`,
+          `${apiKeyAdmin}/PostManager/getPostByIdUser.php`,
           dataUser,
           {
             headers: {
@@ -26,7 +26,7 @@ export const getPostProfile = createAsyncThunk('postUserAdmin/getPostProfile', a
 
 export const banUser = createAsyncThunk('postUserAdmin/banUser', async ({ authToken, dataUser }) => {
     try {
-        const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/UserManager/banUser.php`, dataUser, {
+        const response = await axios.post(`${apiKeyAdmin}/UserManager/banUser.php`, dataUser, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             }
@@ -43,7 +43,7 @@ export const banUser = createAsyncThunk('postUserAdmin/banUser', async ({ authTo
 
 export const UnbanUser = createAsyncThunk('postUserAdmin/UnbanUser', async ({ authToken, dataUser }) => {
     try {
-        const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/UserManager/unbanUser.php`, dataUser, {
+        const response = await axios.post(`${apiKeyAdmin}/UserManager/unbanUser.php`, dataUser, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             }

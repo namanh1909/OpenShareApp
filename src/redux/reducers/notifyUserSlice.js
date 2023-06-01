@@ -9,7 +9,7 @@ export const getNotify = createAsyncThunk(
     try {
       let listData = [];
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getNoticeFromAdmin.php`,
+        `${apiKeyUsers}/post/getNoticeFromAdmin.php`,
         dataUser,
         {
           headers: {
@@ -28,7 +28,7 @@ export const getNotify = createAsyncThunk(
       }
 
       const response2 = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getNoticeGiveandReceive.php`,
+        `${apiKeyUsers}/post/getNoticeGiveandReceive.php`,
         dataUser,
         {
           headers: {
@@ -41,9 +41,12 @@ export const getNotify = createAsyncThunk(
       if (response2.status == "200") {
         response2.data.data.forEach((element) => {
           if (
-            element?.idUser == dataUser.idUser ||
-            element?.idUserRequest_N == dataUser.idUser
-          )
+            (element?.idUser == dataUser.idUser && element?.status_accept_reject == null)
+            || (element?.idUserRequest_N == dataUser.idUser && element?.status_accept_reject == 0)
+            || (element?.idUserRequest_N == dataUser.idUser && element?.status_accept_reject == 1)
+            || (element?.idUser == dataUser.idUser && element?.status_accept_reject == 2)
+            || (element?.idUser == dataUser.idUser && element?.status_accept_reject == 3)
+            )
             listData.push(element);
         });
       }
@@ -64,7 +67,7 @@ export const seenAcpPost = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getPostWithidPost.php`,
+        `${apiKeyUsers}/post/getPostWithidPost.php`,
         dataUser,
         {
           headers: {
@@ -86,7 +89,7 @@ export const seenAcpPostRequest = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getManegerRequestByidPost.php`,
+        `${apiKeyUsers}/post/getManegerRequestByidPost.php`,
         dataUser,
         {
           headers: {
@@ -108,7 +111,7 @@ export const seenRequest = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getPostRequestbyidPost.php`,
+        `${apiKeyUsers}/post/getPostRequestbyidPost.php`,
         dataUser,
         {
           headers: {

@@ -17,7 +17,7 @@ const EditProfileScreen = ({ navigation }) => {
     useEffect(() => {
       dispatch(getUsers(authToken))
     }, [])
-    
+
     const { data, loading, error } = useSelector((state) => state.users)
     const idUser = data?.idUser
     const [name, setName] = useState(data?.name)
@@ -39,7 +39,7 @@ const EditProfileScreen = ({ navigation }) => {
 
           });
       } catch (error) {
-        
+
       }
     }
 
@@ -97,7 +97,7 @@ const EditProfileScreen = ({ navigation }) => {
                     <Text style={{
                         fontWeight: 'bold',
                         fontSize: 20,
-                    }}>Update your picture</Text>
+                    }}>Tải lên hình của bạn</Text>
                     <TouchableOpacity onPress={() => openPicker()} style={{
                         padding: 10,
                         backgroundColor: "#FFA925",
@@ -129,7 +129,7 @@ const EditProfileScreen = ({ navigation }) => {
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
-                }}>Phone Number</Text>
+                }}>Số điện thoại</Text>
                 <Input iconName={"phone"} value={phoneNumber} onChangeText={(value) => setPhoneNumber(value)} />
             </View>
         </View>

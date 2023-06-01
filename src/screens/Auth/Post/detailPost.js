@@ -160,7 +160,6 @@ const DetailPostScreen = ({ navigation, route }) => {
       </View>
       <CustomImageCarousalSquare
         data={output}
-        autoPlay={true}
         pagination={true}
       />
       <View style={{

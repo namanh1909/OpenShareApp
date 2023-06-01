@@ -80,6 +80,7 @@ const ChangePasswordAdminScreen = ({ navigation }) => {
         <Input
           value={old_password}
           onChangeText={(value) => setOldPassword(value)}
+          secureTextEntry={true}
         />
         <Text
           style={{
@@ -92,6 +93,8 @@ const ChangePasswordAdminScreen = ({ navigation }) => {
         <Input
           value={new_password}
           onChangeText={(value) => setNewPassword(value)}
+          secureTextEntry={true}
+
         />
         <Text
           style={{
@@ -105,6 +108,8 @@ const ChangePasswordAdminScreen = ({ navigation }) => {
           secureTextEntry={true}
           value={renew_password}
           onChangeText={(value) => setreNewPassword(value)}
+          secureTextEntry={true}
+
         />
       </View>
     </View>

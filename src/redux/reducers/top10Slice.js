@@ -6,7 +6,7 @@ import { Alert } from 'react-native'
 export const getTop10 = createAsyncThunk('top10/getTop10', async () => {
   try {
     const response = await axios.get(`${apiKeyUsers}/post/displayTop10.php`)
-     console.log("response post", response)
+
   if(response.status == "200"){
     return response.data
   }

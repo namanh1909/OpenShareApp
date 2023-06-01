@@ -9,7 +9,7 @@ export const confirmOk = createAsyncThunk(
   async ({ authToken,idRequest,messageAfterReceiveGood,ratingStar,idPost,idUserRequest }) => {
     try {
       const response = await axios.put(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/suscessDetail.php`,
+        `${apiKeyUsers}/post/suscessDetail.php`,
         {
           idRequest,messageAfterReceiveGood,ratingStar,idPost,idUserRequest
         },
@@ -38,7 +38,7 @@ export const confirmCancel = createAsyncThunk(
   async ({ authToken,idRequest,messageAfterReceiveGood,idUserRequest,idPost }) => {
     try {
       const response = await axios.put(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/failDetail.php`,
+        `${apiKeyUsers}/post/failDetail.php`,
           {idRequest,messageAfterReceiveGood,idUserRequest,idPost}
         ,
         {

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   RefreshControl,
+  Image
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -147,13 +148,14 @@ const NotificationsScreen = ({ navigation }) => {
                   }
                 }}
               >
-                <Ionicons name="chatbubbles-outline" size={70} />
+                {item?.status_accept_reject == null || item?.status_accept_reject == 0 || item?.status_accept_reject == 2 || item?.status_accept_reject == 3 ? <Image  source={{uri: item?.photoURL}} style={{width: 70, height: 70}} /> : <Ionicons name="chatbox-outline" size={70} /> }
+
                 <View style={{ marginLeft: 10 }}>
                   {item?.status_accept_reject == null && (
                     <>
                       <Text
                         style={{
-                          maxWidth: 300,
+                          maxWidth: 200,
                           marginBottom: 10,
                         }}
                       >
@@ -183,7 +185,7 @@ const NotificationsScreen = ({ navigation }) => {
                         >{`${item?.title}`}</Text>{" "}
                         đã bị từ chối
                       </Text>
-                      <Text>{`${item?.createAt_N}`}</Text>
+                      <Text> {formatTime(item?.createAt_N)}</Text>
                     </>
                   )}
                   {item?.status_accept_reject == 1 && (
@@ -200,7 +202,7 @@ const NotificationsScreen = ({ navigation }) => {
                         >{`${item?.title}`}</Text>{" "}
                         đã được chấp nhận
                       </Text>
-                      <Text>{`${item?.createAt_N}`}</Text>
+                      <Text> {formatTime(item?.createAt_N)}</Text>
                     </>
                   )}
                   {item?.status_accept_reject == 2 && (
@@ -221,7 +223,7 @@ const NotificationsScreen = ({ navigation }) => {
                         >{`${item?.title}`}</Text>{" "}
                         thành công
                       </Text>
-                      <Text>{`${item?.createAt_N}`}</Text>
+                      <Text> {formatTime(item?.createAt_N)}</Text>
                     </>
                   )}
                   {item?.status_accept_reject == 3 && (
@@ -242,7 +244,7 @@ const NotificationsScreen = ({ navigation }) => {
                         >{`${item?.title}`}</Text>{" "}
                         thất bại
                       </Text>
-                      <Text>{`${item?.createAt_N}`}</Text>
+                      <Text> {formatTime(item?.createAt_N)}</Text>
                     </>
                   )}
                 </View>

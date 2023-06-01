@@ -8,7 +8,7 @@ export const getDetailRequestManeger = createAsyncThunk(
   async ({ authToken,idUser }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/manegerRequest.php`,
+        `${apiKeyUsers}/post/manegerRequest.php`,
         {
           idUser
         },
@@ -73,7 +73,7 @@ export const getManegerRequestByIdPostSlice = createSlice({
 
 
 
-    
+
   },
 });
 

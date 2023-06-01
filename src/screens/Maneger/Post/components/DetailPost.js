@@ -211,6 +211,7 @@ const DetailPostScreen = ({ navigation, route }) => {
                   marginLeft: 10,
                   fontSize: 10,
                   color: "gray",
+                  maxWidth: 250
                 }}
               >
                 {item.address}

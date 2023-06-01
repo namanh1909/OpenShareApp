@@ -5,7 +5,7 @@ import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const getrequest = createAsyncThunk('post/getrequest', async ({ authToken,dataUser}) => {
   try {
-    const response = await axios.post(`http://localhost/WEBSITE_OPENSHARE/controllers/users/post/getRequest.php`,dataUser,{
+    const response = await axios.post(`${apiKeyUsers}/post/getRequest.php`,dataUser,{
       headers: {
           Authorization: `Bearer ${authToken}`,
       }
@@ -27,11 +27,14 @@ export const requestPost = createAsyncThunk('post/requestPost', async ({ authTok
           Authorization: `Bearer ${authToken}`,
       }
   })
-    console.log(response)
+    console.log("response return", response.data)
     if(response.status == "200"){
+      if(response.data == `Bạn đã đạt đến giới hạn yêu cầu trong ngày.["message","ItemType is not Inserted"]`){
+        return Alert.alert("Bạn đã đạt đến giới hạn yêu cầu trong ngày");
+      }
       return Alert.alert("Yêu cầu thành công");
     }
-
+xư
   } catch (error) {
     console.log("error",error)
     return Alert.alert("Bạn đã yêu cầu bài viết này rồi");
@@ -41,7 +44,7 @@ export const requestPost = createAsyncThunk('post/requestPost', async ({ authTok
 
 export const rejectRequest = createAsyncThunk('post/rejectRequest', async ({ authToken,dataUser}) => {
   try {
-    const response = await axios.put(`http://localhost/WEBSITE_OPENSHARE/controllers/users/post/refuseRequest.php`,dataUser, {
+    const response = await axios.put(`${apiKeyUsers}/post/refuseRequest.php`,dataUser, {
       headers: {
           Authorization: `Bearer ${authToken}`,
       }
@@ -53,13 +56,13 @@ export const rejectRequest = createAsyncThunk('post/rejectRequest', async ({ aut
 
   } catch (error) {
     console.log("error",error)
-    return Alert.alert("Từ chối thất bại");
+    return Alert.alert("Đã xảy ra lỗi");
   }
 })
 
 export const acceptRequest = createAsyncThunk('post/acceptRequest', async ({ authToken,dataUser}) => {
   try {
-    const response = await axios.put(`http://localhost/WEBSITE_OPENSHARE/controllers/users/post/acceptRequest.php`,dataUser, {
+    const response = await axios.put(`${apiKeyUsers}/post/acceptRequest.php`,dataUser, {
       headers: {
           Authorization: `Bearer ${authToken}`,
       }
@@ -71,7 +74,7 @@ export const acceptRequest = createAsyncThunk('post/acceptRequest', async ({ aut
 
   } catch (error) {
     console.log("error",error)
-    return Alert.alert("Từ chối thất bại");
+    return Alert.alert("Đã xảy ra lỗi");
   }
 })
 

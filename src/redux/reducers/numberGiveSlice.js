@@ -9,7 +9,7 @@ export const getNumberGive = createAsyncThunk(
     try {
       let listData = [];
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/users/post/displaynumberItemGiveSuccess.php`,
+        `${apiKeyUsers}/post/displaynumberItemGiveSuccess.php`,
         dataUser,
         {
           headers: {
@@ -34,7 +34,7 @@ export const getNumberGiveAdmin = createAsyncThunk(
     try {
       let listData = [];
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/getNumberPoin.php`,
+        `${apiKeyAdmin}/Staff/getNumberPoin.php`,
         dataUser,
         {
           headers: {

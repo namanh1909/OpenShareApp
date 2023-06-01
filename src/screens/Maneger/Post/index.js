@@ -206,7 +206,7 @@ const ManagerPostScreen = ({ navigation }) => {
                               numberOfLines={2}
                               style={{
                                 fontSize: 12,
-                                marginVertical: 4
+                                marginVertical: 4,
                               }}
                             >
                               {formatAddress(item.address)}

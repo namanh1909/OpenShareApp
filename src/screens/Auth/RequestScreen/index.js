@@ -27,7 +27,7 @@ const RequestScreen = ({ navigation }) => {
 
   const listRequest = useSelector((state) => state.request.data)
 
-  console.log("list request", listRequest?.data)
+  console.log("list request", listRequest)
   const [refreshing, setRefreshing] = useState(false)
 
 
@@ -126,9 +126,6 @@ const RequestScreen = ({ navigation }) => {
               }}
             />
           }
-          ItemSeparatorComponent={() => {
-            return <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />;
-          }}
           renderItem={({ item, index }) => {
             // let imageList =
             let a = [];
@@ -313,7 +310,7 @@ const RequestScreen = ({ navigation }) => {
                   </View>
                 </View>
               );
-            } else return null;
+            }
           }}
         />
       )}
@@ -324,9 +321,6 @@ const RequestScreen = ({ navigation }) => {
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
-          ItemSeparatorComponent={() => {
-            return <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />;
-          }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -549,11 +543,6 @@ const RequestScreen = ({ navigation }) => {
             style={{ width: "100%", height: "100%", marginTop: 10 }}
             ListFooterComponent={<View style={{ height: 20 }} />}
             keyExtractor={(item) => item.idPost}
-            ItemSeparatorComponent={() => {
-              return (
-                <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />
-              );
-            }}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -767,11 +756,7 @@ const RequestScreen = ({ navigation }) => {
                 }}
               />
             }
-            ItemSeparatorComponent={() => {
-              return (
-                <View style={{ height: 10, backgroundColor: "#f5f5f5" }} />
-              );
-            }}
+
             renderItem={({ item, index }) => {
               // let imageList =
               let a = [];

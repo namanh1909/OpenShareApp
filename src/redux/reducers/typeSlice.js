@@ -5,7 +5,7 @@ import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const getType = createAsyncThunk('post/getType', async () => {
   try {
-    const response = await axios.get(`http://localhost/WEBSITE_OPENSHARE/controllers/users/type/getType.php`)
+    const response = await axios.get(`${apiKeyUsers}/type/getType.php`)
     console.log("res type", response)
   if(response.status == "200"){
     return response.data

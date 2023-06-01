@@ -17,7 +17,7 @@ export const getUsers = createAsyncThunk('users/getUsers', async (authToken) => 
 })
 
 export const getStaff = createAsyncThunk('users/getStaff', async (authToken) => {
-    const response = await axios.get(`${apiKeyAdmin}/getStaff.php`, {
+    const response = await axios.get(`${apiKeyAdmin}/Staff/getStaff.php`, {
         headers: {
             Authorization: `Bearer ${authToken}`,
         }
@@ -63,7 +63,7 @@ export const editProfileAdmin = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.put(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/editprofile.php`,
+        `${apiKeyAdmin}/Staff/editprofile.php`,
         dataUser,
         {
           headers: {

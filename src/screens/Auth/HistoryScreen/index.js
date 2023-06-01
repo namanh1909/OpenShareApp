@@ -28,14 +28,12 @@ const HistoryScreen = ({navigation}) => {
     useEffect(() => {
         dispatch(getManegerRequest({authToken, idUser}))
         dispatch(getManegerRequestAll({ authToken, idUser }))
-
     },[])
 
     const dataRequest = useSelector((state) => state.manegerRequest.data)
     const dataRequest2 = useSelector((state) => state.listRequestAll.listRequest)
 
-
-    console.log("Data Request", dataRequest2)
+    console.log("Data Request", dataRequest)
 
     return (
         <View style={{flex: 1}}>
@@ -93,9 +91,7 @@ const HistoryScreen = ({navigation}) => {
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
-          ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
-          }}
+
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -277,9 +273,7 @@ const HistoryScreen = ({navigation}) => {
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idUser}
-          ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
-          }}
+
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -467,9 +461,7 @@ const HistoryScreen = ({navigation}) => {
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idUser}
-          ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
-          }}
+
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -657,9 +649,7 @@ const HistoryScreen = ({navigation}) => {
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idUser}
-          ItemSeparatorComponent={() => {
-            return (<View style={{ height: 10, backgroundColor: "#f5f5f5" }} />);
-          }}
+
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

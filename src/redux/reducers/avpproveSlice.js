@@ -8,7 +8,7 @@ export const approvePost = createAsyncThunk(
   async ({ authToken, idPost,idStaff,idUser, title }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/PostManager/approvPost.php`,
+        `${apiKeyAdmin}/PostManager/approvPost.php`,
         {
           idPost,idStaff,idUser, title
         },
@@ -34,7 +34,7 @@ export const unApprovePost = createAsyncThunk(
   async ({ authToken, idPost,idStaff,idUser, title, messagefromAdmin }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/PostManager/rejectPost.php`,
+        `${apiKeyAdmin}/PostManager/rejectPost.php`,
         {
           idPost,idStaff,idUser, title, messagefromAdmin
         },
@@ -108,7 +108,7 @@ export const avpproveSlice = createSlice({
       }
     });
 
-    
+
   },
 });
 

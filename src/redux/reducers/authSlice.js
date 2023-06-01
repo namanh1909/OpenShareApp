@@ -37,7 +37,7 @@ export const loginAdmin = createAsyncThunk(
   "auth/loginAdmin",
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(`${apiKeyAdmin}/login.php`, userData);
+      const response = await axios.post(`${apiKeyAdmin}/Staff/login.php`, userData);
       // console.log("res", response.data)
       if (response.data.message == "Bạn đã đăng nhập thành công.") {
         if ((response.status = "200")) {
@@ -86,7 +86,7 @@ export const changePasswordAdmin = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.put(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/Staff/changpassword.php`,
+        `${apiKeyAdmin}/Staff/changpassword.php`,
         dataUser,
         {
           headers: {

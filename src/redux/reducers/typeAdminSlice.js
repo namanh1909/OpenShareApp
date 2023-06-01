@@ -8,7 +8,7 @@ export const getType = createAsyncThunk(
   async (authToken) => {
     try {
       const response = await axios.get(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/displayItem.php`,
+        `${apiKeyAdmin}/ItemType/displayItem.php`,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -30,7 +30,7 @@ export const createType = createAsyncThunk(
   async ({ authToken, nameType }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/addItem.php`,
+        `${apiKeyAdmin}/ItemType/addItem.php`,
         {
           nameType,
         },
@@ -56,7 +56,7 @@ export const updateType = createAsyncThunk(
   async ({ authToken, nameType, idType }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/updateItem.php`,
+        `${apiKeyAdmin}/ItemType/updateItem.php`,
         {
           nameType,
           idType,
@@ -83,7 +83,7 @@ export const deleteType = createAsyncThunk(
   async ({ authToken, idType }) => {
     try {
       const response = await axios.post(
-        `http://localhost/WEBSITE_OPENSHARE/controllers/admin/ItemType/deleteItem.php`,
+        `${apiKeyAdmin}/ItemType/deleteItem.php`,
         {
           idType,
         },

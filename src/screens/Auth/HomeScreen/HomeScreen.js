@@ -408,7 +408,7 @@ const HomeScreen = ({ navigation }) => {
                           <Text
                             style={{
                               marginVertical: 10,
-                              maxWidth: 250,
+                              maxWidth: 200,
                             }}
                           >
                             {item.description}

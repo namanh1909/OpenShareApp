@@ -5,7 +5,7 @@ import { Alert } from 'react-native'
 
 export const getPostApprove = createAsyncThunk('postApprove/getPostApprove', async (authToken) => {
     try {
-        const response = await axios.get(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/PostManager/displayapprovPost.php`, {
+        const response = await axios.get(`${apiKeyAdmin}/PostManager/displayapprovPost.php`, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             }

@@ -53,17 +53,19 @@ const ChangePasswordScreen = ({ navigation }) => {
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Mật khẩu cũ</Text>
-                <Input  value={old_password} onChangeText={(value) => setOldPassword(value)} />
+                <Input  value={old_password} onChangeText={(value) => setOldPassword(value)}  secureTextEntry={true}
+ />
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Mật khẩu mới</Text>
-                <Input value={new_password} onChangeText={(value) => setNewPassword(value)} />
+                <Input value={new_password} onChangeText={(value) => setNewPassword(value)} secureTextEntry={true}
+ />
                 <Text style={{
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Nhập lại khẩu mới</Text>
-                <Input secureTextEntry={true} />
+                <Input secureTextEntry={true} secureTextEntry={true} />
             </View>
 
         </View>

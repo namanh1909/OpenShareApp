@@ -4,7 +4,7 @@ import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const getManegerUser = createAsyncThunk('getManegerUser/getUser', async (token) => {
   try {
-    const response = await axios.get(`http://localhost/WEBSITE_OPENSHARE/controllers/admin/UserManager/displayUser.php`, {
+    const response = await axios.get(`${apiKeyAdmin}/UserManager/displayUser.php`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
