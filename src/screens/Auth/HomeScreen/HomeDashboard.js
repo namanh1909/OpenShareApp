@@ -99,15 +99,6 @@ const HomeDashBoardScreen = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          {/* <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              Open Share
-            </Text> */}
           <Image
             source={require("../../../../assets/icons/logoOpenShare.png")}
             style={{

@@ -4,6 +4,8 @@ import LoginScreen from "../screens/Authendication/LoginScreen";
 import SplashScreen from "../screens/Authendication/SplashScreen";
 import AdminLoginScreen from "../screens/Authendication/AdminLoginScrene";
 import HomeDashBoardScreen from "../screens/Auth/HomeScreen/HomeDashboard";
+import ResetPasswordUser from "../screens/Authendication/ResetPasswordUser";
+import ResetPasswordAdmin from "../screens/Authendication/ResetPasswordAdmin";
 
 const UnauthorizedStackNavigator = createNativeStackNavigator();
 const OPTIONS = {
@@ -32,6 +34,20 @@ const UnauthorizedStack = () => {
       <UnauthorizedStackNavigator.Screen
         component={AdminLoginScreen}
         name="AdminLogin"
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+       <UnauthorizedStackNavigator.Screen
+        component={ResetPasswordUser}
+        name="ResetPasswordUser"
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+         <UnauthorizedStackNavigator.Screen
+        component={ResetPasswordAdmin}
+        name="ResetPasswordAdmin"
         options={{
           ...OPTIONS.noHeader,
         }}

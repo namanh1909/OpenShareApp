@@ -12,12 +12,11 @@ import React, { useState, useRef } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useDispatch } from "react-redux";
-import { login, loginAdmin } from "../../redux/reducers/authSlice";
+import { forgotPasswordUser, login, loginAdmin } from "../../redux/reducers/authSlice";
 
-const AdminLoginScreen = ({ navigation }) => {
-    const [name, setName] = useState("");
+const ResetPasswordUser = ({ navigation }) => {
     const [userName, setUserName] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
     const dispatch = useDispatch()
 
 
@@ -44,12 +43,12 @@ const AdminLoginScreen = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: 15,
+                fontSize: 18,
                 fontWeight: "bold",
                 textAlign: "center",
               }}
             >
-              Nhân viên
+              Quên mật khẩu
             </Text>
           </View>
 
@@ -62,40 +61,28 @@ const AdminLoginScreen = ({ navigation }) => {
             }}
           />
           <Input
-            placeholder={"Mật khẩu"}
-            iconName="lock"
-            value={password}
+            placeholder={"Email"}
+            iconName="email"
+            value={email}
             onChangeText={(value) => {
-              setPassword(value);
-            }}
-            secureTextEntry={true}
-          />
+              setEmail(value);
+            }}          />
           <Button
             onPress={() => {
-              dispatch(loginAdmin({ userName, password }));
+              let dataUser = {
+                userName: userName,
+                email: email
+              }
+              dispatch(forgotPasswordUser(dataUser));
             }}
-            text="Đăng nhập"
+            text="Xác nhận thông tin"
             style={{
               marginBottom: 20,
             }}
           />
           <TouchableOpacity
-        style={{marginBottom: 10}}
-          onPress={() => {
-            navigation.navigate("ResetPasswordAdmin")
-          }}
-        >
-          <Text
-            style={{
-              color: "#FFA925",
-            }}
-          >
-            Quên mật khẩu
-          </Text>
-        </TouchableOpacity>
-          <TouchableOpacity
             onPress={() => {
-              navigation.navigate("LoginScreen");
+              navigation.goBack();
             }}
           >
             <Text
@@ -103,7 +90,7 @@ const AdminLoginScreen = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              Đăng nhập người dùng
+              Đăng nhập
             </Text>
           </TouchableOpacity>
         </View>
@@ -111,7 +98,7 @@ const AdminLoginScreen = ({ navigation }) => {
     );
 };
 
-export default AdminLoginScreen;
+export default ResetPasswordUser;
 
 const styles = StyleSheet.create({
     container: {

@@ -12,10 +12,10 @@ export const login = createAsyncThunk(
         `${apiKeyUsers}/auth/login.php`,
         userData
       );
-      console.log("res", response);
+      // console.log("res", response);
       if (response.data.message == "Bạn đã đăng nhập thành công.") {
         if ((response.status = "200")) {
-          console.log("token return", response.data.token);
+          // console.log("token return", response.data.token);
           setTimeout(() => {
             thunkAPI.dispatch(getUsers(response.data.token));
           }, 500);
@@ -69,7 +69,7 @@ export const changePasswordUser = createAsyncThunk(
           },
         }
       );
-      console.log("res", response);
+      // console.log("res", response);
 
       return Alert.alert(response.data.message, "", [
         { text: "OK", onPress: () => console.log("OK Pressed") },
@@ -94,7 +94,7 @@ export const changePasswordAdmin = createAsyncThunk(
           },
         }
       );
-      console.log("res", response);
+      // console.log("res", response);
 
       return Alert.alert(response.data.message, "", [
         { text: "OK", onPress: () => console.log("OK Pressed") },
@@ -112,7 +112,7 @@ export const register = createAsyncThunk("auth/register", async (userData) => {
       `${apiKeyUsers}/auth/register.php`,
       userData
     );
-    console.log("res", response);
+    // console.log("res", response);
     // eslint-disable-next-line no-constant-condition
     if ((response.status = "200")) {
       return Alert.alert(response.data.message, "", [
@@ -125,7 +125,43 @@ export const register = createAsyncThunk("auth/register", async (userData) => {
   }
 });
 
+export const forgotPasswordUser = createAsyncThunk("auth/forgotPasswordUser", async (userData) => {
+  try {
+    const response = await axios.post(
+      `${apiKeyUsers}/auth/resetpassword.php`,
+      userData
+    );
+    // console.log("res", response);
+    // eslint-disable-next-line no-constant-condition
+    if ((response.status = "200")) {
+      return Alert.alert(response.data.message, "", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
+  } catch (error) {
+    console.log("error", error);
+    throw new Error(error.response.data.message);
+  }
+});
 
+export const forgotPasswordAdmin = createAsyncThunk("auth/forgotPasswordAdmin", async (userData) => {
+  try {
+    const response = await axios.post(
+      `${apiKeyAdmin}/Staff/resetpassword.php`,
+      userData
+    );
+    // console.log("res", response);
+    // eslint-disable-next-line no-constant-condition
+    if ((response.status = "200")) {
+      return Alert.alert(response.data.message, "", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
+  } catch (error) {
+    console.log("error", error);
+    throw new Error(error.response.data.message);
+  }
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -188,6 +224,18 @@ const authSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(register.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(forgotPasswordUser.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(forgotPasswordUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(forgotPasswordUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

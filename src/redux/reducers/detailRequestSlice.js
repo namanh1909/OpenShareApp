@@ -20,10 +20,10 @@ export const confirmOk = createAsyncThunk(
         },
       );
 
-      console.log("res request", response)
+      // console.log("res request", response)
 
       if (response.status === 200) {
-        console.log(response)
+        // console.log(response)
       }
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ export const confirmCancel = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response)
+        // console.log(response)
 
       }
     } catch (error) {

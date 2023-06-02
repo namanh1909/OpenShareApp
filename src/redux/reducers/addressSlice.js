@@ -19,7 +19,7 @@ export const getAddress = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.data;
       }
     } catch (error) {
@@ -46,7 +46,7 @@ export const createAddress = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -72,7 +72,7 @@ export const deleteAddress = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);

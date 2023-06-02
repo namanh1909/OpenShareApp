@@ -14,7 +14,7 @@ export const getPost = createAsyncThunk('post/getPost', async () => {
   } catch (error) {
     console.log(error)
   }
-   
+
 })
 
 export const createPost = createAsyncThunk('post/createPost', async ({ authToken,dataPost}) => {
@@ -24,15 +24,14 @@ export const createPost = createAsyncThunk('post/createPost', async ({ authToken
             Authorization: `Bearer ${authToken}`,
         }
     })
-      console.log(response)
       return Alert.alert("Thêm bài viết thành công", [
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ]);
-  
+
     } catch (error) {
       console.log("error",error)
     }
-     
+
   })
 
 export const postSlice = createSlice({

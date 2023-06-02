@@ -20,7 +20,7 @@ export const approvePost = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ export const unApprovePost = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);

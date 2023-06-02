@@ -112,6 +112,22 @@ const LoginScreen = ({ navigation }) => {
             />
           </>
         )}
+        {
+          isAlredyAccount && <TouchableOpacity
+        style={{marginBottom: 10}}
+          onPress={() => {
+            navigation.navigate("ResetPasswordUser")
+          }}
+        >
+          <Text
+            style={{
+              color: "#FFA925",
+            }}
+          >
+            Quên mật khẩu
+          </Text>
+        </TouchableOpacity>
+        }
 
         <View
           style={{
@@ -136,7 +152,10 @@ const LoginScreen = ({ navigation }) => {
               {isAlredyAccount ? " Đăng kí ngay" : " Đăng nhập"}
             </Text>
           </TouchableOpacity>
+
+
         </View>
+
         <Text
           style={{
             marginVertical: 20,

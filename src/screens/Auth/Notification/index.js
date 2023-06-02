@@ -33,7 +33,6 @@ const NotificationsScreen = ({ navigation }) => {
   }, []);
 
   const notifyList = useSelector((state) => state.notify.data);
-  console.log("data notify", notifyList);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -88,7 +87,7 @@ const NotificationsScreen = ({ navigation }) => {
                 <Ionicons name="clipboard-outline" size={70} />
                 <View style={{ marginLeft: 10 }}>
                   <Text style={{ fontWeight: "bold" }}>{item?.titlePost}</Text>
-                  <Text style={{ marginBottom: 10 }}>
+                  <Text style={{ marginBottom: 10, maxWidth: 250 }}>
                     {item?.messagefromAdmin}
                   </Text>
                   <Text> {formatTime(item?.created_at)}</Text>
