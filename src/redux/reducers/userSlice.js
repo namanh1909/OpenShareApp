@@ -3,36 +3,40 @@ import axios from 'axios'
 import { Alert } from 'react-native'
 import { apiKeyAdmin, apiKeyUsers } from '../../contants/api'
 
-export const getUsers = createAsyncThunk('users/getUsers', async (authToken) => {
-
+export const getUsers = createAsyncThunk(
+  "users/getUsers",
+  async (authToken) => {
     const response = await axios.get(`${apiKeyUsers}/profile/getUsers.php`, {
-        headers: {
-            Authorization: `Bearer ${authToken}`,
-        }
-    })
-    console.log("responseuser" , response.data)
-    if(response.status = "200"){
-        return response.data.user
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if ((response.status = "200")) {
+      return response.data.user;
     }
-})
+  }
+);
 
-export const getStaff = createAsyncThunk('users/getStaff', async (authToken) => {
+export const getStaff = createAsyncThunk(
+  "users/getStaff",
+  async (authToken) => {
     const response = await axios.get(`${apiKeyAdmin}/Staff/getStaff.php`, {
-        headers: {
-            Authorization: `Bearer ${authToken}`,
-        }
-    })
-    if(response.status = "200"){
-        return response.data.user
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if ((response.status = "200")) {
+      return response.data.user;
     }
-})
+  }
+);
 
 export const editProfile = createAsyncThunk(
   "users/editProfile",
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.put(
-        `${apiKeyUsers}/profile/editprofile.php`,
+        `${apiKeyUsers}/profile/editProfile.php`,
         dataUser,
         {
           headers: {
@@ -42,19 +46,12 @@ export const editProfile = createAsyncThunk(
       );
       console.log("res", response);
 
-      if (response.status === 200) {
-        return Alert.alert("Cập nhật thành công", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+      if (response.status == 200) {
+        return Alert.alert("Cập nhật thành công");
       } else {
-        return Alert.alert("Cập nhật thất bại", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert("Cập nhật thất bại");
       }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    } catch (error) {}
   }
 );
 

@@ -9,15 +9,15 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist';
-import { rootReducer } from './reducers';
-import storage from 'redux-persist/es/storage' // defaults to localStorage for web
-
+import { rootReducer } from "./reducers";
+import storage from "redux-persist/es/storage"; // defaults to localStorage for web
 
 const persistConfig = {
-    key: 'root',
-    version: 1,
-    storage,
-    whitelist: ['auth', 'users', 'post', 'type']
+  key: "root",
+  keyPrefix: "",
+  version: 1,
+  storage: storage,
+  whitelist: ["auth", "users", "post", "type"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

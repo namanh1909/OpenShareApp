@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 
 const AutoHeightTextInput = (props) => {
-  const [height, setHeight] = useState(0);
-  const [onFocus, setOnFocus] = useState(false)
+  const [height, setHeight] = useState(50);
+  const [onFocus, setOnFocus] = useState(false);
 
   const handleChangeText = (text) => {
     props.onChangeText && props.onChangeText(text);
-    setHeight(Math.max(35, Math.ceil(text.length / 30) * 20));
+    setHeight(Math.max(50, Math.ceil(text.length / 30) * 20));
   };
 
   return (
@@ -15,17 +15,28 @@ const AutoHeightTextInput = (props) => {
       {...props}
       placeholder={props.placeholder}
       multiline={true}
-      style={[styles.input, { height: Math.min(height, 350), borderColor: onFocus ? '#FFA925' : 'gray', ...props.style
-    }]}
-    onFocus={() => {
-      setOnFocus(true);
-    }}
-    value={props.value}
-    onBlur={() => {
-      setOnFocus(false);
-    }}
+      style={[
+        styles.input,
+        {
+          height: props.height,
+          borderColor: onFocus ? "#FFA925" : "gray",
+          ...props.style,
+        },
+      ]}
+      onFocus={() => {
+        setOnFocus(true);
+      }}
+      value={props.value}
+      onBlur={() => {
+        setOnFocus(false);
+      }}
       onContentSizeChange={(event) =>
-        setHeight(Math.max(props.heightDefault, Math.ceil(event.nativeEvent.contentSize.height / 20) * 20))
+        setHeight(
+          Math.max(
+            props.heightDefault,
+            Math.ceil(event.nativeEvent.contentSize.height / 20) * 20
+          )
+        )
       }
       onChangeText={handleChangeText}
     />

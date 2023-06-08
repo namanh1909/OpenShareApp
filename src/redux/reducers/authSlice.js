@@ -61,7 +61,7 @@ export const changePasswordUser = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.put(
-        `${apiKeyUsers}/auth/changepassword.php`,
+        `${apiKeyAdmin}/Staff/changepassword.php`,
         dataUser,
         {
           headers: {
@@ -125,43 +125,95 @@ export const register = createAsyncThunk("auth/register", async (userData) => {
   }
 });
 
-export const forgotPasswordUser = createAsyncThunk("auth/forgotPasswordUser", async (userData) => {
-  try {
-    const response = await axios.post(
-      `${apiKeyUsers}/auth/resetpassword.php`,
-      userData
-    );
-    // console.log("res", response);
-    // eslint-disable-next-line no-constant-condition
-    if ((response.status = "200")) {
-      return Alert.alert(response.data.message, "", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
-    }
-  } catch (error) {
-    console.log("error", error);
-    throw new Error(error.response.data.message);
-  }
+export const checkSendOTP = createAsyncThunk("auth/checkSendOTP", async () => {
+  return true;
+});
+export const resetSendOTP = createAsyncThunk("auth/resetSendOTP", async () => {
+  return false;
 });
 
-export const forgotPasswordAdmin = createAsyncThunk("auth/forgotPasswordAdmin", async (userData) => {
-  try {
-    const response = await axios.post(
-      `${apiKeyAdmin}/Staff/resetpassword.php`,
-      userData
-    );
-    // console.log("res", response);
-    // eslint-disable-next-line no-constant-condition
-    if ((response.status = "200")) {
-      return Alert.alert(response.data.message, "", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
+export const forgotPasswordUser = createAsyncThunk(
+  "auth/forgotPasswordUser",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyUsers}/auth/sendOtp.php`,
+        userData
+      );
+      // console.log("res", response);
+      // eslint-disable-next-line no-constant-condition
+      if (response.data.message == "Vui lòng kiểu tra OTP ở Email!") {
+        thunkAPI.dispatch(checkSendOTP());
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      } else {
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      }
+    } catch (error) {
+      console.log("error", error);
+      throw new Error(error.response.data.message);
     }
-  } catch (error) {
-    console.log("error", error);
-    throw new Error(error.response.data.message);
   }
-});
+);
+
+export const sendOTPUser = createAsyncThunk(
+  "auth/sendOTPUser",
+  async (userData) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyUsers}/auth/resetpassword.php`,
+        userData
+      );
+
+      if (response.status == "200") {
+        console.log(response.data);
+        if ((response.data.message = "Reset mật khẩu thành công!")) {
+          return Alert.alert(
+            `Mật khẩu mới là: ${response.data.newPassword}`,
+            "",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+          );
+        }
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      }
+    } catch (error) {
+      console.log("error", error);
+      throw new Error(error.response.data.message);
+    }
+  }
+);
+
+export const forgotPasswordAdmin = createAsyncThunk(
+  "auth/forgotPasswordUser",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyUsers}/auth/sendOtp.php`,
+        userData
+      );
+      // console.log("res", response);
+      // eslint-disable-next-line no-constant-condition
+      if (response.data.message == "Vui lòng kiểu tra OTP ở Email!") {
+        thunkAPI.dispatch(checkSendOTP());
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      } else {
+        return Alert.alert(response.data.message, "", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      }
+    } catch (error) {
+      console.log("error", error);
+      throw new Error(error.response.data.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -169,6 +221,7 @@ const authSlice = createSlice({
     token: "",
     isLoading: false,
     error: null,
+    isSendOTP: false,
   },
   reducers: {
     logout: (state) => {
@@ -236,6 +289,44 @@ const authSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(forgotPasswordUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(checkSendOTP.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(checkSendOTP.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSendOTP = action.payload;
+    });
+    builder.addCase(checkSendOTP.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(resetSendOTP.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(resetSendOTP.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSendOTP = action.payload;
+    });
+    builder.addCase(resetSendOTP.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(sendOTPUser.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(sendOTPUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(sendOTPUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

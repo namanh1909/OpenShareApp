@@ -48,31 +48,30 @@ const CreateAddressScreen = ({ navigation }) => {
 
 
     const handleProvinceChange = (province) => {
-        console.log("code",province)
-        setSelectedDistrict(null);
-        setSelectedWard(null);
-        try {
-            axios
-            .get(`https://provinces.open-api.vn/api/p/${province}?depth=2`)
-            .then((response) => {
-                setDistricts(response.data.districts)
-            })
-            .catch((error) => console.log(error));
-        } catch (error) {
-            console.log(error)
-        }
-         
+      console.log("code", province);
+      setSelectedDistrict(null);
+      setSelectedWard(null);
+      try {
+        axios
+          .get(`https://provinces.open-api.vn/api/p/${province}?depth=2`)
+          .then((response) => {
+            setDistricts(response.data.districts);
+          })
+          .catch((error) => console.log(error));
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     const handleDistrictChange = (district) => {
-        setSelectedWard(null); 
-         axios
-            .get(`https://provinces.open-api.vn/api/d/${district}?depth=2`)
-            .then((response) => {
-                console.log("huyen",response)
-                setWards(response.data.wards)
-            } )
-            .catch((error) => console.log(error));
+      setSelectedWard(null);
+      axios
+        .get(`https://provinces.open-api.vn/api/d/${district}?depth=2`)
+        .then((response) => {
+          console.log("huyen", response);
+          setWards(response.data.wards);
+        })
+        .catch((error) => console.log(error));
     };
 
     const getAddresss = () => {
@@ -90,116 +89,140 @@ const CreateAddressScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={{
-            flex: 1,
-            padding: 20
-        }}>
-            <NavBar title="Thêm địa chỉ"
-                leftButton={
-                    <TouchableOpacity onPress={() => {
-                        navigation.goBack()
-                    }}
-                    >
-                        <Ionicons name="arrow-back-outline" color="#000" size={25} />
-                    </TouchableOpacity>
-                }
+      <View
+        style={{
+          flex: 1,
+          padding: 20,
+        }}
+      >
+        <NavBar
+          title="Thêm địa chỉ"
+          leftButton={
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Ionicons name="arrow-back-outline" color="#000" size={25} />
+            </TouchableOpacity>
+          }
+          rightButton={
+            addressDetail && (
+              <TouchableOpacity
+                onPress={() => {
+                  try {
+                    dispatch(
+                      createAddress({
+                        authToken,
+                        idUser,
+                        address: `${getAddresss()}`,
+                      })
+                    );
+                    dispatch(getAddress({ authToken, idUser }));
+                  } catch (error) {
+                  } finally {
+                    dispatch(getAddress({ authToken, idUser }));
+                    navigation.goBack();
+                    dispatch(getAddress({ authToken, idUser }));
+                  }
+                }}
+              >
+                <Ionicons name="checkmark-outline" color="#000" size={25} />
+              </TouchableOpacity>
+            )
+          }
+        />
+        <Text
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          Chọn tỉnh:
+        </Text>
+        <DropDownPicker
+          open={open}
+          value={selectedProvince}
+          items={provinces?.map((province) => ({
+            label: province.name,
+            value: province.code,
+          }))}
+          setOpen={setOpen}
+          setValue={setSelectedProvince}
+          onSelectItem={(item) => handleProvinceChange(item.value)}
+        />
 
-                rightButton={
-                    addressDetail &&
-                    <TouchableOpacity onPress={() => {
-                        try {
-                            dispatch(createAddress({authToken, idUser, address: `${getAddresss()}`}))
-                            dispatch(getAddress({ authToken, idUser }))
-                        } catch (error) {
-                            
-                        }
-                        finally {
-                            dispatch(getAddress({ authToken, idUser }))
-                            navigation.goBack()
-                            dispatch(getAddress({ authToken, idUser }))
-                        }
-                   
-                    }}
-                    >
-                        <Ionicons name="checkmark-outline" color="#000" size={25} />
-                    </TouchableOpacity>
-                }
-            />
-            <Text  style={{
-                        marginBottom: 10
-                    }}>Chọn tỉnh:</Text>
+        {selectedProvince ? (
+          <View
+            style={{
+              marginVertical: 20,
+            }}
+          >
+            <Text
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              Chọn Huyện:
+            </Text>
             <DropDownPicker
-                open={open}
-                value={selectedProvince}
-                items={provinces?.map((province) => ({
-                    label: province.name,
-                    value: province.code,
-                }))}
-                setOpen={setOpen}
-                setValue={setSelectedProvince}
-                onSelectItem={(item) => handleProvinceChange(item.value)}
+              open={opendistricts}
+              value={selectedDistrict}
+              items={districts?.map((district) => ({
+                label: district.name,
+                value: district.code,
+              }))}
+              setOpen={setOpendistricts}
+              setValue={setSelectedDistrict}
+              onSelectItem={(item) => handleDistrictChange(item.value)}
             />
+          </View>
+        ) : null}
 
-            {selectedProvince ? (
-                <View style={{
-                    marginVertical: 20
-                }}>
-                    <Text style={{
-                        marginBottom: 10
-                    }}>Chọn Huyện:</Text>
-                    <DropDownPicker
-                        open={opendistricts}
-                        value={selectedDistrict}
-                        items={districts?.map((district) => ({
-                            label: district.name,
-                            value: district.code,
-                        }))}
-                        setOpen={setOpendistricts}
-                        setValue={setSelectedDistrict}
-                        onSelectItem={(item) => handleDistrictChange(item.value)}
-                    />
+        {selectedDistrict ? (
+          <View>
+            <Text
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              Xã:
+            </Text>
+            <View>
+              <DropDownPicker
+                open={openward}
+                value={selectedWard}
+                items={wards?.map((district) => ({
+                  label: district.name,
+                  value: district.code,
+                }))}
+                setOpen={setopenward}
+                setValue={setSelectedWard}
+                setItems={(item) => handleDistrictChange(item.value)}
+              />
+            </View>
+          </View>
+        ) : null}
 
-                </View>
-            ) : null}
+        {selectedWard && (
+          <>
+            <Text
+              style={{
+                marginVertical: 10,
+              }}
+            >
+              Địa chỉ chi tiết/ Số Nhà
+            </Text>
+            <AutoHeightTextInput
+              heightDefault={100}
+              value={addressDetail}
+              onChangeText={(value) => setAddress(value)}
+            />
+          </>
+        )}
 
-            {selectedDistrict ? (
-                <View>
-                    <Text style={{
-                    marginBottom: 10
-                }}>Xã:</Text>
-                    <View>
-                    <DropDownPicker
-                        open={openward}
-                        value={selectedWard}
-                        items={wards?.map((district) => ({
-                            label: district.name,
-                            value: district.code,
-                        }))}
-                        setOpen={setopenward}
-                        setValue={setSelectedWard}
-                        setItems={(item) => handleDistrictChange(item.value)}
-                    />
-
-                </View>
-                </View>
-            ) : null}
-
-            {
-                selectedWard && (
-                    <>
-                     <Text style={{
-                    marginVertical: 10
-                }}>Địa chỉ chi tiết/ Số Nhà</Text>
-                    <AutoHeightTextInput heightDefault={50} value={addressDetail} onChangeText={(value) => setAddress(value)} />
-                    </>
-                    )
-            }
-
-            {/* <Text>Address: {getAddress()}</Text> */}
-
-
-        </View>
-    )
+        {/* <Text>Address: {getAddress()}</Text> */}
+      </View>
+    );
 }
 
 export default CreateAddressScreen

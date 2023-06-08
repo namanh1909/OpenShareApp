@@ -6,7 +6,6 @@ import { Alert } from 'react-native'
 export const getPost = createAsyncThunk('post/getPost', async () => {
   try {
     const response = await axios.get(`${apiKeyUsers}/post/get.php`)
-  console.log("response post", response)
   if(response.status == "200"){
     return response.data
   }

@@ -5,15 +5,15 @@ import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
 
 export const getType = createAsyncThunk('post/getType', async () => {
   try {
-    const response = await axios.get(`${apiKeyUsers}/type/getType.php`)
-    console.log("res type", response)
-  if(response.status == "200"){
-    return response.data
-  }
+    const response = await axios.get(`${apiKeyUsers}/type/getType.php`);
+    // console.log("res type", response)
+    if (response.status == "200") {
+      return response.data;
+    }
   } catch (error) {
-    console.log("res type", error)
+    // console.log("res type", error)
 
-    console.log(error)
+    console.log(error);
   }
 })
 

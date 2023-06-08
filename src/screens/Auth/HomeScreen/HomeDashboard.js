@@ -30,7 +30,6 @@ const HomeDashBoardScreen = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  console.log("home token", token);
   const [refreshing, setRefreshing] = useState(false);
   useLayoutEffect(() => {
     dispatch(getUsers(token));
@@ -44,7 +43,6 @@ const HomeDashBoardScreen = ({ navigation }) => {
   function searchPosts(posts, searchText) {
     try {
       searchText = searchText.toLowerCase();
-      console.log("post", posts);
       return posts?.data?.filter((post) => {
         const { address, nameType, title, description, name } = post;
         return (
@@ -61,10 +59,6 @@ const HomeDashBoardScreen = ({ navigation }) => {
   const dataPost = useSelector((state) => state.post.data);
   let typePost = useSelector((state) => state.type.data);
 
-  console.log("token", token);
-
-  console.log(dataPost);
-  console.log("typePost", typePost);
 
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
@@ -73,7 +67,6 @@ const HomeDashBoardScreen = ({ navigation }) => {
   const [visible, setIsVisible] = useState(false);
 
   let filteredPosts = searchPosts(dataPost, searchValue);
-  console.log(filteredPosts);
 
   useEffect(() => {
     const newData = filteredPosts?.filter((post) => post.idType === indexType);
