@@ -94,6 +94,9 @@ const ProfilePost = ({ navigation, route }) => {
             const jsonString = a[0].replace(/'/g, '"');
             const output = JSON.parse(`[${jsonString}]`);
             // console.log(output)
+            if (
+              item?.soluongdocho > 0
+            )
             return (
               <View
                 style={{

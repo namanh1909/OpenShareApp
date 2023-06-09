@@ -8,7 +8,7 @@ import {
     Animated,
     KeyboardAvoidingView,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,11 +17,14 @@ import {
   forgotPasswordUser,
   login,
   loginAdmin,
+  resetSendOTP,
+  sendOTPAdmin,
 } from "../../redux/reducers/authSlice";
 
 const ResetPasswordAdmin = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const dispatch = useDispatch();
   const isSendOTP = useSelector((state) => state.auth.isSendOTP);
   console.log("isSend", isSendOTP);
@@ -89,7 +92,7 @@ const ResetPasswordAdmin = ({ navigation }) => {
                   email: email,
                   otp: code,
                 };
-                dispatch(sendOTPUser(dataUser));
+                dispatch(sendOTPAdmin(dataUser));
               }}
               text="Nhập mã OTP"
               style={{
@@ -121,7 +124,7 @@ const ResetPasswordAdmin = ({ navigation }) => {
                   userName: userName,
                   email: email,
                 };
-                dispatch(forgotPasswordUser(dataUser));
+                dispatch(forgotPasswordAdmin(dataUser));
               }}
               text="Xác nhận thông tin"
               style={{

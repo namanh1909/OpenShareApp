@@ -135,6 +135,9 @@ const CreatePost = ({ navigation }) => {
   const handleCreatePost = () => {
    const photos =  `${JSON.stringify(imageList)}`
     if(title.length > 0 && description.length > 0 && address.length > 0 && idUser && idType !== "" && number !== "" > 0 && photos.length > 0){
+      if(isNaN(number)){
+       return Alert.alert("Số lượng phải là số")
+      }
       try {
         let dataPost = {
           title,

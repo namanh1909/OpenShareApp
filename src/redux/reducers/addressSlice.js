@@ -31,7 +31,7 @@ export const getAddress = createAsyncThunk(
 
 export const createAddress = createAsyncThunk(
   "users/createAddress",
-  async ({ authToken, idUser, address }) => {
+  async ({ authToken, idUser, address}) => {
     try {
       const response = await axios.post(
         `${apiKeyUsers}/address/create.php`,
@@ -47,6 +47,8 @@ export const createAddress = createAsyncThunk(
 
       if (response.status === 200) {
         // console.log(response.data);
+        thunkAPI.dispatch(getAddress({ authToken, idUser }));
+
       }
     } catch (error) {
       console.log(error);

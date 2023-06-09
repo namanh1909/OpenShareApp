@@ -23,9 +23,7 @@ export const createPost = createAsyncThunk('post/createPost', async ({ authToken
             Authorization: `Bearer ${authToken}`,
         }
     })
-      return Alert.alert("Thêm bài viết thành công", [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
+      return Alert.alert("Thêm bài viết thành công");
 
     } catch (error) {
       console.log("error",error)

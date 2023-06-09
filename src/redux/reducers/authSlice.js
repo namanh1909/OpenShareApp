@@ -22,9 +22,7 @@ export const login = createAsyncThunk(
           return response.data;
         }
       } else {
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message);
       }
     } catch (error) {
       console.log("error", error);
@@ -45,9 +43,7 @@ export const loginAdmin = createAsyncThunk(
           return response.data;
         }
       } else {
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message)
       }
     } catch (error) {
       console.log("error", error);
@@ -61,7 +57,7 @@ export const changePasswordUser = createAsyncThunk(
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.put(
-        `${apiKeyAdmin}/Staff/changepassword.php`,
+        `${apiKeyUsers}/auth/changepassword.php`,
         dataUser,
         {
           headers: {
@@ -71,9 +67,7 @@ export const changePasswordUser = createAsyncThunk(
       );
       // console.log("res", response);
 
-      return Alert.alert(response.data.message, "", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
+      return Alert.alert(response.data.message)
     } catch (error) {
       console.log(error);
       throw error;
@@ -96,9 +90,7 @@ export const changePasswordAdmin = createAsyncThunk(
       );
       // console.log("res", response);
 
-      return Alert.alert(response.data.message, "", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
+      return Alert.alert(response.data.message)
     } catch (error) {
       console.log(error);
       throw error;
@@ -115,9 +107,7 @@ export const register = createAsyncThunk("auth/register", async (userData) => {
     // console.log("res", response);
     // eslint-disable-next-line no-constant-condition
     if ((response.status = "200")) {
-      return Alert.alert(response.data.message, "", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
+      return Alert.alert(response.data.message)
     }
   } catch (error) {
     console.log("error", error);
@@ -144,13 +134,9 @@ export const forgotPasswordUser = createAsyncThunk(
       // eslint-disable-next-line no-constant-condition
       if (response.data.message == "Vui lòng kiểu tra OTP ở Email!") {
         thunkAPI.dispatch(checkSendOTP());
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message)
       } else {
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message)
       }
     } catch (error) {
       console.log("error", error);
@@ -172,14 +158,9 @@ export const sendOTPUser = createAsyncThunk(
         console.log(response.data);
         if ((response.data.message = "Reset mật khẩu thành công!")) {
           return Alert.alert(
-            `Mật khẩu mới là: ${response.data.newPassword}`,
-            "",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-          );
+            `Mật khẩu mới là: ${response.data.newPassword}`)
         }
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message)
       }
     } catch (error) {
       console.log("error", error);
@@ -189,24 +170,43 @@ export const sendOTPUser = createAsyncThunk(
 );
 
 export const forgotPasswordAdmin = createAsyncThunk(
-  "auth/forgotPasswordUser",
+  "auth/forgotPasswordAdmin",
   async (userData, thunkAPI) => {
     try {
       const response = await axios.post(
-        `${apiKeyUsers}/auth/sendOtp.php`,
+        `${apiKeyAdmin}/Staff/sendOtp.php`,
         userData
       );
       // console.log("res", response);
       // eslint-disable-next-line no-constant-condition
-      if (response.data.message == "Vui lòng kiểu tra OTP ở Email!") {
+      if (response.data.message == "Reset mật khẩu thành công!") {
         thunkAPI.dispatch(checkSendOTP());
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message)
       } else {
-        return Alert.alert(response.data.message, "", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
+        return Alert.alert(response.data.message)
+      }
+    } catch (error) {
+      console.log("error", error);
+      throw new Error(error.response.data.message);
+    }
+  }
+);
+
+export const sendOTPAdmin = createAsyncThunk(
+  "auth/sendOTPAdmin",
+  async (userData) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyAdmin}/Staff/resetpassword.php`,
+        userData
+      );
+
+      if (response.status == "200") {
+        console.log(response.data);
+        if ((response.data.message = "Reset mật khẩu thành công!")) {
+          return Alert.alert(`Mật khẩu mới là: ${response.data.newPassword}`);
+        }
+        return Alert.alert(response.data.message)
       }
     } catch (error) {
       console.log("error", error);
@@ -327,6 +327,18 @@ const authSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(sendOTPUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(sendOTPAdmin.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(sendOTPAdmin.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(sendOTPAdmin.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
