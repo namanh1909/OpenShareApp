@@ -24,10 +24,17 @@ export const getManegerRequest = createAsyncThunk(
           const uniqueData = response.data.data.filter((item, index, arr) => {
             return arr.findIndex((t) => t.idPost === item.idPost) === index;
           });
-          return uniqueData
+          let data = []
+
+          uniqueData?.forEach(element => {
+            if (element?.status == 0) {
+              data.push(element)
+            }
+          });
+          return data
         }
         return response.data
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);

@@ -16,16 +16,19 @@ export const login = createAsyncThunk(
       if (response.data.message == "Bạn đã đăng nhập thành công.") {
         if ((response.status = "200")) {
           // console.log("token return", response.data.token);
+          thunkAPI.dispatch(resetSendOTP());
           setTimeout(() => {
             thunkAPI.dispatch(getUsers(response.data.token));
+
           }, 500);
           return response.data;
         }
       } else {
+        thunkAPI.dispatch(resetSendOTP());
         return Alert.alert(response.data.message);
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       throw new Error(error.response.data.message);
     }
   }
@@ -46,7 +49,7 @@ export const loginAdmin = createAsyncThunk(
         return Alert.alert(response.data.message)
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       throw new Error(error.response.data.message);
     }
   }
@@ -155,7 +158,7 @@ export const sendOTPUser = createAsyncThunk(
       );
 
       if (response.status == "200") {
-        console.log(response.data);
+        // console.log(response.data);
         if ((response.data.message = "Reset mật khẩu thành công!")) {
           return Alert.alert(
             `Mật khẩu mới là: ${response.data.newPassword}`)
@@ -202,7 +205,7 @@ export const sendOTPAdmin = createAsyncThunk(
       );
 
       if (response.status == "200") {
-        console.log(response.data);
+        // console.log(response.data);
         if ((response.data.message = "Reset mật khẩu thành công!")) {
           return Alert.alert(`Mật khẩu mới là: ${response.data.newPassword}`);
         }
@@ -214,6 +217,14 @@ export const sendOTPAdmin = createAsyncThunk(
     }
   }
 );
+
+export const stopLoading = createAsyncThunk(
+  "auth/stopLoading",
+  async () => {
+    return false
+  }
+);
+
 
 const authSlice = createSlice({
   name: "auth",

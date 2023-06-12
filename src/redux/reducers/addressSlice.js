@@ -23,7 +23,7 @@ export const getAddress = createAsyncThunk(
         return response.data.data;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   },
@@ -31,12 +31,13 @@ export const getAddress = createAsyncThunk(
 
 export const createAddress = createAsyncThunk(
   "users/createAddress",
-  async ({ authToken, idUser, address}) => {
+  async ({ authToken, idUser, address }, thunkAPI) => {
     try {
       const response = await axios.post(
         `${apiKeyUsers}/address/create.php`,
         {
-          idUser,address
+          idUser,
+          address
         },
         {
           headers: {
@@ -46,20 +47,19 @@ export const createAddress = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        // console.log(response.data);
         thunkAPI.dispatch(getAddress({ authToken, idUser }));
-
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   },
 );
 
+
 export const deleteAddress = createAsyncThunk(
   "users/deleteAddress",
-  async ({ authToken, idAdress }) => {
+  async ({ authToken, idAdress, idUser }, thunkAPI) => {
     try {
       const response = await axios.post(
         `${apiKeyUsers}/address/delete.php`,
@@ -75,6 +75,7 @@ export const deleteAddress = createAsyncThunk(
 
       if (response.status === 200) {
         // console.log(response.data);
+        thunkAPI.dispatch(getAddress({ authToken, idUser }));
       }
     } catch (error) {
       console.log(error);
@@ -128,12 +129,16 @@ export const addressSlice = createSlice({
     builder.addCase(createAddress.pending, (state, action) => {
       if (state.loading === "idle") {
         state.loading = "pending";
+        state.data = state.data;
+
       }
     });
 
     builder.addCase(createAddress.fulfilled, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "idle";
+        state.data = state.data;
+
       }
     });
 
@@ -141,18 +146,22 @@ export const addressSlice = createSlice({
       if (state.loading === "pending") {
         state.loading = "idle";
         state.error = "Error occured";
+        state.data = state.data;
       }
     });
 
     builder.addCase(deleteAddress.pending, (state, action) => {
       if (state.loading === "idle") {
         state.loading = "pending";
+        state.data = state.data;
+
       }
     });
 
     builder.addCase(deleteAddress.fulfilled, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "idle";
+        state.data = state.data;
       }
     });
 
@@ -160,6 +169,7 @@ export const addressSlice = createSlice({
       if (state.loading === "pending") {
         state.loading = "idle";
         state.error = "Error occured";
+        state.data = state.data;
       }
     });
   },

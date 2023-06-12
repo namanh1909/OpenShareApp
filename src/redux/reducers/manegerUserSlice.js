@@ -11,7 +11,7 @@ export const getManegerUser = createAsyncThunk('getManegerUser/getUser', async (
     })
     console.log("data user", response)
     if (response.status == "200") {
-      console.log(response.data)
+      // console.log(response.data)
       return response.data
     }
   } catch (error) {

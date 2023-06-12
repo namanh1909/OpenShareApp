@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   FlatList,
   RefreshControl,
-  Image
+  Image,
+  Dimensions
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -27,6 +28,9 @@ const NotificationsScreen = ({ navigation }) => {
   const dataUser = {
     idUser,
   };
+
+  const screenDimensions = Dimensions.get('screen').width;
+  const screenDimensionsH = Dimensions.get('screen').height;
 
   useEffect(() => {
     dispatch(getNotify({ authToken, dataUser }));
@@ -50,6 +54,7 @@ const NotificationsScreen = ({ navigation }) => {
           </TouchableOpacity>
         }
       />
+      {notifyList?.length > 0 ?
       <FlatList
         data={notifyList}
         keyExtractor={(item) => item.idNotice}
@@ -251,7 +256,8 @@ const NotificationsScreen = ({ navigation }) => {
             );
           }
         }}
-      />
+        /> : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>)}
+
     </View>
   );
 };

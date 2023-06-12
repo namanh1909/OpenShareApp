@@ -1,15 +1,14 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image, RefreshControl, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import NavBar from '../../../components/NavBar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
-import { getrequest } from '../../../redux/reducers/requestSlice'
+import { getrequest, getrequest0, getrequest1, getrequest2, getrequest3 } from '../../../redux/reducers/requestSlice'
 import RenderImage from '../../../components/RenderImage'
 import EmptyData from '../../../components/EmptyData'
 
 
 const RequestScreen = ({ navigation }) => {
-  const [tabIndex, setTabIndex] = useState(0)
   const dispatch = useDispatch()
   const { data, error } = useSelector((state) => state.users)
   const idUser = data?.idUser
@@ -22,14 +21,29 @@ const RequestScreen = ({ navigation }) => {
     return firstElement
   }
   useEffect(() => {
-    dispatch(getrequest({ authToken, dataUser }))
+    dispatch(getrequest0({ authToken, dataUser }))
+    dispatch(getrequest1({ authToken, dataUser }))
+    dispatch(getrequest2({ authToken, dataUser }))
+    dispatch(getrequest3({ authToken, dataUser }))
+
   }, [])
+  const [tabIndex, setTabIndex] = useState(0)
 
   const listRequest = useSelector((state) => state.request.data)
+  const data0 = useSelector((state) => state.request.data0)
+  const data1 = useSelector((state) => state.request.data1)
+  const data2 = useSelector((state) => state.request.data2)
+  const data3 = useSelector((state) => state.request.data3)
 
-  console.log("list request", listRequest)
+
+  console.log("data 0", data0)
+  console.log(tabIndex)
+
+
   const [refreshing, setRefreshing] = useState(false)
 
+  const screenDimensions = Dimensions.get('screen').width;
+  const screenDimensionsH = Dimensions.get('screen').height;
 
   return (
     <View style={{ flex: 1 }}>
@@ -40,11 +54,16 @@ const RequestScreen = ({ navigation }) => {
         style={{
           paddingHorizontal: 10,
         }}
+        contentContainerStyle={{
+          height: 70,
+          paddingVertical: 10,
+        }}
+
       >
         <TouchableOpacity
           onPress={() => {
             setTabIndex(0);
-            dispatch(getrequest({ authToken, dataUser }));
+            dispatch(getrequest0({ authToken, dataUser }))
           }}
           style={{
             borderBottomWidth: tabIndex == 0 ? 3 : 0,
@@ -57,23 +76,30 @@ const RequestScreen = ({ navigation }) => {
             style={{
               paddingVertical: 10,
               fontWeight: "500",
+              lineHeight: 30
             }}
           >
             Đang yêu cầu
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setTabIndex(1)}
+          onPress={() => {
+            setTabIndex(1)
+            dispatch(getrequest1({ authToken, dataUser }))
+          }}
           style={{
             borderBottomWidth: tabIndex == 1 ? 3 : 0,
             borderColor: tabIndex == 1 ? "#FFA925" : null,
             marginRight: 25,
+            // height: data1?.length == 0 ? 50 : 100
           }}
         >
           <Text
             style={{
               paddingVertical: 10,
               fontWeight: "500",
+              lineHeight: 30
+
             }}
           >
             Được chấp nhận
@@ -84,13 +110,19 @@ const RequestScreen = ({ navigation }) => {
             borderBottomWidth: tabIndex == 2 ? 3 : 0,
             borderColor: tabIndex == 2 ? "#FFA925" : null,
             marginRight: 20,
+            // height: data2?.length == 0 ? 50 : 100
+
           }}
-          onPress={() => setTabIndex(2)}
+          onPress={() => {
+            setTabIndex(2)
+            dispatch(getrequest2({ authToken, dataUser }))
+          }}
         >
           <Text
             style={{
               paddingVertical: 10,
               fontWeight: "500",
+              lineHeight: 30
             }}
           >
             Bị từ chối
@@ -100,8 +132,12 @@ const RequestScreen = ({ navigation }) => {
           style={{
             borderBottomWidth: tabIndex == 3 ? 3 : 0,
             borderColor: tabIndex == 3 ? "#FFA925" : null,
+            // height: data3?.length == 0 ? 50 : 100
           }}
-          onPress={() => setTabIndex(3)}
+          onPress={() => {
+            setTabIndex(3)
+            dispatch(getrequest3({ authToken, dataUser }))
+          }}
         >
           <Text
             style={{
@@ -109,38 +145,40 @@ const RequestScreen = ({ navigation }) => {
               marginRight: 25,
               fontWeight: "500",
               marginLeft: 10,
+              lineHeight: 30
             }}
           >
             Thành công
           </Text>
         </TouchableOpacity>
       </ScrollView>
-      {tabIndex == 0 && listRequest?.data && listRequest?.data?.length > 0 && (
-        <FlatList
-          data={listRequest?.data}
-          style={{ width: "100%", height: "100%", marginTop: 10 }}
-          ListFooterComponent={<View style={{ height: 20 }} />}
-          keyExtractor={(item) => item.idPost}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => {
-                dispatch(getrequest({ authToken, dataUser }));
-              }}
-            />
-          }
-          renderItem={({ item, index }) => {
-            // let imageList =
-            let a = [];
-            let b = item.photos;
-            const c = b.replace(/[[\]]/g, "");
-            a.push(c);
-            // console.log(a)
-            const jsonString = a[0].replace(/'/g, '"');
-            const output = JSON.parse(`[${jsonString}]`);
-            // console.log(output)
-            let convertedUrls = output.map((url: any) => ({ url }));
-            if (item.status == 0) {
+      {
+        tabIndex == 0 &&
+        (
+          data0?.length > 0 ? (<FlatList
+            data={data0}
+            style={{ width: "100%", height: "100%", marginTop: 10 }}
+            ListFooterComponent={<View style={{ height: 20 }} />}
+            keyExtractor={(item) => item?.idPost}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => {
+                  dispatch(getrequest({ authToken, dataUser }));
+                }}
+              />
+            }
+            renderItem={({ item, index }) => {
+              // let imageList =
+              let a = [];
+              let b = item.photos;
+              const c = b.replace(/[[\]]/g, "");
+              a.push(c);
+              // console.log(a)
+              const jsonString = a[0].replace(/'/g, '"');
+              const output = JSON.parse(`[${jsonString}]`);
+              // console.log(output)
+              let convertedUrls = output.map((url: any) => ({ url }));
               return (
                 <View
                   style={{
@@ -313,14 +351,14 @@ const RequestScreen = ({ navigation }) => {
                   </View>
                 </View>
               );
-            }
-          }}
-        />
-      )}
+            }}
+          />)
+            : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))
+      }
 
-      {tabIndex == 1 && listRequest?.data && listRequest?.data?.length > 0 && (
+      {tabIndex == 1 && (data1?.length > 0 ? (
         <FlatList
-          data={listRequest?.data}
+          data={data1}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -536,11 +574,11 @@ const RequestScreen = ({ navigation }) => {
             } else return null;
           }}
         />
-      )}
+      ) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))}
 
-      {tabIndex == 2 && listRequest?.data && listRequest?.data?.length > 0 && (
+      {tabIndex == 2 && (data2?.length > 0 ? (
         <FlatList
-          data={listRequest?.data}
+          data={data2}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -738,11 +776,11 @@ const RequestScreen = ({ navigation }) => {
             } else return null;
           }}
         />
-      )}
+      ) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))}
 
-      {tabIndex == 3 && listRequest?.data && listRequest?.data?.length > 0 && (
+      {tabIndex == 3 && (data3?.length > 0 ? (
         <FlatList
-          data={listRequest?.data}
+          data={data3}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -940,8 +978,9 @@ const RequestScreen = ({ navigation }) => {
             } else return null;
           }}
         />
-      )}
+      ) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))}
     </View>
+
   );
 }
 

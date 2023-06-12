@@ -10,9 +10,29 @@ export const getPostProfile = createAsyncThunk('postProfile/getPostProfile', asy
                 Authorization: `Bearer ${authToken}`,
             }
         })
-        console.log(response)
         if (response.status == "200") {
-            return response.data
+            let data = {}
+            let data0 = []
+            let data1 = []
+            let data2 = []
+            console.log("data profile", response.data.data)
+            if (response?.data?.data?.length > 0) {
+                response?.data?.data?.forEach(element => {
+                    if (element?.soluongdocho > 0 && element?.isShow == 0) {
+                        data0.push(element)
+                    }
+                    if (element?.soluongdocho > 0 && element?.isShow == 1) {
+                        data1.push(element)
+                    }
+                    if (element?.soluongdocho > 0 && element?.isShow == 2) {
+                        data2.push(element)
+                    }
+                });
+            }
+            data.data0 = data0
+            data.data1 = data1
+            data.data2 = data2
+            return data
         }
 
     } catch (error) {

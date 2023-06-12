@@ -77,12 +77,17 @@ const ResetPasswordUser = ({ navigation }) => {
             />
             <Button
               onPress={() => {
-                let dataUser = {
-                  userName: userName,
-                  email: email,
-                  otp: code,
-                };
-                dispatch(sendOTPUser(dataUser));
+                if(code.length > 0){
+                  let dataUser = {
+                    userName: userName,
+                    email: email,
+                    otp: code,
+                  };
+                  dispatch(sendOTPUser(dataUser));
+                }
+                else {
+                  return Alert.alert("OTP không được bỏ trống")
+                }
               }}
               text="Nhập mã OTP"
               style={{
@@ -110,11 +115,16 @@ const ResetPasswordUser = ({ navigation }) => {
             />
             <Button
               onPress={() => {
-                let dataUser = {
-                  userName: userName,
-                  email: email,
-                };
-                dispatch(forgotPasswordUser(dataUser));
+                if(userName.length > 0 && email.length > 0){
+                  let dataUser = {
+                    userName: userName,
+                    email: email,
+                  };
+                  dispatch(forgotPasswordUser(dataUser));
+                }
+                else {
+                  return Alert.alert("Vui lòng nhập đầy đủ thông tin")
+                }
               }}
               text="Xác nhận thông tin"
               style={{

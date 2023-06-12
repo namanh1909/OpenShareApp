@@ -16,7 +16,7 @@ export const getType = createAsyncThunk(
         }
       );
       if (response.status == "200") {
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
       }
     } catch (error) {
@@ -42,7 +42,7 @@ export const createType = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -69,7 +69,7 @@ export const updateType = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -95,7 +95,7 @@ export const deleteType = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.log(error);

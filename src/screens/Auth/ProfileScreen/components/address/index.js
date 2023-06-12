@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, FlatList, Alert, RefreshControl } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, FlatList, Alert, RefreshControl, Dimensions, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavBar from '../../../../../components/NavBar'
@@ -15,6 +15,9 @@ const AddressListScreen = ({ navigation }) => {
     console.log("token", authToken)
     const [reset, setReset] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
+
+    const screenDimensions = Dimensions.get('screen').width;
+    const screenDimensionsH = Dimensions.get('screen').height;
 
     useEffect(() => {
         dispatch(getAddress({ authToken, idUser }))
@@ -44,7 +47,8 @@ const AddressListScreen = ({ navigation }) => {
                         <Ionicons name="add-outline" color="#000" size={25} />
                     </TouchableOpacity>
                 } />
-          {addressList?.length > 0 &&  <FlatList    refreshControl={
+            {addressList?.length > 0 ?
+                (<FlatList refreshControl={
             <RefreshControl
               refreshing={refreshing}
               onRefresh={() => {
@@ -58,7 +62,7 @@ const AddressListScreen = ({ navigation }) => {
                         {
                           text: 'OK',
                           onPress: () => {
-                            dispatch(deleteAddress({authToken, idAdress: `${item.idAdress}`})) 
+                              dispatch(deleteAddress({ authToken, idAdress: `${item.idAdress}`, idUser }))
                             dispatch(getAddress({ authToken, idUser }))
                             setReset(!reset)
                           },
@@ -72,7 +76,7 @@ const AddressListScreen = ({ navigation }) => {
                 } } />
 
             )
-          }} />} 
+                    }} />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>)}
         </View>
     )
 }

@@ -50,25 +50,30 @@ const CreatePost = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getAddress({ authToken, idUser }));
-  }, []);
+    navigation.addListener('focus', () => dispatch(getAddress({ authToken, idUser })))
+
+  }, [navigation]);
 
   useEffect(() => {
     dispatch(getType());
-  }, []);
+    dispatch(getAddress({ authToken, idUser }));
+  }, [navigation]);
 
-  const listItemAddress = useSelector((state) => state.address.listItemAddress);
   const listTypeItem = useSelector((state) => state.type.listTypeItem);
-  console.log("listaddress", listItemAddress);
 
   const typePost = useSelector((state) => state.type.data);
 
   console.log(listTypeItem);
 
   useLayoutEffect(() => {
+    dispatch(getAddress({ authToken, idUser }));
+
     if (listItemAddress.length == 0) {
       navigation.navigate("CreateAddress");
     }
-  }, []);
+  }, [navigation]);
+  const listItemAddress = useSelector((state) => state.address.listItemAddress);
+
 
   const uploadImages = async (images) => {
     try {
@@ -224,25 +229,6 @@ const CreatePost = ({ navigation }) => {
             fontWeight: "bold",
           }}
         >
-          Địa chỉ
-        </Text>
-        <DropDownPicker
-          open={openAddressPicker}
-          value={selectAddress}
-          items={listItemAddress}
-          setOpen={setOPenAddressPicker}
-          setValue={setSelectAddress}
-          style={{
-            marginVertical: 10,
-          }}
-          onSelectItem={(item) => setAddress(item.value)}
-        />
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-          }}
-        >
           Loại vật phẩm
         </Text>
         <DropDownPicker
@@ -252,7 +238,7 @@ const CreatePost = ({ navigation }) => {
           setOpen={setOpenTypePicker}
           setValue={setSelectType}
           style={{
-            marginVertical: 10,
+            // marginVertical: 10,
           }}
           onSelectItem={(item) => {
             console.log(item);
@@ -343,6 +329,30 @@ const CreatePost = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </ScrollView>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
+          Địa chỉ
+        </Text>
+        <DropDownPicker
+          onPress={() => dispatch(getAddress({ authToken, idUser }))}
+          open={openAddressPicker}
+          value={selectAddress}
+          items={listItemAddress}
+          setOpen={setOPenAddressPicker}
+          setValue={setSelectAddress}
+          style={{
+            marginVertical: 10,
+            flex: 1
+          }}
+          onSelectItem={(item) => {
+            dispatch(getAddress({ authToken, idUser }));
+            setAddress(item.value)
+          }}
+        />
       </View>
     </ScrollView>
   );

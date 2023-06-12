@@ -7,11 +7,12 @@ import {
   View,
   Animated,
   KeyboardAvoidingView,
+  ActivityIndicator
 } from "react-native";
 import React, { useState, useRef } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../../redux/reducers/authSlice";
 
 const LoginScreen = ({ navigation }) => {
@@ -22,6 +23,8 @@ const LoginScreen = ({ navigation }) => {
 
   const [isAlredyAccount, setIsAlredyAccount] = useState(true)
 
+  let loading = useSelector((state) => state.auth.isLoading)
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -30,6 +33,7 @@ const LoginScreen = ({ navigation }) => {
       }}
     >
       <View style={styles.container}>
+        {loading ? <ActivityIndicator size="small" color="#0000ff" />: <>
         <View
           style={{
             marginBottom: 50,
@@ -65,7 +69,12 @@ const LoginScreen = ({ navigation }) => {
             />
             <Button
               onPress={() => {
-                dispatch(login({ userName, password }));
+                if(userName.length > 0 && password.length > 0){
+                  dispatch(login({ userName, password }));
+                }
+                else {
+                  return Alert.alert("Vui lòng nhập đầy đủ thông tin")
+                }
               }}
               text="Đăng nhập"
               style={{
@@ -102,8 +111,13 @@ const LoginScreen = ({ navigation }) => {
             />
             <Button
               onPress={() => {
-                console.log(name, password, userName);
-                dispatch(register({ name, password, userName }));
+                if(name.length > 0 && userName.length > 0 && password.length > 0){
+                  console.log(name, password, userName);
+                  dispatch(register({ name, password, userName }));
+                }
+                else {
+                  return Alert.alert("Vui lòng nhập đầy đủ thông tin")
+                }
               }}
               text="Đăng kí"
               style={{
@@ -176,6 +190,8 @@ const LoginScreen = ({ navigation }) => {
             Đăng nhập nhân viên
           </Text>
         </TouchableOpacity>
+        </> }
+
       </View>
     </KeyboardAvoidingView>
   );

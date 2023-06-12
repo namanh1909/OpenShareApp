@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Image,   RefreshControl} from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Image, RefreshControl, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import NavBar from '../../../components/NavBar'
 
@@ -18,6 +18,8 @@ const HistoryScreen = ({navigation}) => {
   const authToken = useSelector((state) => state.auth.token)
 
   const [refreshing, setRefreshing] = useState(false)
+  const screenDimensions = Dimensions.get('screen').width;
+  const screenDimensionsH = Dimensions.get('screen').height;
 
 
   const formatAddress = (address) => {
@@ -33,7 +35,7 @@ const HistoryScreen = ({navigation}) => {
     const dataRequest = useSelector((state) => state.manegerRequest.data)
     const dataRequest2 = useSelector((state) => state.listRequestAll.listRequest)
 
-    console.log("Data Request", dataRequest)
+  console.log("Data Request", dataRequest2)
 
     return (
         <View style={{flex: 1}}>
@@ -85,8 +87,7 @@ const HistoryScreen = ({navigation}) => {
                     }}>Thất bại</Text>
                 </TouchableOpacity>
             </View>
-            {tabIndex == 0 &&
-            <FlatList
+        {tabIndex == 0 && (dataRequest?.length > 0 ? (<FlatList
           data={dataRequest}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
@@ -265,11 +266,12 @@ const HistoryScreen = ({navigation}) => {
           }
           else return null
           }}
-        /> }
+        />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))
+        }
 
-        {tabIndex == 1 &&
-        <FlatList
-          data={dataRequest2.data}
+        {tabIndex == 1 && (dataRequest2?.data1?.length > 0 ?
+          (<FlatList
+            data={dataRequest2.data1}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idUser}
@@ -454,10 +456,12 @@ const HistoryScreen = ({navigation}) => {
               );
             else return null
           }}
-        />}
+          />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))
+        }
 
-  {tabIndex == 2 && <FlatList
-          data={dataRequest2.data}
+        {tabIndex == 2 && (dataRequest2?.data2?.length > 0 ?
+          (<FlatList
+            data={dataRequest2.data2}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idUser}
@@ -642,10 +646,10 @@ const HistoryScreen = ({navigation}) => {
               );
             else return null
           }}
-        />}
+          />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))}
 
-     {tabIndex == 3 && <FlatList
-          data={dataRequest2.data}
+        {tabIndex == 3 && (dataRequest2?.data3?.length > 0 ? (<FlatList
+          data={dataRequest2.data3}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idUser}
@@ -831,7 +835,8 @@ const HistoryScreen = ({navigation}) => {
               );
             else return null
           }}
-        />}
+        />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))
+        }
         </View >
     )
 }

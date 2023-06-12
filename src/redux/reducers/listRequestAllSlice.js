@@ -21,8 +21,31 @@ export const getManegerRequestAll = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        if(response.data.data.length > 0){
-          return response.data
+        if (response?.data?.data?.length > 0) {
+          let list1 = []
+          let list2 = []
+          let list3 = []
+
+          response?.data?.data?.forEach(element => {
+            if (element?.status == 1) {
+              list1.push(element)
+            }
+            if (element?.status == 3) {
+              list2.push(element)
+            }
+            if (element?.status == 4) {
+              list3.push(element)
+            }
+          });
+
+          let data = {
+
+          }
+
+          data.data1 = list1
+          data.data2 = list2
+          data.data3 = list3
+          return data
         }
       }
     } catch (error) {

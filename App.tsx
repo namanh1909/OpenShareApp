@@ -4,9 +4,9 @@ import RootStack from "./src/navigation/RootStack";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-import store, { persistor } from "./src/redux/store";
 import { LogBox } from 'react-native';
 import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from "./src/redux/store";
 
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image, RefreshControl, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import NavBar from '../../../../../components/NavBar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -13,6 +13,9 @@ const PostListScreen = ({ navigation }) => {
   const idUser = data?.idUser
   const authToken = useSelector((state) => state.auth.token)
   const [refreshing, setRefreshing] = useState(false)
+
+  const screenDimensions = Dimensions.get('screen').width;
+  const screenDimensionsH = Dimensions.get('screen').height;
 
   useEffect(() => {
     let dataUser = {
@@ -81,9 +84,9 @@ const PostListScreen = ({ navigation }) => {
       </View>
 
       {
-        tabIndex == 1 && (
+        tabIndex == 1 && (dataPost?.data1?.length > 0 ? (
           <FlatList
-            data={dataPost.data}
+            data={dataPost.data1}
             style={{ width: "100%", height: "100%", marginTop: 10 }}
             ListFooterComponent={<View style={{ height: 20 }} />}
             keyExtractor={(item) => item.idPost}
@@ -170,7 +173,7 @@ const PostListScreen = ({ navigation }) => {
                               </Text>
                             </View>
                             <TouchableOpacity
-                               onPress={() =>
+                              onPress={() =>
                                 navigation.navigate("DetailPost", {
                                   item,
                                   output,
@@ -267,6 +270,7 @@ const PostListScreen = ({ navigation }) => {
                             <Text
                               style={{
                                 marginVertical: 10,
+                                maxWidth: 200
                               }}
                             >
                               {item.description}
@@ -286,13 +290,17 @@ const PostListScreen = ({ navigation }) => {
                 );
               }
             }}
-          />
+          />)
+          :
+          (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}>
+            <Image source={require("../../../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>)
+
         )
       }
       {
-        tabIndex == 0 && (
+        tabIndex == 0 && (dataPost?.data0?.length > 0 ? (
           <FlatList
-            data={dataPost.data}
+            data={dataPost.data0}
             style={{ width: "100%", height: "100%", marginTop: 10 }}
             ListFooterComponent={<View style={{ height: 20 }} />}
             keyExtractor={(item) => item.idPost}
@@ -494,11 +502,14 @@ const PostListScreen = ({ navigation }) => {
               }
             }}
           />
+        ) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}>
+          <Image source={require("../../../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>)
         )
+
       }
 
-      {tabIndex == 2 && <FlatList
-        data={dataPost.data}
+      {tabIndex == 2 && (dataPost?.data2?.length > 0 ? (<FlatList
+        data={dataPost.data2}
         style={{ width: "100%", height: "100%", marginTop: 10 }}
         ListFooterComponent={<View style={{ height: 20 }} />}
         keyExtractor={(item) => item.idPost}
@@ -695,7 +706,9 @@ const PostListScreen = ({ navigation }) => {
           }
 
         }}
-      />}
+      />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}>
+        <Image source={require("../../../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>))
+      }
 
     </View>
   )

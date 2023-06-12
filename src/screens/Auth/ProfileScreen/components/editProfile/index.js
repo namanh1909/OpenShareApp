@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, RefreshControl } from 'react-native'
 import React, { useState , useEffect} from 'react'
 import NavBar from '../../../../../components/NavBar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 const EditProfileScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const authToken = useSelector((state) => state.auth.token)
+    const [refreshing, setRefreshing] = useState(false)
     console.log("token auth", authToken)
     useEffect(() => {
       dispatch(getUsers(authToken))
@@ -76,6 +77,8 @@ const EditProfileScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 }
             />
+            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => dispatch(getUsers(authToken))
+            } />} >
             <View style={{
                 paddingHorizontal: 20,
                 flexDirection: "row",
@@ -132,6 +135,7 @@ const EditProfileScreen = ({ navigation }) => {
                 }}>Số điện thoại</Text>
                 <Input iconName={"phone"} value={phoneNumber} onChangeText={(value) => setPhoneNumber(value)} />
             </View>
+            </ScrollView>
         </View>
     )
 }

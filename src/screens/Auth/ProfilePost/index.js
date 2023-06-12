@@ -25,13 +25,14 @@ const ProfilePost = ({ navigation, route }) => {
   }, []);
 
   const dataPost = useSelector((state) => state.postProfile.data);
+  console.log(dataPost)
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
     return firstElement;
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <NavBar
         title={`Trang cá nhân của ${userName}`}
         leftButton={
@@ -75,9 +76,9 @@ const ProfilePost = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      {dataPost?.data && dataPost?.data?.length > 0 ? (
+      {dataPost?.data1?.length > 0 ? (
         <FlatList
-          data={dataPost.data}
+          data={dataPost.data1}
           style={{ width: "100%", height: "100%", marginTop: 10 }}
           ListFooterComponent={<View style={{ height: 20 }} />}
           keyExtractor={(item) => item.idPost}
@@ -94,9 +95,6 @@ const ProfilePost = ({ navigation, route }) => {
             const jsonString = a[0].replace(/'/g, '"');
             const output = JSON.parse(`[${jsonString}]`);
             // console.log(output)
-            if (
-              item?.soluongdocho > 0
-            )
             return (
               <View
                 style={{
@@ -245,6 +243,7 @@ const ProfilePost = ({ navigation, route }) => {
                         <Text
                           style={{
                             marginVertical: 10,
+                            maxWidth: 200
                           }}
                         >
                           {item.description}
