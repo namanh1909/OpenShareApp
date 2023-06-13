@@ -127,9 +127,15 @@ const TypeScreen = ({ navigation }) => {
             <Input value={nameType} onChangeText={(value) => setNameType(value)} />
           </View>
           <TouchableOpacity onPress={() => {
-            dispatch(createType({authToken, nameType}))
-            handlePresentModalDismissPress()
-            setReset(!reset)
+            if (nameType.length > 0) {
+              dispatch(createType({ authToken, nameType }))
+              handlePresentModalDismissPress()
+              setReset(!reset)
+            }
+            else {
+              Alert.alert('Vui lòng nhập loại')
+            }
+
           }} style={{
             height: 50,
             width: "100%",

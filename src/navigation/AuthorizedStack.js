@@ -16,6 +16,8 @@ import ProfilePost from "../screens/Auth/ProfilePost";
 import DetailRequestManegerScreen from "../screens/Auth/HistoryScreen/component/detail";
 import Top10Screen from "../screens/Auth/Top10Screen";
 import DetailRequestScreen from "../screens/Auth/RequestScreen/detail";
+import DetailPostNotifyScreen from "../screens/Auth/Notification/component/post";
+import DetailRequestNotifyScreen from "../screens/Auth/Notification/component/request";
 
 const AuthorizedStack = () => {
   const AuthorizedStackNavigator = createNativeStackNavigator();
@@ -139,6 +141,20 @@ const AuthorizedStack = () => {
          <AuthorizedStackNavigator.Screen
         name="DetailRequest"
         component={DetailRequestScreen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+      <AuthorizedStackNavigator.Screen
+        name="DetailPostNotify"
+        component={DetailPostNotifyScreen}
+        options={{
+          ...OPTIONS.noHeader,
+        }}
+      />
+      <AuthorizedStackNavigator.Screen
+        name="DetailRequestNotify"
+        component={DetailRequestNotifyScreen}
         options={{
           ...OPTIONS.noHeader,
         }}

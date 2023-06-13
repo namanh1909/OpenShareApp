@@ -21,7 +21,7 @@ const ProfileAdminScreen = ({ navigation }) => {
   }, []);
 
   const { data, loading, error } = useSelector((state) => state.users);
-  console.log(data);
+  // console.log(data);
   const idStaff = data.idStaff;
   const [name, setName] = useState(data.name);
   const [email, setEmail] = useState(data.email);

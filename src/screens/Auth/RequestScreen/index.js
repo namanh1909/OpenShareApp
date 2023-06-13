@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image, RefreshControl, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, Image, RefreshControl, Dimensions, Platform, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import NavBar from '../../../components/NavBar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -8,7 +8,7 @@ import RenderImage from '../../../components/RenderImage'
 import EmptyData from '../../../components/EmptyData'
 
 
-const RequestScreen = ({ navigation }) => {
+const RequestScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const { data, error } = useSelector((state) => state.users)
   const idUser = data?.idUser
@@ -27,13 +27,14 @@ const RequestScreen = ({ navigation }) => {
     dispatch(getrequest3({ authToken, dataUser }))
 
   }, [])
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(route?.params?.index ? route?.params?.index : 0)
 
   const listRequest = useSelector((state) => state.request.data)
   const data0 = useSelector((state) => state.request.data0)
   const data1 = useSelector((state) => state.request.data1)
   const data2 = useSelector((state) => state.request.data2)
   const data3 = useSelector((state) => state.request.data3)
+  const loading = useSelector((state) => state.request.loading)
 
 
   console.log("data 0", data0)
@@ -44,6 +45,13 @@ const RequestScreen = ({ navigation }) => {
 
   const screenDimensions = Dimensions.get('screen').width;
   const screenDimensionsH = Dimensions.get('screen').height;
+  if (loading == "pending") {
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+        <ActivityIndicator size="small" color="#0000ff" />
+      </View>
+    )
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -55,7 +63,7 @@ const RequestScreen = ({ navigation }) => {
           paddingHorizontal: 10,
         }}
         contentContainerStyle={{
-          height: 70,
+          height: Platform.OS == "android" ? 70 : null,
           paddingVertical: 10,
         }}
 
@@ -67,7 +75,7 @@ const RequestScreen = ({ navigation }) => {
           }}
           style={{
             borderBottomWidth: tabIndex == 0 ? 3 : 0,
-            borderColor: tabIndex == 0 ? "#FFA925" : null,
+            borderColor: tabIndex == 0 ? "#FFA925" : "red",
             marginRight: 25,
             marginLeft: 10,
           }}
@@ -91,7 +99,6 @@ const RequestScreen = ({ navigation }) => {
             borderBottomWidth: tabIndex == 1 ? 3 : 0,
             borderColor: tabIndex == 1 ? "#FFA925" : null,
             marginRight: 25,
-            // height: data1?.length == 0 ? 50 : 100
           }}
         >
           <Text
@@ -99,7 +106,6 @@ const RequestScreen = ({ navigation }) => {
               paddingVertical: 10,
               fontWeight: "500",
               lineHeight: 30
-
             }}
           >
             Được chấp nhận

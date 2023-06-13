@@ -32,6 +32,7 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const [refreshing, setRefreshing] = useState(false);
+
   useLayoutEffect(() => {
     dispatch(getUsers(token));
   }, []);

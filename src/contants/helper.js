@@ -14,3 +14,16 @@ export function formatTime(timestamp) {
   }
   return timestamp;
 }
+
+
+export function convertImage(item) {
+  let a = [];
+  let b = item?.photos;
+  let c = b.replace(/[[\]]/g, "");
+  a.push(c);
+  // console.log(a)
+  let jsonString = a[0].replace(/'/g, '"');
+  let output = JSON.parse(`[${jsonString}]`);
+  // console.log(output)
+  return output
+}

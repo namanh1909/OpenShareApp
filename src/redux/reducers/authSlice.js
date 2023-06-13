@@ -135,7 +135,7 @@ export const forgotPasswordUser = createAsyncThunk(
       );
       // console.log("res", response);
       // eslint-disable-next-line no-constant-condition
-      if (response.data.message == "Vui lòng kiểu tra OTP ở Email!") {
+      if (response.data.message == "Reset mật khẩu thành công!") {
         thunkAPI.dispatch(checkSendOTP());
         return Alert.alert(response.data.message)
       } else {

@@ -6,7 +6,8 @@ import {
   FlatList,
   RefreshControl,
   Image,
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -24,6 +25,7 @@ const NotificationsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { data, error } = useSelector((state) => state.users);
   const idUser = data?.idUser;
+  const [reset, setReset] = useState(0)
   const authToken = useSelector((state) => state.auth.token);
   const dataUser = {
     idUser,
@@ -36,9 +38,24 @@ const NotificationsScreen = ({ navigation }) => {
     dispatch(getNotify({ authToken, dataUser }));
   }, []);
 
+
   const notifyList = useSelector((state) => state.notify.data);
+  let itemPost = useSelector((state) => state.notify.detailPost)
+  console.log("itemPost render", itemPost)
+
+  let loading = useSelector((state) => state.notify.loading)
+
+  console.log("notifyList", notifyList)
 
   const [refreshing, setRefreshing] = useState(false);
+
+  if (loading == "pending") {
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+        <ActivityIndicator size="small" color="#0000ff" />
+      </View>
+    )
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -79,8 +96,9 @@ const NotificationsScreen = ({ navigation }) => {
                       dataUser: { idPost: item?.post_id },
                     })
                   );
-                  dispatch(getNotify({ authToken, dataUser }));
-                  navigation.navigate("PostList");
+                  navigation.navigate("DetailPostNotify", {
+                    idPost: item?.post_id
+                  })
                 }}
                 style={{
                   padding: 10,
@@ -111,19 +129,20 @@ const NotificationsScreen = ({ navigation }) => {
                 }}
                 onPress={() => {
                   if (
-                    item?.status_accept_reject == null ||
                     item?.status_accept_reject == 0
                   ) {
                     let dataUser2 = {
                       idPost: item?.idPost,
                       idUser: item?.idUser,
                       idNotice: item?.idNotice,
+                      name: item?.name,
+                      userName: data?.userName
                     };
                     dispatch(
                       seenAcpPostRequest({ authToken, dataUser: dataUser2 })
                     );
-                    dispatch(getNotify({ authToken, dataUser }));
-                    navigation.navigate("Tab", { screen: "History" });
+                    // dispatch(getNotify({ authToken, dataUser }));
+                    navigation.navigate("DetailRequestNotify", { dataUser2 });
                   }
 
                  else if (
@@ -134,21 +153,52 @@ const NotificationsScreen = ({ navigation }) => {
                       idPost: item?.idPost,
                       idUser: item?.idUser,
                       idNotice: item?.idNotice,
+                      name: item?.name,
+                      userName: data?.userName
+
                     };
                     dispatch(
                       seenAcpPostRequest({ authToken, dataUser: dataUser2 })
                     );
-                    dispatch(getNotify({ authToken, dataUser }));
-                    navigation.navigate("Tab", { screen: "History" });
-                  } else {
+                    // dispatch(getNotify({ authToken, dataUser }));
+                    navigation.navigate("DetailRequestNotify", { dataUser2 });
+                  }
+
+                  else if (
+                    item?.status_accept_reject == null
+                  ) {
                     let dataUser2 = {
                       idPost: item?.idPost,
                       idUser: item?.idUser,
                       idNotice: item?.idNotice,
+                      name: item?.name
                     };
+                    dispatch(
+                      seenAcpPostRequest({ authToken, dataUser: dataUser2 })
+                    );
+                    // dispatch(getNotify({ authToken, dataUser }));
+                    navigation.navigate("DetailRequestManeger", { idPost: item?.idPost });
+                  }
+                  else {
+                    let dataUser1 = {
+                      idPost: item?.idPost,
+                      idUser: item?.idUser,
+                      idNotice: item?.idNotice,
+                    };
+
                     dispatch(seenRequest({ authToken, dataUser: dataUser2 }));
-                    dispatch(getNotify({ authToken, dataUser }));
-                    navigation.navigate("Tab", { screen: "Order" });
+                    let dataUser2 = {
+                      idPost: item?.idPost,
+                      idUser: item?.idUser,
+                      idNotice: item?.idNotice,
+                      name: item?.name
+                    };
+                    dispatch(
+                      seenAcpPostRequest({ authToken, dataUser: dataUser2 })
+                    );
+
+                    // dispatch(getNotify({ authToken, dataUser }));
+                    navigation.navigate("Tab", { screen: "Order", params: { index: 1 } });
                   }
                 }}
               >

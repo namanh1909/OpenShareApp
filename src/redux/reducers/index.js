@@ -21,6 +21,7 @@ import detailRequestSlice from './detailRequestSlice';
 import top10Slice from './top10Slice';
 import notifySlice from './notifyUserSlice';
 import giveSlice from "./numberGiveSlice";
+import detailNotifySlice from './detailNotify';
 
 export const rootReducer = combineReducers({
   users: usersReducer,
@@ -43,4 +44,5 @@ export const rootReducer = combineReducers({
   top10: top10Slice,
   notify: notifySlice,
   give: giveSlice,
+  detailNotify: detailNotifySlice,
 });

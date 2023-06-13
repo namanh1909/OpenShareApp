@@ -25,7 +25,7 @@ const ProfilePost = ({ navigation, route }) => {
   }, []);
 
   const dataPost = useSelector((state) => state.postProfile.data);
-  console.log(dataPost)
+  // console.log(dataPost)
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
     return firstElement;

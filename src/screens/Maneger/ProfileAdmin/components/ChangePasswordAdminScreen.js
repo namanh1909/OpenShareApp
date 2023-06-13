@@ -28,7 +28,7 @@ const ChangePasswordAdminScreen = ({ navigation }) => {
           old_password,
           new_password,
         };
-        console.log(dataUser);
+        // console.log(dataUser);
         dispatch(changePasswordAdmin({ authToken, dataUser }));
         navigation.goBack();
       } else {

@@ -21,7 +21,7 @@ const ChangePasswordScreen = ({ navigation }) => {
             old_password,
             new_password
         }
-        console.log(dataUser)
+        // console.log(dataUser)
         dispatch(changePasswordUser({authToken, dataUser}))
     }
 

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Alert } from "react-native";
 import { apiKeyAdmin, apiKeyUsers } from "../../contants/api";
+import { convertImage } from "../../contants/helper";
 
 export const getNotify = createAsyncThunk(
   "notify/getNotify",
@@ -17,8 +18,7 @@ export const getNotify = createAsyncThunk(
           },
         }
       );
-      console.log("request", response);
-      console.log(dataUser);
+      // console.log(dataUser);
       if (response.status == "200") {
         response.data.data.forEach((element) => {
           console.log(element.user_id);
@@ -36,7 +36,6 @@ export const getNotify = createAsyncThunk(
           },
         }
       );
-      console.log("request", response2);
 
       if (response2.status == "200") {
         response2.data.data.forEach((element) => {
@@ -75,8 +74,21 @@ export const seenAcpPost = createAsyncThunk(
           },
         }
       );
-      console.log("data user", dataUser);
+      console.log("data user", response.data);
       if (response.status == "200") {
+        if (response?.data?.data?.length > 0) {
+          let a = response?.data?.data
+          if (a[0]?.photos) {
+            let output = convertImage(a[0])
+            let newOut = output.map(letter => ({ image: letter }))
+
+            return {
+              data: a[0],
+              output: newOut
+            }
+          }
+          return a[0]
+        }
       }
     } catch (error) {
       console.log("error", error);
@@ -85,7 +97,7 @@ export const seenAcpPost = createAsyncThunk(
 );
 
 export const seenAcpPostRequest = createAsyncThunk(
-  "notify/seenAcpPost",
+  "notify/seenAcpPostRequest",
   async ({ authToken, dataUser }) => {
     try {
       const response = await axios.post(
@@ -97,8 +109,27 @@ export const seenAcpPostRequest = createAsyncThunk(
           },
         }
       );
-      console.log("data user", dataUser);
+      console.log("user data", dataUser)
+      console.log("maneger request data", response.data);
       if (response.status == "200") {
+        if (response?.data?.data?.length > 0) {
+          let data = []
+          response?.data?.data?.forEach(element => {
+            if (element?.name == dataUser.name || element?.name == dataUser.userName) {
+              data.push(element)
+            }
+          });
+          if (data[0]?.photos) {
+            let output = convertImage(data[0])
+            let newOut = output.map(letter => ({ image: letter }))
+            console.log("a", data[0])
+            return {
+              data: data[0],
+              output: newOut
+            }
+          }
+          return data[0]
+        }
       }
     } catch (error) {
       console.log("error", error);
@@ -119,7 +150,7 @@ export const seenRequest = createAsyncThunk(
           },
         }
       );
-      console.log("data user", dataUser);
+      console.log("seenRequest", response);
       if (response.status == "200") {
       }
     } catch (error) {
@@ -134,6 +165,8 @@ export const notifySlice = createSlice({
     data: [],
     loading: "idle",
     error: null,
+    detailPost: null,
+    manegerRequest: null,
   },
   reducers: {
     logout: (state) => {
@@ -153,6 +186,7 @@ export const notifySlice = createSlice({
       if (state.loading === "pending") {
         state.data = action.payload;
         state.loading = "idle";
+        state.detailPost = state.detailPost
       }
     });
 
@@ -166,12 +200,15 @@ export const notifySlice = createSlice({
     builder.addCase(seenAcpPost.pending, (state, action) => {
       if (state.loading === "idle") {
         state.loading = "pending";
+        state.data = state.data;
       }
     });
 
     builder.addCase(seenAcpPost.fulfilled, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "idle";
+        state.data = state.data;
+        state.detailPost = action.payload
       }
     });
 
@@ -179,6 +216,31 @@ export const notifySlice = createSlice({
       if (state.loading === "pending") {
         state.loading = "idle";
         state.error = "Error occured";
+        state.data = state.data;
+      }
+    });
+
+    builder.addCase(seenAcpPostRequest.pending, (state, action) => {
+      if (state.loading === "idle") {
+        state.loading = "pending";
+        state.data = state.data;
+      }
+    });
+
+    builder.addCase(seenAcpPostRequest.fulfilled, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+        state.data = state.data;
+        state.detailPost = state.detailPost;
+        state.manegerRequest = action.payload;
+      }
+    });
+
+    builder.addCase(seenAcpPostRequest.rejected, (state, action) => {
+      if (state.loading === "pending") {
+        state.loading = "idle";
+        state.error = "Error occured";
+        state.data = state.data;
       }
     });
   },
