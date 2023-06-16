@@ -44,10 +44,7 @@ const CreateAddressScreen = ({ navigation }) => {
 
     useEffect(() => {
         getProvimces()
-      navigation.addListener('focus', () => dispatch(getAddress({ authToken, idUser })))
-    }, [navigation]);
-
-
+    }, []);
 
     const handleProvinceChange = (province) => {
       console.log("code", province);

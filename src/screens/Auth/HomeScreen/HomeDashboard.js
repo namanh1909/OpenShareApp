@@ -78,6 +78,7 @@ const HomeDashBoardScreen = ({ navigation }) => {
       style={{
         backgroundColor: "#f5f5f5",
         flex: 1,
+        maxWidth: "100%"
       }}
     >
       <View

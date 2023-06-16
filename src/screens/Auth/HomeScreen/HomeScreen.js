@@ -81,6 +81,7 @@ const HomeScreen = ({ navigation }) => {
       style={{
         backgroundColor: "#f5f5f5",
         flex: 1,
+
       }}
     >
       <View
@@ -158,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <ScrollView
         horizontal
-        contentContainerStyle={{ marginVertical: 10, height: 50 }}
+        contentContainerStyle={{ marginVertical: 10, height: 60 }}
         showsHorizontalScrollIndicator={false}
       >
            <TouchableOpacity
@@ -173,7 +174,7 @@ const HomeScreen = ({ navigation }) => {
                   backgroundColor: filter == 0 ? "#FFA925" : "#ffff",
                   borderRadius: 20,
                   marginLeft: 10,
-                  height: 40,
+                  height: 50,
                   borderColor: "#f5f5f5",
                   borderWidth: 2,
                 }}
@@ -206,7 +207,7 @@ const HomeScreen = ({ navigation }) => {
                   backgroundColor: filter == index ? "#FFA925" : "#ffff",
                   borderRadius: 20,
                   marginLeft: 10,
-                  height: 40,
+                  height: 50,
                   borderColor: "#f5f5f5",
                   borderWidth: 2,
                 }}
@@ -265,6 +266,7 @@ const HomeScreen = ({ navigation }) => {
                     padding: 10,
                     backgroundColor: "#fff",
                     flex: 1,
+                    maxWidth: "100%"
                   }}
                   key={index}
                 >
@@ -302,7 +304,7 @@ const HomeScreen = ({ navigation }) => {
                               alignItems: "center",
                               backgroundColor: "#FFA925",
                               borderRadius: 20,
-                              height: 40,
+                              height: 50,
                               borderColor: "#f5f5f5",
                               borderWidth: 2,
                               width: 100,
