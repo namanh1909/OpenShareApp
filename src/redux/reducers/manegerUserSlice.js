@@ -9,7 +9,7 @@ export const getManegerUser = createAsyncThunk('getManegerUser/getUser', async (
         Authorization: `Bearer ${token}`,
       }
     })
-    console.log("data user", response)
+    // console.log("data user", response)
     if (response.status == "200") {
       // console.log(response.data)
       return response.data

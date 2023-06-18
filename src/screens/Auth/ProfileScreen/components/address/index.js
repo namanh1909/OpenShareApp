@@ -12,7 +12,7 @@ const AddressListScreen = ({ navigation }) => {
     const user = useSelector((state) => state.users.data)
     const authToken = useSelector((state) => state.auth.token)
     const idUser = user?.idUser
-    console.log("token", authToken)
+    // console.log("token", authToken)
     const [reset, setReset] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
 
@@ -24,7 +24,7 @@ const AddressListScreen = ({ navigation }) => {
     },[reset])
 
     const addressList = useSelector((state) => state.address.data)
-    console.log("address list", addressList)
+    // console.log("address list", addressList)
 
     return (
         <View style={{
@@ -55,7 +55,7 @@ const AddressListScreen = ({ navigation }) => {
                 dispatch(getAddress({ authToken, idUser }))
             }} />
             } contentContainerStyle={{ marginBottom: 10}} data={addressList} keyExtractor={item=>item.idAdress} renderItem={({item}) => {
-            console.log("item", item)
+            // console.log("item", item)
             return (
                 <MenuItem title={item.address} iconName="navigate-outline" onPress={() => {
                     Alert.alert('Xác nhận', 'Bạn có muốn xoá địa chỉ này', [
@@ -69,7 +69,7 @@ const AddressListScreen = ({ navigation }) => {
                         },
                         {
                           text: 'Cancel',
-                          onPress: () => console.log('Cancel Pressed'),
+                        //   onPress: () => console.log('Cancel Pressed'),
                           style: 'cancel',
                         },
                       ]);

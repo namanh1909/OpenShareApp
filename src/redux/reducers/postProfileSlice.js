@@ -15,7 +15,7 @@ export const getPostProfile = createAsyncThunk('postProfile/getPostProfile', asy
             let data0 = []
             let data1 = []
             let data2 = []
-            console.log("data profile", response.data.data)
+            // console.log("data profile", response.data.data)
             if (response?.data?.data?.length > 0) {
                 response?.data?.data?.forEach(element => {
                     if (element?.soluongdocho > 0 && element?.isShow == 0) {

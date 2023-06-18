@@ -14,7 +14,7 @@ export const getPostProfile = createAsyncThunk('postUserAdmin/getPostProfile', a
             },
           }
         );
-        console.log("post user", response)
+        // console.log("post user", response)
         if (response.status == "200") {
             return response.data
         }
@@ -31,7 +31,7 @@ export const banUser = createAsyncThunk('postUserAdmin/banUser', async ({ authTo
                 Authorization: `Bearer ${authToken}`,
             }
         })
-        console.log("banUser", response)
+        // console.log("banUser", response)
         if (response.status == "200") {
             return Alert.alert("Khoá tài khoản thành công")
         }
@@ -48,7 +48,7 @@ export const UnbanUser = createAsyncThunk('postUserAdmin/UnbanUser', async ({ au
                 Authorization: `Bearer ${authToken}`,
             }
         })
-        console.log("banUser", response)
+        // console.log("banUser", response)
         if (response.status == "200") {
             // return response.data
         }

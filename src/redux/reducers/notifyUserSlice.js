@@ -21,8 +21,8 @@ export const getNotify = createAsyncThunk(
       // console.log(dataUser);
       if (response.status == "200") {
         response.data.data.forEach((element) => {
-          console.log(element.user_id);
-          console.log("idUser", dataUser.idUser);
+          // console.log(element.user_id);
+          // console.log("idUser", dataUser.idUser);
           if (element?.user_id == dataUser.idUser) listData.push(element);
         });
       }
@@ -74,7 +74,7 @@ export const seenAcpPost = createAsyncThunk(
           },
         }
       );
-      console.log("data user", response.data);
+      // console.log("data user", response.data);
       if (response.status == "200") {
         if (response?.data?.data?.length > 0) {
           let a = response?.data?.data
@@ -109,8 +109,8 @@ export const seenAcpPostRequest = createAsyncThunk(
           },
         }
       );
-      console.log("user data", dataUser)
-      console.log("maneger request data", response.data);
+      // console.log("user data", dataUser)
+      // console.log("maneger request data", response.data);
       if (response.status == "200") {
         if (response?.data?.data?.length > 0) {
           let data = []
@@ -122,7 +122,7 @@ export const seenAcpPostRequest = createAsyncThunk(
           if (data[0]?.photos) {
             let output = convertImage(data[0])
             let newOut = output.map(letter => ({ image: letter }))
-            console.log("a", data[0])
+            // console.log("a", data[0])
             return {
               data: data[0],
               output: newOut
@@ -150,7 +150,7 @@ export const seenRequest = createAsyncThunk(
           },
         }
       );
-      console.log("seenRequest", response);
+      // console.log("seenRequest", response);
       if (response.status == "200") {
       }
     } catch (error) {

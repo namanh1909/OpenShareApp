@@ -18,7 +18,7 @@ export const getDetailRequestNotifyPost = createAsyncThunk(
                     },
                 },
             );
-            console.log("data detail", response)
+            // console.log("data detail", response)
             if (response.status === 200) {
                 return response.data.data
             }

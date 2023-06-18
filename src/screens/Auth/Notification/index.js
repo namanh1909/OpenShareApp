@@ -41,11 +41,11 @@ const NotificationsScreen = ({ navigation }) => {
 
   const notifyList = useSelector((state) => state.notify.data);
   let itemPost = useSelector((state) => state.notify.detailPost)
-  console.log("itemPost render", itemPost)
+  // console.log("itemPost render", itemPost)
 
   let loading = useSelector((state) => state.notify.loading)
 
-  console.log("notifyList", notifyList)
+  // console.log("notifyList", notifyList)
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -89,7 +89,7 @@ const NotificationsScreen = ({ navigation }) => {
               <TouchableOpacity
                 key={item.idNotice}
                 onPress={() => {
-                  console.log("data user post", item);
+                  // console.log("data user post", item);
                   dispatch(
                     seenAcpPost({
                       authToken,

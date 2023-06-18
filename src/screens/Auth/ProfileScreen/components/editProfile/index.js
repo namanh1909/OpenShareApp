@@ -14,7 +14,7 @@ const EditProfileScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const authToken = useSelector((state) => state.auth.token)
     const [refreshing, setRefreshing] = useState(false)
-    console.log("token auth", authToken)
+    // console.log("token auth", authToken)
     useEffect(() => {
       dispatch(getUsers(authToken))
     }, [])

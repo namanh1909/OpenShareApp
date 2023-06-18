@@ -18,7 +18,7 @@ const TypeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const authToken = useSelector((state) => state.auth.token)
   const [refreshing, setRefreshing] = useState(false)
-  console.log("token", authToken)
+  // console.log("token", authToken)
   const [reset, setReset] = useState(true)
   const [nameType, setNameType] = useState("")
 
@@ -64,7 +64,7 @@ const TypeScreen = ({ navigation }) => {
   }, [reset])
 
   const addressList = useSelector((state) => state.typeAdmin.data)
-  console.log("address list", addressList)
+  // console.log("address list", addressList)
 
   return (
     <BottomSheetModalProvider>
@@ -96,11 +96,11 @@ const TypeScreen = ({ navigation }) => {
       }}
     />
   } contentContainerStyle={{ marginBottom: 10 }} data={addressList?.data} keyExtractor={item => item.idType} renderItem={({ item }) => {
-          console.log("item", item)
+          // console.log("item", item)
           return (
             <MenuItem title={item.nameType} iconName="grid-outline" onPress={() => {
                 setTypeSelect(item)
-                console.log("type select", typeSelect)
+                // console.log("type select", typeSelect)
                 setTimeout(() => {
                   handlePresentModalEditPress()
                   setNameEdit(typeSelect?.nameType)

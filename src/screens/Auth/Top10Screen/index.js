@@ -13,7 +13,7 @@ const Top10Screen = ({navigation}) => {
     dispatch(getTop10())
   },[])
   const dataPost = useSelector((state) => state.top10.data);
-  console.log("data top 10", dataPost)
+  // console.log("data top 10", dataPost)
 
   return (
     <View style={{flex : 1}}>

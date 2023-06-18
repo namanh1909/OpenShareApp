@@ -25,7 +25,7 @@ const PostListScreen = ({ navigation }) => {
   }, [])
   const dataPost = useSelector((state) => state.postProfile.data)
 
-  console.log("data post", dataPost)
+  // console.log("data post", dataPost)
 
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];

@@ -54,7 +54,7 @@ const DetailRequestNotifyScreen = ({ navigation, route }) => {
     let item = itemList?.data
     let output = itemList?.output
 
-    console.log("out", output)
+    // console.log("out", output)
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);

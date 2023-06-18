@@ -156,7 +156,7 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
               }}>Duyệt cho</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
-              console.log(selectUser)
+              // console.log(selectUser)
               let dataUser = {
                 idRequest: selectUser?.idRequest,
                 idPost: selectUser?.idPost,
@@ -264,9 +264,9 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
                         }}>
 
                           <TouchableOpacity onPress={() => {
-                            console.log("item", item)
+                            // console.log("item", item)
                             setSelectUser(item)
-                            console.log(selectUser)
+                            // console.log(selectUser)
                             setTimeout(() => {
                               handlePresentModalPress()
                             }, 500)

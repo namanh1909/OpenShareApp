@@ -37,7 +37,7 @@ const CreateAddressScreen = ({ navigation }) => {
             .then((response) => {
                 let newList = provinces.concat(response.data)
                 setProvinces(newList)
-                console.log('provinces', provinces)
+                // console.log('provinces', provinces)
             })
             .catch((error) => console.log(error));
     }
@@ -47,7 +47,7 @@ const CreateAddressScreen = ({ navigation }) => {
     }, []);
 
     const handleProvinceChange = (province) => {
-      console.log("code", province);
+      // console.log("code", province);
       setSelectedDistrict(null);
       setSelectedWard(null);
       try {
@@ -67,7 +67,7 @@ const CreateAddressScreen = ({ navigation }) => {
       axios
         .get(`https://provinces.open-api.vn/api/d/${district}?depth=2`)
         .then((response) => {
-          console.log("huyen", response);
+          // console.log("huyen", response);
           setWards(response.data.wards);
         })
         .catch((error) => console.log(error));

@@ -27,8 +27,8 @@ const DetailPostScreen = ({ navigation, route }) => {
   const output = route.params.output.map((letter) => ({ image: letter }));
   const width = Dimensions.get("window").width;
   const item = route.params.item;
-  console.log("item", item)
-  console.log(output);
+  // // console.log("item", item)
+  // console.log(output);
   const [message, setMessage] = useState("");
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];
@@ -41,7 +41,7 @@ const DetailPostScreen = ({ navigation, route }) => {
 
   const user = useSelector((state) => state.users.data)
 
-  console.log("user", user)
+  // console.log("user", user)
 
   const idStaff = user.idStaff
 

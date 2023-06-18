@@ -19,6 +19,7 @@ const LoginScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("")
   const dispatch = useDispatch()
 
   const [isAlredyAccount, setIsAlredyAccount] = useState(true)
@@ -92,7 +93,15 @@ const LoginScreen = ({ navigation }) => {
                 setName(value);
               }}
             />
-            <Input
+                <Input
+                  placeholder={"Nhập email"}
+                  iconName="email"
+                  value={email}
+                  onChangeText={(value) => {
+                    setEmail(value);
+                  }}
+                />
+                <Input
               placeholder={"Tên đăng nhập"}
               iconName="person"
               value={userName}
@@ -111,8 +120,8 @@ const LoginScreen = ({ navigation }) => {
             />
             <Button
               onPress={() => {
-                if(name.length > 0 && userName.length > 0 && password.length > 0){
-                  console.log(name, password, userName);
+                    if (name.length > 0 && userName.length > 0 && password.length > 0 && email.length > 0) {
+                  // console.log(name, password, userName);
                   dispatch(register({ name, password, userName }));
                 }
                 else {

@@ -14,9 +14,9 @@ const UserProfilePost = ({ navigation, route }) => {
   const photoURL = route.params.photoURL;
   const authToken = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
-  console.log(authToken);
+  // console.log(authToken);
 
-  console.log(route);
+  // console.log(route);
 
   useEffect(() => {
     let dataUser = {
@@ -33,7 +33,7 @@ const UserProfilePost = ({ navigation, route }) => {
     let firstElement = address.split(",")[0];
     return firstElement;
   };
-  console.log("dataPost", dataPost);
+  // console.log("dataPost", dataPost);
   return (
     <View>
       <NavBar

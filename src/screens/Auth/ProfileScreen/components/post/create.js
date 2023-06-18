@@ -44,7 +44,7 @@ const CreatePost = ({ navigation }) => {
 
   const [number, setNumber] = useState("");
 
-  console.log(authToken);
+  // console.log(authToken);
 
   const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ const CreatePost = ({ navigation }) => {
 
   const typePost = useSelector((state) => state.type.data);
 
-  console.log(listTypeItem);
+  // console.log(listTypeItem);
 
   useLayoutEffect(() => {
     dispatch(getAddress({ authToken, idUser }));
@@ -118,8 +118,8 @@ const CreatePost = ({ navigation }) => {
       const downloadUrls = await getDownloadUrls(images);
       let newList = imageList.concat(downloadUrls);
       setImageList(newList);
-      console.log("Upload URLs:", uploadUrls);
-      console.log("Download URLs:", downloadUrls);
+      // console.log("Upload URLs:", uploadUrls);
+      // console.log("Download URLs:", downloadUrls);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -153,7 +153,7 @@ const CreatePost = ({ navigation }) => {
           photos: `${JSON.stringify(imageList)}`,
           soluongdocho: number,
         };
-        console.log("datapost", dataPost);
+        // console.log("datapost", dataPost);
         dispatch(createPost({ authToken, dataPost }));
         navigation.goBack();
       } catch (error) {}
@@ -167,7 +167,7 @@ const CreatePost = ({ navigation }) => {
     setType(type.value);
   };
 
-  console.log("listimage", imageList.length);
+  // console.log("listimage", imageList.length);
   return (
     <ScrollView style={{ flex: 1 }}>
       <NavBar
@@ -241,7 +241,7 @@ const CreatePost = ({ navigation }) => {
             // marginVertical: 10,
           }}
           onSelectItem={(item) => {
-            console.log(item);
+            // console.log(item);
             setType(item.value);
           }}
         />

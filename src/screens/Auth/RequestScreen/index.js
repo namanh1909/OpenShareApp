@@ -37,8 +37,8 @@ const RequestScreen = ({ navigation, route }) => {
   const loading = useSelector((state) => state.request.loading)
 
 
-  console.log("data 0", data0)
-  console.log(tabIndex)
+  // console.log("data 0", data0)
+  // console.log(tabIndex)
 
 
   const [refreshing, setRefreshing] = useState(false)

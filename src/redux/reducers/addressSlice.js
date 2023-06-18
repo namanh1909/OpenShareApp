@@ -78,7 +78,7 @@ export const deleteAddress = createAsyncThunk(
         thunkAPI.dispatch(getAddress({ authToken, idUser }));
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   },

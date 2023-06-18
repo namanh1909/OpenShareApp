@@ -24,9 +24,9 @@ const DetailRequestScreen = ({ navigation, route }) => {
   const output = route.params.output.map((letter) => ({ image: letter }));
   const width = Dimensions.get("window").width;
   const item = route.params.item;
-  console.log("item", item);
+  // console.log("item", item);
 
-  console.log(output);
+  // console.log(output);
   const [message, setMessage] = useState("");
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];

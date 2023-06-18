@@ -27,8 +27,8 @@ const DetailPostNotifyScreen = ({ navigation, route }) => {
     let item = itemPost?.data
     const output = itemPost?.output
 
-    console.log("itemPost", item)
-    console.log("output", output)
+    // console.log("itemPost", item)
+    // console.log("output", output)
     const formatAddress = (address) => {
         let firstElement = address?.split(",")[0];
         return firstElement

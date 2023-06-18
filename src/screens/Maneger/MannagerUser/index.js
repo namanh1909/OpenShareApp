@@ -25,7 +25,7 @@ const ManagerUserScreen = ({ navigation }) => {
   }, [reset])
 
   const dataUser = useSelector((state => state.manegerUser.data))
-  console.log('list user', dataUser)
+  // console.log('list user', dataUser)
 
   const bottomSheetModalRef = useRef(null);
 
@@ -42,7 +42,7 @@ const ManagerUserScreen = ({ navigation }) => {
   }, []);
 
   const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
+    // console.log("handleSheetChanges", index);
   }, []);
 
 
@@ -128,7 +128,7 @@ const ManagerUserScreen = ({ navigation }) => {
                       <TouchableOpacity
                         onPress={() => {
                           setSelectUser(item);
-                          console.log(selectUser);
+                          // console.log(selectUser);
                           setTimeout(() => {
                             handlePresentModalPress();
                           }, 500);
@@ -225,7 +225,7 @@ const ManagerUserScreen = ({ navigation }) => {
       >
         <View style={styles.contentContainer}>
           <TouchableOpacity onPress={() => {
-            console.log(selectUser)
+            // console.log(selectUser)
                 navigation.navigate("UserPost", {
                   name: selectUser?.name,
                   idUser: selectUser?.idUser,

@@ -13,8 +13,8 @@ const ProfilePost = ({ navigation, route }) => {
   const authToken = useSelector((state) => state.auth.token);
   const number = useSelector((state) => state.give.data);
   const dispatch = useDispatch();
-  console.log(authToken);
-  console.log("numnber", number);
+  // console.log(authToken);
+  // console.log("numnber", number);
 
   useEffect(() => {
     let dataUser = {

@@ -15,7 +15,7 @@ const DetailPostScreen = ({ navigation, route }) => {
   const width = Dimensions.get('window').width;
   const item = route.params.item
 
-  console.log(output)
+  // console.log(output)
   const [message, setMessage] = useState("")
   const formatAddress = (address) => {
     let firstElement = address.split(",")[0];

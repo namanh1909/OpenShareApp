@@ -35,7 +35,7 @@ const HistoryScreen = ({navigation}) => {
     const dataRequest = useSelector((state) => state.manegerRequest.data)
     const dataRequest2 = useSelector((state) => state.listRequestAll.listRequest)
 
-  console.log("Data Request", dataRequest2)
+  // console.log("Data Request", dataRequest2)
 
     return (
         <View style={{flex: 1}}>

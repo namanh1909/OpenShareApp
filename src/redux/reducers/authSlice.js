@@ -72,7 +72,7 @@ export const changePasswordUser = createAsyncThunk(
 
       return Alert.alert(response.data.message)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   }
@@ -95,7 +95,7 @@ export const changePasswordAdmin = createAsyncThunk(
 
       return Alert.alert(response.data.message)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   }
@@ -113,7 +113,7 @@ export const register = createAsyncThunk("auth/register", async (userData) => {
       return Alert.alert(response.data.message)
     }
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
     throw new Error(error.response.data.message);
   }
 });
@@ -142,7 +142,7 @@ export const forgotPasswordUser = createAsyncThunk(
         return Alert.alert(response.data.message)
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       throw new Error(error.response.data.message);
     }
   }

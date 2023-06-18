@@ -44,7 +44,7 @@ export const editProfile = createAsyncThunk(
           },
         }
       );
-      console.log("res", response);
+      // console.log("res", response);
 
       if (response.status == 200) {
         return Alert.alert("Cập nhật thành công");
@@ -68,7 +68,7 @@ export const editProfileAdmin = createAsyncThunk(
           },
         }
       );
-      console.log("res", response);
+      // console.log("res", response);
 
       if (response.status === 200) {
         return Alert.alert("Cập nhật thành công");

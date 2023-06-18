@@ -35,7 +35,7 @@ export const getrequest0 = createAsyncThunk('post/getrequest0', async ({ authTok
           }
         });
       }
-      console.log("data", data)
+      // console.log("data", data)
       return data
     }
 
@@ -60,7 +60,7 @@ export const getrequest1 = createAsyncThunk('post/getrequest1', async ({ authTok
           }
         });
       }
-      console.log("data", data)
+      // console.log("data", data)
       return data
     }
 
@@ -85,7 +85,7 @@ export const getrequest2 = createAsyncThunk('post/getrequest2', async ({ authTok
           }
         });
       }
-      console.log("data", data)
+      // console.log("data", data)
       return data
     }
 
@@ -110,7 +110,7 @@ export const getrequest3 = createAsyncThunk('post/getrequest3', async ({ authTok
           }
         });
       }
-      console.log("data", data)
+      // console.log("data", data)
       return data
     }
 
