@@ -212,7 +212,7 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
             </TouchableOpacity>
           }
         />
-        {dataRequest?.data?.length > 0 ?
+        {dataRequest?.length > 0 ?
           (<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}><Text>Không có yêu cầu</Text></View>) : (<FlatList
           data={dataRequest.data}
           style={{ width: "100%", height: "100%", marginTop: 10 }}

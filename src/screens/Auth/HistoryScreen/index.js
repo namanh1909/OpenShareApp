@@ -47,7 +47,11 @@ const HistoryScreen = ({navigation}) => {
                 flexDirection: "row",
                 justifyContent: 'space-around'
             }}>
-                <TouchableOpacity onPress={() => setTabIndex(0)} style={{
+          <TouchableOpacity onPress={() => {
+            dispatch(getManegerRequest({ authToken, idUser }))
+            dispatch(getManegerRequestAll({ authToken, idUser }))
+            setTabIndex(0)
+          }} style={{
                     borderBottomWidth: tabIndex == 0 ? 3 : 0,
                     borderColor: tabIndex == 0 ? "#FFA925" : null,
                 }}>
@@ -56,7 +60,11 @@ const HistoryScreen = ({navigation}) => {
                         fontWeight: '500'
                     }}>Yêu cầu</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setTabIndex(1)} style={{
+          <TouchableOpacity onPress={() => {
+            dispatch(getManegerRequest({ authToken, idUser }))
+            dispatch(getManegerRequestAll({ authToken, idUser }))
+            setTabIndex(1)
+          }} style={{
                     borderBottomWidth: tabIndex == 1 ? 3 : 0,
                     borderColor: tabIndex == 1 ? "#FFA925" : null,
                 }}>
@@ -66,7 +74,11 @@ const HistoryScreen = ({navigation}) => {
 
                     }}>Xác nhận</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setTabIndex(2)} style={{
+          <TouchableOpacity onPress={() => {
+            dispatch(getManegerRequest({ authToken, idUser }))
+            dispatch(getManegerRequestAll({ authToken, idUser }))
+            setTabIndex(2)
+          }} style={{
                     borderBottomWidth: tabIndex == 2 ? 3 : 0,
                     borderColor: tabIndex == 2 ? "#FFA925" : null,
                 }}>
@@ -76,7 +88,11 @@ const HistoryScreen = ({navigation}) => {
 
                     }}>Thành công</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setTabIndex(3)} style={{
+          <TouchableOpacity onPress={() => {
+            dispatch(getManegerRequest({ authToken, idUser }))
+            dispatch(getManegerRequestAll({ authToken, idUser }))
+            setTabIndex(3)
+          }} style={{
                     borderBottomWidth: tabIndex == 3 ? 3 : 0,
                     borderColor: tabIndex == 3 ? "#FFA925" : null,
                 }}>

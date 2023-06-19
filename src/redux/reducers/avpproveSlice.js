@@ -29,6 +29,32 @@ export const approvePost = createAsyncThunk(
   },
 );
 
+export const deletePost = createAsyncThunk(
+  "avpprove/deletePost",
+  async ({ authToken, idPost }) => {
+    try {
+      const response = await axios.post(
+        `${apiKeyAdmin}/PostManager/deletePost.php`,
+        {
+          idPost
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        return Alert.alert("Xoá bài viết thành công")
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
 export const unApprovePost = createAsyncThunk(
   "avpprove/unApprovePost",
   async ({ authToken, idPost,idStaff,idUser, title, messagefromAdmin }) => {

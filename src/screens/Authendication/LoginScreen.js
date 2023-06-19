@@ -122,7 +122,7 @@ const LoginScreen = ({ navigation }) => {
               onPress={() => {
                     if (name.length > 0 && userName.length > 0 && password.length > 0 && email.length > 0) {
                   // console.log(name, password, userName);
-                  dispatch(register({ name, password, userName }));
+                      dispatch(register({ name, password, userName, email }));
                 }
                 else {
                   return Alert.alert("Vui lòng nhập đầy đủ thông tin")

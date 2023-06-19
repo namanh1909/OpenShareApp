@@ -31,6 +31,8 @@ export const createPost = createAsyncThunk('post/createPost', async ({ authToken
 
   })
 
+
+
 export const postSlice = createSlice({
     name: 'post',
     initialState: {

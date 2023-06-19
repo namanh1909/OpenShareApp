@@ -20,7 +20,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { approvePost, unApprovePost } from "../../../../redux/reducers/avpproveSlice";
+import { approvePost, deletePost, unApprovePost } from "../../../../redux/reducers/avpproveSlice";
 import { getPostUnApprove } from "../../../../redux/reducers/postUnApproveSlice";
 
 const DetailPostScreen = ({ navigation, route }) => {
@@ -328,6 +328,11 @@ const DetailPostScreen = ({ navigation, route }) => {
           ) : (
             <>
               <TouchableOpacity
+                  onPress={() => {
+                    let idPost = item?.idPost
+                    dispatch(deletePost({ authToken, idPost }))
+                    navigation.goBack()
+                  }}
                 style={{
                   height: 50,
                   width: "100%",
