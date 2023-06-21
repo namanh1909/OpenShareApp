@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import NavBar from "../../../components/NavBar";
@@ -108,24 +109,30 @@ const DetailRequestScreen = ({ navigation, route }) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                try {
-                  dispatch(
-                    confirmOk({
-                      authToken,
-                      idRequest: item.idRequest,
-                      idPost: item.idPost,
-                      idUserRequest: item.idUserRequest,
-                      messageAfterReceiveGood: message,
-                      ratingStar: star,
-                    })
-                  );
-                  toggleModal()
-                  navigation.goBack();
-                  dispatch(getrequest({ authToken, dataUser }))
-
-                } catch (err) {
-                  console.log(err);
+                if (message.length <= 0) {
+                  Alert.alert("Vui lòng nhập tin nhắn")
                 }
+                else {
+                  try {
+                    dispatch(
+                      confirmOk({
+                        authToken,
+                        idRequest: item.idRequest,
+                        idPost: item.idPost,
+                        idUserRequest: item.idUserRequest,
+                        messageAfterReceiveGood: message,
+                        ratingStar: star,
+                      })
+                    );
+                    toggleModal()
+                    navigation.goBack();
+                    dispatch(getrequest({ authToken, dataUser }))
+
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }
+
               }}
               style={{
                 width: 100,
@@ -194,24 +201,31 @@ const DetailRequestScreen = ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {
-                try {
-                  dispatch(
-                    confirmCancel({
-                      authToken,
-                      idRequest: item.idRequest,
-                      idPost: item.idPost,
-                      idUserRequest: item.idUserRequest,
-                      messageAfterReceiveGood: message,
-                    })
-                  );
-                  toggleModal2()
-                  navigation.goBack();
-                  dispatch(getrequest({ authToken, dataUser }))
 
-                } catch (err) {
-                  console.log(err);
+              onPress={() => {
+                if (message2.length <= 0) {
+                  Alert.alert("Vui lòng nhập tin nhắn")
                 }
+                else {
+                  try {
+                    dispatch(
+                      confirmCancel({
+                        authToken,
+                        idRequest: item.idRequest,
+                        idPost: item.idPost,
+                        idUserRequest: item.idUserRequest,
+                        messageAfterReceiveGood: message2,
+                      })
+                    );
+                    toggleModal2()
+                    navigation.goBack();
+                    dispatch(getrequest({ authToken, dataUser }))
+
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }
+
               }}
               style={{
                 width: 100,
@@ -385,7 +399,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-          {item?.idUserRequest == idUser ? "Bạn:" : "Message" }
+              {item?.idUserRequest == idUser ? "Bạn:" : "Phản hồi"}
             </Text>{" "}
             {item.message}
           </Text>
@@ -397,7 +411,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-          {item?.idUserRequest == idUser ? "Reply: " : "Bạn " }
+              {item?.idUserRequest == idUser ? "Phản hồi: " : "Bạn "}
             </Text>
             {item.messageResponse}
           </Text>
@@ -409,7 +423,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-           {item?.idUserRequest == idUser ? "Bạn: " : "Reply: " }
+              {item?.idUserRequest == idUser ? "Bạn: " : "Phản hồi: "}
 
             </Text>
             {item.messageAfterReceiveGood}

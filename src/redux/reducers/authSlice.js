@@ -159,7 +159,7 @@ export const sendOTPUser = createAsyncThunk(
 
       if (response.status == "200") {
         // console.log(response.data);
-        if ((response.data.message = "Reset mật khẩu thành công!")) {
+        if ((response.data.message == "Reset mật khẩu thành công!")) {
           return Alert.alert(
             `Mật khẩu mới là: ${response.data.newPassword}`)
         }
@@ -206,7 +206,7 @@ export const sendOTPAdmin = createAsyncThunk(
 
       if (response.status == "200") {
         // console.log(response.data);
-        if ((response.data.message = "Reset mật khẩu thành công!")) {
+        if ((response.data.message == "Reset mật khẩu thành công!")) {
           return Alert.alert(`Mật khẩu mới là: ${response.data.newPassword}`);
         }
         return Alert.alert(response.data.message)

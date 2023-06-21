@@ -94,6 +94,26 @@ const ResetPasswordUser = ({ navigation }) => {
                 marginBottom: 20,
               }}
             />
+            <TouchableOpacity
+              onPress={() => {
+                if (userName.length > 0 && email.length > 0) {
+                  let dataUser = {
+                    userName: userName,
+                    email: email,
+                  };
+                  dispatch(forgotPasswordUser(dataUser));
+                }
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  marginBottom: 10
+                }}
+              >
+                Gửi lại OTP
+              </Text>
+            </TouchableOpacity>
           </>
         ) : (
           <>

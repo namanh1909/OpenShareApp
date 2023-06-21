@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, RefreshControl, Alert } from 'react-native'
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import NavBar from '../../../../components/NavBar';
@@ -13,6 +13,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import Modal from "react-native-modal";
 import AutoHeightTextInput from '../../../../components/AutoHeightTextInput';
+import { formatTime } from '../../../../contants/helper';
 
 
 
@@ -93,22 +94,28 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
               }}>Đóng</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
-              try {
-                let dataUser = {
-                  idRequest: selectUser?.idRequest,
-                  idPost: selectUser?.idPost,
-                  idUserRequest: selectUser?.idUserRequest,
-                  message
-                }
-                setIsModalVisibleReject(false)
-                dispatch(acceptRequest({ dataUser, authToken }))
-                dispatch(getManegerRequestAll({ authToken, idUser }))
-                setIsModalVisibleReject(false)
-                setIsModalVisibleAcp(false)
-                navigation.goBack()
-              } catch (err) {
-                console.log(err)
+              if (message.length <= 0) {
+                Alert.alert('Vui lòng nhập thông tin')
               }
+              else {
+                try {
+                  let dataUser = {
+                    idRequest: selectUser?.idRequest,
+                    idPost: selectUser?.idPost,
+                    idUserRequest: selectUser?.idUserRequest,
+                    message
+                  }
+                  setIsModalVisibleReject(false)
+                  dispatch(acceptRequest({ dataUser, authToken }))
+                  dispatch(getManegerRequestAll({ authToken, idUser }))
+                  setIsModalVisibleReject(false)
+                  setIsModalVisibleAcp(false)
+                  navigation.goBack()
+                } catch (err) {
+                  console.log(err)
+                }
+              }
+
             }} style={{
               width: 100,
               height: 30,
@@ -166,8 +173,6 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
               handlePresentModalDismissPress()
               dispatch(rejectRequest({dataUser, authToken}))
               navigation.goBack()
-
-
             }} style={{
               height: 50,
               width: "100%",
@@ -334,6 +339,17 @@ const DetailRequestManegerScreen = ({ navigation, route }) => {
                               }}
                             >
                               {item?.phoneNumber}
+                            </Text>
+                            <Text
+                              lineBreakMode="tail"
+                              numberOfLines={2}
+                              style={{
+                                marginLeft: 10,
+                                fontSize: 10,
+                                color: "gray"
+                              }}
+                            >
+                              {formatTime(item?.requestDate)}
                             </Text>
                           </View>
                         </View>

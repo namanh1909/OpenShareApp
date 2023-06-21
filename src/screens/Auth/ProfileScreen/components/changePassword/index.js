@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavBar from '../../../../../components/NavBar'
@@ -9,20 +9,34 @@ import { changePasswordUser } from '../../../../../redux/reducers/authSlice'
 const ChangePasswordScreen = ({ navigation }) => {
     const [old_password, setOldPassword] = useState('')
     const [new_password, setNewPassword] = useState('')
+    const [renew_password, setReNewpassword] = useState('')
     const { data, loading, error } = useSelector((state) => state.users)
     const id = data?.idUser
     const dispatch = useDispatch()
     const authToken = useSelector((state) => state.auth.token)
 
-
     const handleChangePassword = () => {
-        let dataUser = {
-            id,
-            old_password,
-            new_password
+        if (
+            new_password.length > 0 &&
+            old_password.length > 0 &&
+            renew_password.length > 0
+        ) {
+            if (renew_password === new_password) {
+                let dataUser = {
+                    id,
+                    old_password,
+                    new_password,
+                };
+                // console.log(dataUser);
+                dispatch(changePasswordUser({ authToken, dataUser }))
+                navigation.goBack();
+            } else {
+                Alert.alert("Mật khẩu nhập lại không chính xác");
+            }
+        } else {
+            Alert.alert("Vui lòng không bỏ trống");
         }
-        // console.log(dataUser)
-        dispatch(changePasswordUser({authToken, dataUser}))
+
     }
 
     return (
@@ -65,7 +79,7 @@ const ChangePasswordScreen = ({ navigation }) => {
                     fontSize: 16,
                     fontWeight: "bold"
                 }}>Nhập lại khẩu mới</Text>
-                <Input secureTextEntry={true} secureTextEntry={true} />
+                <Input secureTextEntry={true} secureTextEntry={true} value={renew_password} onChangeText={(value) => setReNewpassword(value)} />
             </View>
 
         </View>

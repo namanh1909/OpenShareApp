@@ -152,6 +152,11 @@ const DetailPostNotifyScreen = ({ navigation, route }) => {
 
                 </View>
             </View>
+            <Text style={{
+                fontSize: 10,
+                color: "green",
+                marginLeft: 10,
+            }}>{item.isShow == 0 ? "Đang đợi duyệt" : "Đã được duyệt"}</Text>
             <View style={{
                 padding: 10
             }}>
@@ -160,6 +165,7 @@ const DetailPostNotifyScreen = ({ navigation, route }) => {
                     fontSize: 16
                 }}>{item?.title}</Text>
                 <Text>{item?.description}</Text>
+
             </View>
 
 

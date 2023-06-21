@@ -137,6 +137,7 @@ const DetailPostScreen = ({ navigation, route }) => {
             {item.nameType}
           </Text>
         </View>
+
         <View
           style={{
             flexDirection: "row",

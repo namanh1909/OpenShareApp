@@ -173,6 +173,23 @@ export const acceptRequest = createAsyncThunk('post/acceptRequest', async ({ aut
   }
 })
 
+export const deleteRequest = createAsyncThunk('post/deleteRequest', async ({ authToken, dataRequest }) => {
+  try {
+    const response = await axios.put(`${apiKeyUsers}/post/deleteRequest.php`, dataRequest, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      }
+    })
+    if (response.status == "200") {
+      return Alert.alert("Xoá yêu cầu thành công");
+    }
+
+  } catch (error) {
+    console.log("error", error)
+    return Alert.alert("Đã xảy ra lỗi");
+  }
+})
+
 
 
 export const requestSlice = createSlice({

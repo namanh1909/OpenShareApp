@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import NavBar from '../../../components/NavBar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
-import { getrequest, getrequest0, getrequest1, getrequest2, getrequest3 } from '../../../redux/reducers/requestSlice'
+import { deleteRequest, getrequest, getrequest0, getrequest1, getrequest2, getrequest3 } from '../../../redux/reducers/requestSlice'
 import RenderImage from '../../../components/RenderImage'
 import EmptyData from '../../../components/EmptyData'
 
@@ -201,8 +201,9 @@ const RequestScreen = ({ navigation, route }) => {
                       width: "100%",
                     }}
                   >
-                    <RenderImage item={output} />
-
+                    <View>
+                      <RenderImage item={output} />
+                    </View>
                     <View
                       key={item.idPost}
                       // onPress={() => {
@@ -245,16 +246,32 @@ const RequestScreen = ({ navigation, route }) => {
                               Đang yêu cầu
                             </Text>
                           </View>
-                          <TouchableOpacity
-                            onPress={() =>
-                              navigation.navigate("DetailRequest", {
-                                item,
-                                output,
-                              })
-                            }
-                          >
-                            <Text style={{}}>Xem</Text>
-                          </TouchableOpacity>
+                          <View>
+                            <TouchableOpacity
+                              onPress={() =>
+                                navigation.navigate("DetailRequest", {
+                                  item,
+                                  output,
+                                })
+                              }
+                            >
+                              <Text style={{}}>Xem</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+
+                              onPress={() => {
+                                let dataRequest = {
+                                  idRequest: item?.idRequest
+                                }
+                                dispatch(deleteRequest({ authToken, dataRequest }))
+                                dispatch(getrequest0({ authToken, dataUser }))
+                              }
+                              }
+                            >
+                              <Text style={{ color: "red" }}>Xoá</Text>
+                            </TouchableOpacity>
+                          </View>
+
                         </View>
                         <Text
                           style={{

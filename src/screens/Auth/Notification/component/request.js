@@ -403,7 +403,7 @@ const DetailRequestNotifyScreen = ({ navigation, route }) => {
                                 fontWeight: "bold",
                             }}
                         >
-                            {item?.idUserRequest == idUser ? "Bạn:" : "Message"}
+                            {item?.idUserRequest == idUser ? "Bạn:" : "Phản hồi"}
                         </Text>{" "}
                         {item?.message}
                     </Text>
@@ -415,7 +415,7 @@ const DetailRequestNotifyScreen = ({ navigation, route }) => {
                                 fontWeight: "bold",
                             }}
                         >
-                            {item?.idUserRequest == idUser ? "Reply: " : "Bạn "}
+                            {item?.idUserRequest == idUser ? "Phản hồi: " : "Bạn "}
                         </Text>
                         {item.messageResponse}
                     </Text>
@@ -427,7 +427,7 @@ const DetailRequestNotifyScreen = ({ navigation, route }) => {
                                 fontWeight: "bold",
                             }}
                         >
-                            {item?.idUserRequest == idUser ? "Bạn: " : "Reply: "}
+                            {item?.idUserRequest == idUser ? "Bạn: " : "Phản hồi: "}
 
                         </Text>
                         {item.messageAfterReceiveGood}

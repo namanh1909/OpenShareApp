@@ -44,6 +44,7 @@ const CreatePost = ({ navigation }) => {
 
   const [number, setNumber] = useState("");
 
+
   // console.log(authToken);
 
   const dispatch = useDispatch();
@@ -137,12 +138,56 @@ const CreatePost = ({ navigation }) => {
       </Modal>
     );
   };
+  // const handleCreatePost = () => {
+  //  const photos =  `${JSON.stringify(imageList)}`
+  //   if(title.length > 0 && description.length > 0 && address.length > 0 && idUser && idType !== "" && number !== "" > 0 && photos.length > 0){
+  //     if (isNaN(number) || number <= 0) {
+  //       return Alert.alert("Số lượng phải là số và lớn hơn 0")
+  //     }
+  //     try {
+  //       let dataPost = {
+  //         title,
+  //         description,
+  //         address,
+  //         idUser,
+  //         idType,
+  //         photos: `${JSON.stringify(imageList)}`,
+  //         soluongdocho: number,
+  //       };
+  //       // console.log("datapost", dataPost);
+  //       dispatch(createPost({ authToken, dataPost }));
+  //       navigation.goBack();
+  //     } catch (error) {}
+  //   }
+  //   else {
+  //     Alert.alert("Vui lòng nhập đầy đủ")
+  //   }
+  // };
+
   const handleCreatePost = () => {
-   const photos =  `${JSON.stringify(imageList)}`
-    if(title.length > 0 && description.length > 0 && address.length > 0 && idUser && idType !== "" && number !== "" > 0 && photos.length > 0){
-      if (isNaN(number) || number <= 0) {
-        return Alert.alert("Số lượng phải là số và lớn hơn 0")
-      }
+    let errorMessage = "";
+    const photos = `${JSON.stringify(imageList)}`
+
+    console.log("photos", photos.length)
+
+
+    if (title.length === 0) {
+      errorMessage = "Vui lòng nhập tiêu đề";
+    } else if (description.length === 0) {
+      errorMessage = "Vui lòng nhập mô tả";
+    } else if (address.length === 0) {
+      errorMessage = "Vui lòng nhập địa chỉ";
+    } else if (!idUser) {
+      errorMessage = "Đã xày ra lỗi";
+    } else if (idType === "") {
+      errorMessage = "Vui lòng chọn loại";
+    } else if (isNaN(number) || number <= 0) {
+      errorMessage = "Số lượng phải là số và lớn hơn 0";
+    } else if (imageList.length <= 0) {
+      errorMessage = "Vui lòng chọn ảnh";
+    }
+
+    if (errorMessage.length === 0) {
       try {
         let dataPost = {
           title,
@@ -153,15 +198,16 @@ const CreatePost = ({ navigation }) => {
           photos: `${JSON.stringify(imageList)}`,
           soluongdocho: number,
         };
-        // console.log("datapost", dataPost);
         dispatch(createPost({ authToken, dataPost }));
         navigation.goBack();
-      } catch (error) {}
-    }
-    else {
-      Alert.alert("Vui lòng nhập đầy đủ")
+      } catch (error) {
+        // Xử lý lỗi nếu cần
+      }
+    } else {
+      Alert.alert(errorMessage);
     }
   };
+
 
   const handleChangeType = (type) => {
     setType(type.value);
@@ -282,6 +328,7 @@ const CreatePost = ({ navigation }) => {
                     height: 100,
                     width: 100,
                     borderRadius: 10,
+                    marginRight: 5
                   }}
                 />
                 <TouchableOpacity

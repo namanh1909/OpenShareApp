@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Icon } from '@rneui/base';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 
 const Input = ({
   iconName,
@@ -9,8 +11,10 @@ const Input = ({
   onChangeText,
   secureTextEntry,
   style,
+
 }) => {
   const [onFocus, setOnFocus] = useState(false);
+  const [show, setShow] = useState(false)
   return (
     <View
       style={{
@@ -39,11 +43,24 @@ const Input = ({
         onBlur={() => {
           setOnFocus(false);
         }}
-        secureTextEntry={secureTextEntry}
+        secureTextEntry={show}
         onSubmitEditing={() => {
           setOnFocus(false);
         }}
       />
+      {secureTextEntry && (
+        <TouchableOpacity onPress={() => {
+          setShow(!show)
+        }}>
+          {show == true ?
+            <Ionicons name="eye-outline" size={20} /> :
+            <Ionicons name="eye-off-outline" size={20} />}
+        </TouchableOpacity>
+
+      )
+
+
+      }
     </View>
   );
 };

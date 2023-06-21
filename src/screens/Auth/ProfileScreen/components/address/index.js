@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, FlatList, Alert, RefreshControl, Dimensions, Image } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, FlatList, Alert, RefreshControl, Dimensions, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavBar from '../../../../../components/NavBar'
@@ -31,6 +31,13 @@ const AddressListScreen = ({ navigation }) => {
             flex: 1,
             padding: 10
         }}>
+            <ScrollView refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={() => {
+                        dispatch(getAddress({ authToken, idUser }))
+                    }} />
+            }  >
             <NavBar title={"Danh sách địa chỉ"} leftButton={
                 <TouchableOpacity onPress={() => {
                     navigation.goBack()
@@ -65,6 +72,8 @@ const AddressListScreen = ({ navigation }) => {
                               dispatch(deleteAddress({ authToken, idAdress: `${item.idAdress}`, idUser }))
                             dispatch(getAddress({ authToken, idUser }))
                             setReset(!reset)
+                              dispatch(getAddress({ authToken, idUser }))
+
                           },
                         },
                         {
@@ -77,6 +86,7 @@ const AddressListScreen = ({ navigation }) => {
 
             )
                     }} />) : (<View style={{ position: "absolute", bottom: screenDimensionsH / 2, left: screenDimensions / 2 - 50 }}><Image source={require("../../../../../../assets/icons/Empty.png")} style={{ height: 100, width: 100 }} /></View>)}
+            </ScrollView>
         </View>
     )
 }
