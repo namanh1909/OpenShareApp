@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import NavBar from "../../../components/NavBar";
@@ -273,6 +274,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
           )
         }
       />
+      <ScrollView>
       <View
         style={{
           marginVertical: 10,
@@ -450,7 +452,7 @@ const DetailRequestScreen = ({ navigation, route }) => {
       >
         <Button text="Từ chối/Không nhận được hàng" onPress={() => toggleModal2()} />
       </View>}
-
+      </ScrollView>
     </View>
   );
 };

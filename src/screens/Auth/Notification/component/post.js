@@ -1,5 +1,5 @@
 import {
-    StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, Button, ActivityIndicator
+    StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, Button, ActivityIndicator, ScrollView
 } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import NavBar from '../../../../components/NavBar'
@@ -53,6 +53,7 @@ const DetailPostNotifyScreen = ({ navigation, route }) => {
                     </TouchableOpacity>
                 }
             />
+            <ScrollView>
             <View style={{
                 marginVertical: 10,
                 flexDirection: "row",
@@ -167,8 +168,7 @@ const DetailPostNotifyScreen = ({ navigation, route }) => {
                 <Text>{item?.description}</Text>
 
             </View>
-
-
+            </ScrollView>
         </View>
     )
 }

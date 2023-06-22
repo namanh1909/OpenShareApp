@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, Button } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, Button, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import NavBar from '../../../components/NavBar'
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -107,6 +107,7 @@ const DetailPostScreen = ({ navigation, route }) => {
           </TouchableOpacity>
         }
       />
+      <ScrollView>
       <View style={{
         marginVertical: 10,
         flexDirection: "row",
@@ -220,7 +221,7 @@ const DetailPostScreen = ({ navigation, route }) => {
         }}>{item.title}</Text>
         <Text>{item.description}</Text>
       </View>
-
+      </ScrollView>
 
     </View>
   )

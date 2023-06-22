@@ -209,11 +209,11 @@ const HistoryScreen = ({navigation}) => {
                         />
                         <View>
                           <TouchableOpacity onPress={() => {
-                            navigation.navigate("ProfilePost", {
-                              name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
-                            })
+                            // navigation.navigate("ProfilePost", {
+                            //   name: item.name,
+                            //   idUser: item.idUser,
+                            //   photoURL: item.photoURL
+                            // })
                           }}>
                             <Text
                               lineBreakMode="tail"
@@ -398,11 +398,11 @@ const HistoryScreen = ({navigation}) => {
                         />
                         <View>
                           <TouchableOpacity onPress={() => {
-                            navigation.navigate("ProfilePost", {
-                              name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
-                            })
+                            // navigation.navigate("ProfilePost", {
+                            //   name: item.name,
+                            //   idUser: item.idUser,
+                            //   photoURL: item.photoURL
+                            // })
                           }}>
                             <Text
                               lineBreakMode="tail"
@@ -588,11 +588,11 @@ const HistoryScreen = ({navigation}) => {
                         />
                         <View>
                           <TouchableOpacity onPress={() => {
-                            navigation.navigate("ProfilePost", {
-                              name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
-                            })
+                            // navigation.navigate("ProfilePost", {
+                            //   name: item.name,
+                            //   idUser: item.idUser,
+                            //   photoURL: item.photoURL
+                            // })
                           }}>
                             <Text
                               lineBreakMode="tail"
@@ -777,11 +777,11 @@ const HistoryScreen = ({navigation}) => {
                         />
                         <View>
                           <TouchableOpacity onPress={() => {
-                            navigation.navigate("ProfilePost", {
-                              name: item.name,
-                              idUser: item.idUser,
-                              photoURL: item.photoURL
-                            })
+                            // navigation.navigate("ProfilePost", {
+                            //   name: item.name,
+                            //   idUser: item.idUser,
+                            //   photoURL: item.photoURL
+                            // })
                           }}>
                             <Text
                               lineBreakMode="tail"

@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import NavBar from "../../../../components/NavBar";
@@ -277,6 +278,7 @@ const DetailRequestNotifyScreen = ({ navigation, route }) => {
                     )
                 }
             />
+            <ScrollView>
             <View
                 style={{
                     marginVertical: 10,
@@ -454,7 +456,7 @@ const DetailRequestNotifyScreen = ({ navigation, route }) => {
             >
                 <Button text="Từ chối/Không nhận được hàng" onPress={() => toggleModal2()} />
             </View>}
-
+            </ScrollView>
         </View>
     );
 };

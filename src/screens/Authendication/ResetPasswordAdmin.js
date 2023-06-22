@@ -104,6 +104,29 @@ const ResetPasswordAdmin = ({ navigation }) => {
                 marginBottom: 20,
               }}
             />
+            <TouchableOpacity
+              onPress={() => {
+                if (userName.length > 0 && email.length > 0) {
+                  let dataUser = {
+                    userName: userName,
+                    email: email,
+                  };
+                  dispatch(forgotPasswordAdmin(dataUser));
+                }
+                else {
+                  return Alert.alert("Vui lòng nhập đầy đủ thông tin")
+                }
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  marginBottom: 10
+                }}
+              >
+                Gửi lại OTP
+              </Text>
+            </TouchableOpacity>
           </>
         ) : (
           <>
