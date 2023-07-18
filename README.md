@@ -1,1 +1,1 @@
-# RN-training
+app chia se do dung
